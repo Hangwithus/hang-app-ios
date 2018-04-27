@@ -41,25 +41,17 @@ extension UILabel {
 class FriendsUIViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UIPickerViewDelegate, UIPickerViewDataSource {
   
     
+    @IBOutlet weak var maskView: UIView!
     @IBOutlet weak var tableView: UITableView!
-    var friends : Array<Dictionary<String,String>> = placeholderFriends
+    var friendsAvailable : Array<Dictionary<String,String>> = placeholderFriends
     var friendsUnavailable : Array<Dictionary<String,String>> = placeholderFriendsUavailable
 
-    let sections = ["AVAILABLE", "UNAVAILABLE"]
+    var isAvailable = false
+
     
-    //Outlet for status picker
     @IBOutlet weak var statusPicker: UIPickerView!
     
-    //Outlet for status ring
     @IBOutlet weak var statusRing: UIImageView!
-    
-    //Outlet for create status sheet
-    @IBOutlet weak var createStatusButton: UIButton!
-    
-    //Outlet for create status sheet
-    @IBAction func addButtonPress(_ sender: Any) {
-    //Navigates to the create status controllers
-    }
     
     //Fonts
     let semiBoldLabel = UIFont(name: "Nunito-SemiBold", size: UIFont.labelFontSize)
@@ -82,7 +74,6 @@ class FriendsUIViewController: UIViewController, UITableViewDelegate, UITableVie
         tableView.delegate = self
         tableView.dataSource = self
         tableView.tableFooterView = UIView()
-        
         //disable sticky headers
         let dummyViewHeight = CGFloat(58)
         self.tableView.tableHeaderView = UIView(frame: CGRect(x: 0, y: 0, width: self.tableView.bounds.size.width, height: dummyViewHeight))
@@ -99,11 +90,18 @@ class FriendsUIViewController: UIViewController, UITableViewDelegate, UITableVie
         //tableview
         tableView.backgroundColor = UIColor.clear
     }
-
-    //Status picker code
+    
+    override
+    func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        addGradient()
+        
+    }
+    
+    //picker code
+    
     func numberOfComponents(in statusPicker: UIPickerView) -> Int {
         
-        //Hides the seperator from the status picker view
         statusPicker.subviews.forEach({
             $0.isHidden = $0.frame.height < 1.0
         })
@@ -114,72 +112,67 @@ class FriendsUIViewController: UIViewController, UITableViewDelegate, UITableVie
     
     func pickerView(_ statusPicker: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         
-        //Return how many rows needed for the picker from data
+        //Return how many rows needed from data
         return status.count
     }
     
-    //Status picker height
     func pickerView(_ statusPicker: UIPickerView, rowHeightForComponent component: Int) -> CGFloat {
         return 100
     }
     
-    //Status picker width
     func pickerView(_ statusPicker: UIPickerView, widthForComponent component: Int) -> CGFloat {
         return 100
     }
     
-    //Executes code depending on what row is selected in the picker
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         
         //Check whether user is unavailable or available
         if row == 0 {
             //Show the selector ring image if unavailable
+            isAvailable = false
             statusRing.isHighlighted = false
         } else {
             //Show the selector ring image if unavailable
+            isAvailable = true
             statusRing.isHighlighted = true
         }
+        tableView.reloadData()
     }
     
     //Create Custom UI View for picker
     func pickerView(_ statusPicker: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
-        
-        //Create UI view for picker
         let view = UIView()
         view.frame = CGRect(x: 0, y: 0, width: width, height: height)
         
-        //Creates availability emoji
         let availabilityEmoji = UILabel()
+        
         availabilityEmoji.frame = CGRect(x: 0, y: 0, width: width, height: 250)
         availabilityEmoji.textAlignment = .center
-        availabilityEmoji.text = status[row]
         
-        //Checks and fixes deprecated font protocols
         if #available(iOS 11.0, *) {
             availabilityEmoji.font = UIFontMetrics.default.scaledFont(for: largeLabel!)
         } else {
             // Fallback on earlier versions
         }
+        availabilityEmoji.text = status[row]
         
-        //Creates availability status
         let availabilityTitle = UILabel()
         availabilityTitle.textColor = UIColor.white
         availabilityTitle.frame = CGRect(x:0, y:20, width: width, height:height)
         availabilityTitle.textAlignment = .center
-        availabilityTitle.text = statusText[row]
-        
-        //Checks and fixes deprecated font protocols
+        //availabilityTitle.translatesAutoresizingMaskIntoConstraints = false
+        //availabilityTitle.bottomAnchor.constraint(equalTo: UIView.topAnchor).isActive = true
         if #available(iOS 11.0, *) {
             availabilityTitle.font = UIFontMetrics.default.scaledFont(for: boldLabel!)
         } else {
             // Fallback on earlier versions
         }
+        availabilityTitle.text = statusText[row]
         
-        //Adds emoji and title subviews to status picker view
         view.addSubview(availabilityTitle)
         view.addSubview(availabilityEmoji)
         
-        //Rotates parent status picker view
+        //View rotation
         view.transform = CGAffineTransform(rotationAngle: 90 * (.pi/180))
         
         return view
@@ -188,45 +181,85 @@ class FriendsUIViewController: UIViewController, UITableViewDelegate, UITableVie
    //Table view code
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if section == 0 {
-            return friends.count
+        if isAvailable == true {
+            if section == 0 {
+                return 1
+            } else if section == 1 {
+                return friendsAvailable.count
+            } else if section == 2 {
+                return friendsUnavailable.count
+            }
             
+        } else {
+            if section == 0 {
+                return friendsAvailable.count
+                
+            }
+            return friendsUnavailable.count
         }
-        return friendsUnavailable.count
-        
+        return 0
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 2
-    }
+        if isAvailable == true {
+            return 3
+        } else {
+            return 2
+        }    }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 58
-    }
+        if isAvailable == true && section == 1 {
+            return 16
+        }
+        return 58    }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "headerCell") as! HeaderTableViewCell
-        cell.title.text = self.sections[section]
-        cell.title.kerning = 1
- 
-        return cell
+        if section == 0 || (self.isAvailable && section == 2) || (self.isAvailable == false && section == 1) {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "headerCell") as! HeaderTableViewCell
+            cell.title.text = section == 0 ? "AVAILABLE" : "UNAVAILABLE"
+            cell.title.kerning = 1
+            
+            return cell
+        }
+        return UIView()
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let userAvailable = friends[indexPath.row]
+        let userAvailable = friendsAvailable[indexPath.row]
         let userUnavailable = friendsUnavailable[indexPath.row]
 
-        if indexPath.section == 0 {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "friendCell") as! FriendsTableViewCell
-            cell.name.text = userAvailable["name"]
-            cell.info.text = userAvailable["distance"]
-            cell.emoji.text = userAvailable["emoji"]
-            return cell
+        if isAvailable == true {
+            if indexPath.section == 0 {
+                let cell = tableView.dequeueReusableCell(withIdentifier: "friendCell") as! FriendsTableViewCell
+                cell.name.text = "You"
+                cell.info.text = "1hr left to Hang"
+                cell.emoji.text = "🏖"
+                return cell
+            } else if indexPath.section == 1 {
+                let cell = tableView.dequeueReusableCell(withIdentifier: "friendCell") as! FriendsTableViewCell
+                cell.name.text = userAvailable["name"]
+                cell.info.text = userAvailable["distance"]
+                cell.emoji.text = userAvailable["emoji"]
+                return cell
+            } else {
+                let cell = tableView.dequeueReusableCell(withIdentifier: "friendUnavailableCell") as! FriendsUnavailableTableViewCell
+                cell.name.text = userUnavailable["name"]
+                cell.info.text = userUnavailable["lastAvailable"]
+                return cell
+            }
         } else {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "friendUnavailableCell") as! FriendsUnavailableTableViewCell
-            cell.name.text = userUnavailable["name"]
-            cell.info.text = userUnavailable["lastAvailable"]
-            return cell
+            if indexPath.section == 0 {
+                let cell = tableView.dequeueReusableCell(withIdentifier: "friendCell") as! FriendsTableViewCell
+                cell.name.text = userAvailable["name"]
+                cell.info.text = userAvailable["distance"]
+                cell.emoji.text = userAvailable["emoji"]
+                return cell
+            } else {
+                let cell = tableView.dequeueReusableCell(withIdentifier: "friendUnavailableCell") as! FriendsUnavailableTableViewCell
+                cell.name.text = userUnavailable["name"]
+                cell.info.text = userUnavailable["lastAvailable"]
+                return cell
+            }
         }
     }
     
@@ -267,7 +300,17 @@ class FriendsUIViewController: UIViewController, UITableViewDelegate, UITableVie
     }
 
 
-   
+    func addGradient() {
+        let gradient = CAGradientLayer()
+        
+        gradient.frame = maskView.bounds
+        gradient.colors = [UIColor.clear.cgColor, UIColor.clear.cgColor, UIColor.black.cgColor, UIColor.black.cgColor, UIColor.clear.cgColor, UIColor.clear.cgColor
+        ]
+        gradient.locations = [0.0, 0.0, 0.08, 0.8, 1.0, 1.0]
+        maskView.layer.mask = gradient
+        
+    }
+
   
 
     /*

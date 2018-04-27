@@ -17,12 +17,12 @@
 		F18D197620937D2300C30A2F /* CreateStatusController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F18D197020937D2300C30A2F /* CreateStatusController.swift */; };
 		F18D197720937D2300C30A2F /* FriendsUIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F18D197120937D2300C30A2F /* FriendsUIViewController.swift */; };
 		F18D197920937D8900C30A2F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F18D197820937D8800C30A2F /* GoogleService-Info.plist */; };
-		F18D198120937E9900C30A2F /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F1AA1C2B20883E9D009B909B /* Info.plist */; };
 		F18D198220937EA700C30A2F /* Nunito-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F18D197D20937E2400C30A2F /* Nunito-ExtraBold.ttf */; };
 		F18D198320937EA900C30A2F /* Nunito-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F18D197E20937E2400C30A2F /* Nunito-SemiBold.ttf */; };
 		F18D198420937EAC00C30A2F /* Nunito-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F18D197F20937E2400C30A2F /* Nunito-Bold.ttf */; };
 		F18D198D209386C000C30A2F /* Pods_Hang.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 13A7CFBED44ED2B663A82A83 /* Pods_Hang.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		F18D198E209386C000C30A2F /* Pods_Hang.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 13A7CFBED44ED2B663A82A83 /* Pods_Hang.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		F18D19972093899100C30A2F /* HangUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F18D19962093899100C30A2F /* HangUITests.swift */; };
 		F1AA1C2020883E9D009B909B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1AA1C1F20883E9D009B909B /* AppDelegate.swift */; };
 		F1AA1C2520883E9D009B909B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F1AA1C2320883E9D009B909B /* Main.storyboard */; };
 		F1AA1C2720883E9D009B909B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F1AA1C2620883E9D009B909B /* Assets.xcassets */; };
@@ -31,6 +31,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		F18D19992093899100C30A2F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F1AA1C1420883E9D009B909B /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F1AA1C1B20883E9D009B909B;
+			remoteInfo = Hang;
+		};
 		F1AA1C3120883E9D009B909B /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = F1AA1C1420883E9D009B909B /* Project object */;
@@ -76,6 +83,7 @@
 		F18D197D20937E2400C30A2F /* Nunito-ExtraBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Nunito-ExtraBold.ttf"; sourceTree = "<group>"; };
 		F18D197E20937E2400C30A2F /* Nunito-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Nunito-SemiBold.ttf"; sourceTree = "<group>"; };
 		F18D197F20937E2400C30A2F /* Nunito-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Nunito-Bold.ttf"; sourceTree = "<group>"; };
+		F18D19942093899100C30A2F /* HangUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HangUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F18D19962093899100C30A2F /* HangUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HangUITests.swift; sourceTree = "<group>"; };
 		F18D19982093899100C30A2F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F1AA1C1C20883E9D009B909B /* Hang.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Hang.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -90,6 +98,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		F18D19912093899100C30A2F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		F1AA1C1920883E9D009B909B /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -190,6 +205,7 @@
 			children = (
 				F1AA1C1C20883E9D009B909B /* Hang.app */,
 				F1AA1C3020883E9D009B909B /* HangTests.xctest */,
+				F18D19942093899100C30A2F /* HangUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -222,6 +238,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		F18D19932093899100C30A2F /* HangUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F18D199B2093899100C30A2F /* Build configuration list for PBXNativeTarget "HangUITests" */;
+			buildPhases = (
+				F18D19902093899100C30A2F /* Sources */,
+				F18D19912093899100C30A2F /* Frameworks */,
+				F18D19922093899100C30A2F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				F18D199A2093899100C30A2F /* PBXTargetDependency */,
+			);
+			name = HangUITests;
+			productName = HangUITests;
+			productReference = F18D19942093899100C30A2F /* HangUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
 		F1AA1C1B20883E9D009B909B /* Hang */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = F1AA1C4420883E9D009B909B /* Build configuration list for PBXNativeTarget "Hang" */;
@@ -232,7 +266,6 @@
 				F1AA1C1A20883E9D009B909B /* Resources */,
 				26D28E7EC7B21DFBD9405313 /* [CP] Embed Pods Frameworks */,
 				F18D198F209386C000C30A2F /* Embed Frameworks */,
-				F18D19AE2093DE0000C30A2F /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -269,9 +302,14 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0920;
-				LastUpgradeCheck = 0920;
+				LastUpgradeCheck = 0930;
 				ORGANIZATIONNAME = "Ben Hylak";
 				TargetAttributes = {
+					F18D19932093899100C30A2F = {
+						CreatedOnToolsVersion = 9.2;
+						ProvisioningStyle = Automatic;
+						TestTargetID = F1AA1C1B20883E9D009B909B;
+					};
 					F1AA1C1B20883E9D009B909B = {
 						CreatedOnToolsVersion = 9.2;
 						ProvisioningStyle = Automatic;
@@ -298,11 +336,19 @@
 			targets = (
 				F1AA1C1B20883E9D009B909B /* Hang */,
 				F1AA1C2F20883E9D009B909B /* HangTests */,
+				F18D19932093899100C30A2F /* HangUITests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		F18D19922093899100C30A2F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		F1AA1C1A20883E9D009B909B /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -312,7 +358,6 @@
 				F18D197920937D8900C30A2F /* GoogleService-Info.plist in Resources */,
 				F1AA1C2720883E9D009B909B /* Assets.xcassets in Resources */,
 				F18D198220937EA700C30A2F /* Nunito-ExtraBold.ttf in Resources */,
-				F18D198120937E9900C30A2F /* Info.plist in Resources */,
 				F18D198420937EAC00C30A2F /* Nunito-Bold.ttf in Resources */,
 				F1AA1C2520883E9D009B909B /* Main.storyboard in Resources */,
 			);
@@ -394,22 +439,17 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		F18D19AE2093DE0000C30A2F /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "bash \"${BUILT_PRODUCTS_DIR}/${FRAMEWORKS_FOLDER_PATH}/Mapbox.framework/strip-frameworks.sh\"";
-		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		F18D19902093899100C30A2F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F18D19972093899100C30A2F /* HangUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		F1AA1C1820883E9D009B909B /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -437,6 +477,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		F18D199A2093899100C30A2F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F1AA1C1B20883E9D009B909B /* Hang */;
+			targetProxy = F18D19992093899100C30A2F /* PBXContainerItemProxy */;
+		};
 		F1AA1C3220883E9D009B909B /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = F1AA1C1B20883E9D009B909B /* Hang */;
@@ -464,6 +509,36 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		F18D199C2093899100C30A2F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = V4R3697688;
+				INFOPLIST_FILE = HangUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = dankehq.HangUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = Hang;
+			};
+			name = Debug;
+		};
+		F18D199D2093899100C30A2F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = V4R3697688;
+				INFOPLIST_FILE = HangUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = dankehq.HangUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = Hang;
+			};
+			name = Release;
+		};
 		F1AA1C4220883E9D009B909B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -478,6 +553,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -485,6 +561,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -535,6 +612,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -542,6 +620,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -577,16 +656,12 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = V4R3697688;
+				DEVELOPMENT_TEAM = 74RK69P838;
 				ENABLE_BITCODE = NO;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Pods/Mapbox-iOS-SDK/dynamic",
-				);
 				INFOPLIST_FILE = Hang/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				NEW_SETTING = "";
-				PRODUCT_BUNDLE_IDENTIFIER = dankehq.Hang;
+				PRODUCT_BUNDLE_IDENTIFIER = com.joekndy.hang;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -599,16 +674,12 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = V4R3697688;
+				DEVELOPMENT_TEAM = 74RK69P838;
 				ENABLE_BITCODE = NO;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Pods/Mapbox-iOS-SDK/dynamic",
-				);
 				INFOPLIST_FILE = Hang/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				NEW_SETTING = "";
-				PRODUCT_BUNDLE_IDENTIFIER = dankehq.Hang;
+				PRODUCT_BUNDLE_IDENTIFIER = com.joekndy.hang;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -654,6 +725,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		F18D199B2093899100C30A2F /* Build configuration list for PBXNativeTarget "HangUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F18D199C2093899100C30A2F /* Debug */,
+				F18D199D2093899100C30A2F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		F1AA1C1720883E9D009B909B /* Build configuration list for PBXProject "Hang" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
