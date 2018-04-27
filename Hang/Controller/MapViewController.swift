@@ -14,16 +14,9 @@ class MapViewController: UIViewController, MGLMapViewDelegate {
     @IBOutlet weak var mapView: MGLMapView!
     override func viewDidLoad() {
         super.viewDidLoad()
+        mapView.showsUserLocation = false
         mapView.delegate = self
-        
-        #if DEBUG
-            if (NSClassFromString("XCTest") == nil) {
-                mapView.showsUserLocation = true
-            }
-            else {
-                mapView.showsUserLocation = false
-            }
-        #endif
+        // Do any additional setup after loading the view.
     }
     
     override func viewDidAppear(_ animated: Bool) {
