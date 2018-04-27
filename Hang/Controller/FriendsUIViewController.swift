@@ -47,9 +47,19 @@ class FriendsUIViewController: UIViewController, UITableViewDelegate, UITableVie
 
     let sections = ["AVAILABLE", "UNAVAILABLE"]
     
+    //Outlet for status picker
     @IBOutlet weak var statusPicker: UIPickerView!
     
+    //Outlet for status ring
     @IBOutlet weak var statusRing: UIImageView!
+    
+    //Outlet for create status sheet
+    @IBOutlet weak var createStatusButton: UIButton!
+    
+    //Outlet for create status sheet
+    @IBAction func addButtonPress(_ sender: Any) {
+    //Navigates to the create status controllers
+    }
     
     //Fonts
     let semiBoldLabel = UIFont(name: "Nunito-SemiBold", size: UIFont.labelFontSize)
@@ -72,6 +82,7 @@ class FriendsUIViewController: UIViewController, UITableViewDelegate, UITableVie
         tableView.delegate = self
         tableView.dataSource = self
         tableView.tableFooterView = UIView()
+        
         //disable sticky headers
         let dummyViewHeight = CGFloat(58)
         self.tableView.tableHeaderView = UIView(frame: CGRect(x: 0, y: 0, width: self.tableView.bounds.size.width, height: dummyViewHeight))
@@ -89,10 +100,10 @@ class FriendsUIViewController: UIViewController, UITableViewDelegate, UITableVie
         tableView.backgroundColor = UIColor.clear
     }
 
-    //picker code
-    
+    //Status picker code
     func numberOfComponents(in statusPicker: UIPickerView) -> Int {
         
+        //Hides the seperator from the status picker view
         statusPicker.subviews.forEach({
             $0.isHidden = $0.frame.height < 1.0
         })
@@ -103,18 +114,21 @@ class FriendsUIViewController: UIViewController, UITableViewDelegate, UITableVie
     
     func pickerView(_ statusPicker: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         
-        //Return how many rows needed from data
+        //Return how many rows needed for the picker from data
         return status.count
     }
     
+    //Status picker height
     func pickerView(_ statusPicker: UIPickerView, rowHeightForComponent component: Int) -> CGFloat {
         return 100
     }
     
+    //Status picker width
     func pickerView(_ statusPicker: UIPickerView, widthForComponent component: Int) -> CGFloat {
         return 100
     }
     
+    //Executes code depending on what row is selected in the picker
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         
         //Check whether user is unavailable or available
@@ -129,38 +143,43 @@ class FriendsUIViewController: UIViewController, UITableViewDelegate, UITableVie
     
     //Create Custom UI View for picker
     func pickerView(_ statusPicker: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
+        
+        //Create UI view for picker
         let view = UIView()
         view.frame = CGRect(x: 0, y: 0, width: width, height: height)
         
+        //Creates availability emoji
         let availabilityEmoji = UILabel()
-        
         availabilityEmoji.frame = CGRect(x: 0, y: 0, width: width, height: 250)
         availabilityEmoji.textAlignment = .center
+        availabilityEmoji.text = status[row]
         
+        //Checks and fixes deprecated font protocols
         if #available(iOS 11.0, *) {
             availabilityEmoji.font = UIFontMetrics.default.scaledFont(for: largeLabel!)
         } else {
             // Fallback on earlier versions
         }
-        availabilityEmoji.text = status[row]
         
+        //Creates availability status
         let availabilityTitle = UILabel()
         availabilityTitle.textColor = UIColor.white
         availabilityTitle.frame = CGRect(x:0, y:20, width: width, height:height)
         availabilityTitle.textAlignment = .center
-        //availabilityTitle.translatesAutoresizingMaskIntoConstraints = false
-        //availabilityTitle.bottomAnchor.constraint(equalTo: UIView.topAnchor).isActive = true
+        availabilityTitle.text = statusText[row]
+        
+        //Checks and fixes deprecated font protocols
         if #available(iOS 11.0, *) {
             availabilityTitle.font = UIFontMetrics.default.scaledFont(for: boldLabel!)
         } else {
             // Fallback on earlier versions
         }
-        availabilityTitle.text = statusText[row]
         
+        //Adds emoji and title subviews to status picker view
         view.addSubview(availabilityTitle)
         view.addSubview(availabilityEmoji)
         
-        //View rotation
+        //Rotates parent status picker view
         view.transform = CGAffineTransform(rotationAngle: 90 * (.pi/180))
         
         return view

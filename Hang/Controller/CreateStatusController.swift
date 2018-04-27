@@ -4,6 +4,7 @@ class CreateStatusController: UIViewController,UIAlertViewDelegate, UITextFieldD
     
     var users = [Users]()
     
+    //closure for create status button
     let emojiField: UITextField = {
         let emojiTextField =  UITextField(frame: CGRect(x: 20, y: 100, width: 300, height: 40))
         emojiTextField.placeholder = "Enter an emoji"
@@ -17,6 +18,7 @@ class CreateStatusController: UIViewController,UIAlertViewDelegate, UITextFieldD
         return emojiTextField
     }()
     
+    //closure for create status button
     let statusField: UITextField = {
         let statusTextField =  UITextField(frame: CGRect(x: 20, y: 100, width: 300, height: 40))
         statusTextField.placeholder = "availability title"
@@ -30,6 +32,7 @@ class CreateStatusController: UIViewController,UIAlertViewDelegate, UITextFieldD
         return statusTextField
     }()
     
+    //closure function for create status button
     let createStatusButton: UIButton = {
         let button = UIButton(type: .system)
         button.backgroundColor = UIColor(red:0.10, green:0.87, blue:0.19, alpha:1.00)
@@ -38,44 +41,48 @@ class CreateStatusController: UIViewController,UIAlertViewDelegate, UITextFieldD
         button.layer.cornerRadius = 26
         button.layer.masksToBounds = true
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 20)
-        
+        //Sets the button target
         button.addTarget(self, action: #selector(addStatus), for: .touchUpInside)
-        
         return button
     }()
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = UIColor.white
         
+        //Create navigation
         navigationItem.leftBarButtonItem = UIBarButtonItem(title:"Cancel", style: .plain, target: self, action: #selector(handleHome))
         self.navigationItem.title = "Add Status"
-        view.backgroundColor = UIColor.white
         self.navigationController?.navigationBar.titleTextAttributes = [ kCTFontAttributeName: UIFont(name: "Nunito-Bold", size: 17)!] as [NSAttributedStringKey : Any]
+        
+        //Instantiate emoji and status fields
         emojiField.delegate = self
-        self.view.addSubview(emojiField)
-        
         statusField.delegate = self
-        self.view.addSubview(statusField)
         
+        //Adds the text field and buttons to the screens view
+        self.view.addSubview(emojiField)
+        self.view.addSubview(statusField)
         self.view.addSubview(createStatusButton)
         
+        //Calls the layout constraints for the field items
         setupLayout()
     }
     
     func setupLayout() {
+        
+        //Enable programmatic autolayout
         emojiField.translatesAutoresizingMaskIntoConstraints = false
         statusField.translatesAutoresizingMaskIntoConstraints = false
+        createStatusButton.translatesAutoresizingMaskIntoConstraints = false
         
+        //Set constraints for emoji text field, status text field and create status button
         emojiField.topAnchor.constraint(equalTo: view.topAnchor, constant: 100).isActive = true
         emojiField.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 0).isActive = true
         statusField.topAnchor.constraint(equalTo: emojiField.topAnchor, constant: 50).isActive = true
         statusField.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 0).isActive = true
         emojiField.widthAnchor.constraint(equalTo: view.widthAnchor, constant: -24).isActive = true
         statusField.widthAnchor.constraint(equalTo: view.widthAnchor, constant: -24).isActive = true
-
-        
-        createStatusButton.translatesAutoresizingMaskIntoConstraints = false
         createStatusButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         createStatusButton.topAnchor.constraint(equalTo: statusField.bottomAnchor, constant: 16).isActive = true
         createStatusButton.widthAnchor.constraint(equalTo: view.widthAnchor, constant: -64).isActive = true
@@ -83,25 +90,18 @@ class CreateStatusController: UIViewController,UIAlertViewDelegate, UITextFieldD
     }
     
     @objc func addStatus() {
-        
+        //Adds the status to the static data array containing user statuses
         let emojiInput = emojiField.text
         let statusInput = statusField.text
         status.append(emojiInput!)
         statusText.append(statusInput!)
         statusAdded = true
-//        print(emojiInput)
-//        print(statusInput)
-        print([status])
-        
-        
     }
     
-    
+    //Takes user to the home screen when called
     @objc func handleHome() {
-        
+        //Dismisses the create status screen to show home screen
         self.dismiss(animated: true, completion: nil)
-        
-        
     }
     
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
@@ -148,11 +148,6 @@ class CreateStatusController: UIViewController,UIAlertViewDelegate, UITextFieldD
         print("TextField should return method called")
         // may be useful: textField.resignFirstResponder()
         return true
-    }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
 }
