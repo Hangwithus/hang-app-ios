@@ -141,6 +141,25 @@ strip_invalid_archs() {
   STRIP_BINARY_RETVAL=1
 }
 
+
+if [[ "$CONFIGURATION" == "Debug" ]]; then
+  install_framework "${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework"
+  install_framework "${PODS_ROOT}/Mapbox-iOS-SDK/dynamic/Mapbox.framework"
+  install_dsym "${PODS_ROOT}/Mapbox-iOS-SDK/dynamic/Mapbox.framework.dSYM"
+  install_framework "${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework"
+fi
+if [[ "$CONFIGURATION" == "Release" ]]; then
+  install_framework "${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework"
+  install_framework "${PODS_ROOT}/Mapbox-iOS-SDK/dynamic/Mapbox.framework"
+  install_dsym "${PODS_ROOT}/Mapbox-iOS-SDK/dynamic/Mapbox.framework.dSYM"
+  install_framework "${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework"
+fi
 if [ "${COCOAPODS_PARALLEL_CODE_SIGN}" == "true" ]; then
   wait
 fi
