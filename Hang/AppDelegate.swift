@@ -19,17 +19,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         //adds firebase
         FirebaseApp.configure()
-        //loads ViewController.swift as main view
-//        window = UIWindow(frame: UIScreen.main.bounds)
-//        window?.makeKeyAndVisible()
-//
-//        window?.rootViewController = UINavigationController(rootViewController: FriendsController())
-//        window?.tintColor = UIColor(red:0.10, green:0.87, blue:0.19, alpha:1.00)
-//
+
         UIApplication.shared.statusBarStyle = .lightContent
         self.window = UIWindow(frame: UIScreen.main.bounds)
+        
         let mainStoryboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-//        let exampleViewController: FriendsUIViewController = mainStoryboard.instantiateViewController(withIdentifier: "FriendsUI") as! FriendsUIViewController
         let exampleViewController: MapViewController = mainStoryboard.instantiateViewController(withIdentifier: "mapView") as! MapViewController
         
         self.window?.rootViewController = exampleViewController
@@ -70,14 +64,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let values = ["available":"false", "status":"unavailable"]
 
         usersReference.updateChildValues(values, withCompletionBlock: { (err, ref) in
-            
             if err != nil {
                 print(err!)
                 return
             }
-            
-            print("updated that thing")
-            
         })
         self.saveContext()
     }
