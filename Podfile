@@ -11,7 +11,9 @@ target 'Hang' do
   pod 'Firebase/Storage'
   pod 'SnapKit'
   pod 'Mapbox-iOS-SDK', '~> 4.0'
-
+  pod 'RxSwift',    '~> 4.0'
+  pod 'RxCocoa',    '~> 4.0' 
+ 
   target 'HangTests' do
     inherit! :search_paths
     # Pods for testing
