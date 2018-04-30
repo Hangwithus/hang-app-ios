@@ -81,7 +81,7 @@ SPEC REPOS:
     - leveldb-library
     - Mapbox-iOS-SDK
     - nanopb
-    - ObjectMapper
+(??)
     - RxCocoa
     - RxSwift
     - SnapKit
@@ -99,11 +99,11 @@ SPEC CHECKSUMS:
   leveldb-library: 08cba283675b7ed2d99629a4bc5fd052cd2bb6a5
   Mapbox-iOS-SDK: 271754e96eb4434ba1b0a8c68432e1ea26fe9841
   nanopb: 5601e6bca2dbf1ed831b519092ec110f66982ca3
-  ObjectMapper: 20505058f54e5c3ca69e1d6de9897d152a5369a6
+(??)
   RxCocoa: d88ba0f1f6abf040011a9eb4b539324fc426843a
   RxSwift: e49536837d9901277638493ea537394d4b55f570
   SnapKit: a42d492c16e80209130a3379f73596c3454b7694
 
-PODFILE CHECKSUM: 1b1fad7f4ac577484f4eba246b6fb4bb085ed833
+(??)PODFILE CHECKSUM: d777eb84354a836e772b70da279dac654243c89c
 
 COCOAPODS: 1.5.0
