@@ -7,18 +7,15 @@
 //
 
 import Foundation
+import ObjectMapper
 
-public class FriendRequest
+public class FriendRequest: BaseMappable
 {
-    var fromPerson: Person
-    var toPerson: Person
-    var time: Date
+    private (set) var toId: String?
+    private (set) var fromId: String?
     
+    //var time: Date
     var accepted: Bool?
-    
-    init(from: Person, to: Person) {
-        
-    }
     
     func hasResponse() -> Bool
     {
@@ -31,5 +28,17 @@ public class FriendRequest
     
     func accept() {
         accepted = true
+    }
+}
+
+extension FriendRequest: StaticMappable
+{
+    public static func objectForMapping(map: Map) -> BaseMappable? {
+        return FriendRequest()
+    }
+    
+    public func mapping(map: Map) {
+        self.toId <- map["to"]
+        self.fromId <- map["from"]
     }
 }

@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		A79BE749809C61435ADCDA7E /* Pods_HangTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E1F09119C98B61BFAE804F46 /* Pods_HangTests.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
-		CB3ACF9920956DFB00697498 /* AppUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB3ACF9820956DFB00697498 /* AppUser.swift */; };
 		CB3ACF9B20956EF000697498 /* Hang.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB3ACF9A20956EF000697498 /* Hang.swift */; };
 		CB3ACF9D20956F0700697498 /* Friend.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB3ACF9C20956F0700697498 /* Friend.swift */; };
 		CB3ACF9F20956F1100697498 /* Person.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB3ACF9E20956F1100697498 /* Person.swift */; };
@@ -16,6 +15,7 @@
 		CB3ACFA3209571E400697498 /* HangRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB3ACFA2209571E400697498 /* HangRequest.swift */; };
 		CB3ACFA5209571EE00697498 /* FriendRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB3ACFA4209571EE00697498 /* FriendRequest.swift */; };
 		CB3ACFA72095731900697498 /* FriendRequestRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB3ACFA62095731900697498 /* FriendRequestRepository.swift */; };
+		CB3ACFA92097ACB100697498 /* CurrentUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB3ACFA82097ACB100697498 /* CurrentUser.swift */; };
 		CB9CE77D2095628800ED03B4 /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB9CE77C2095628800ED03B4 /* UserManager.swift */; };
 		F18D196920937CD600C30A2F /* Users.swift in Sources */ = {isa = PBXBuildFile; fileRef = F18D196720937CD600C30A2F /* Users.swift */; };
 		F18D196A20937CD600C30A2F /* FakeData.swift in Sources */ = {isa = PBXBuildFile; fileRef = F18D196820937CD600C30A2F /* FakeData.swift */; };
@@ -70,7 +70,6 @@
 		5CB087B48DF4ADBC2A8ACB26 /* Pods-HangUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HangUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-HangUITests/Pods-HangUITests.release.xcconfig"; sourceTree = "<group>"; };
 		7A121084CFEBA71D4970A228 /* Pods-HangTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HangTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-HangTests/Pods-HangTests.release.xcconfig"; sourceTree = "<group>"; };
 		854DA38D02140BDD11103F37 /* Pods-HangTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HangTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-HangTests/Pods-HangTests.debug.xcconfig"; sourceTree = "<group>"; };
-		CB3ACF9820956DFB00697498 /* AppUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppUser.swift; sourceTree = "<group>"; };
 		CB3ACF9A20956EF000697498 /* Hang.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Hang.swift; sourceTree = "<group>"; };
 		CB3ACF9C20956F0700697498 /* Friend.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Friend.swift; sourceTree = "<group>"; };
 		CB3ACF9E20956F1100697498 /* Person.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Person.swift; sourceTree = "<group>"; };
@@ -78,6 +77,7 @@
 		CB3ACFA2209571E400697498 /* HangRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HangRequest.swift; sourceTree = "<group>"; };
 		CB3ACFA4209571EE00697498 /* FriendRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendRequest.swift; sourceTree = "<group>"; };
 		CB3ACFA62095731900697498 /* FriendRequestRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendRequestRepository.swift; sourceTree = "<group>"; };
+		CB3ACFA82097ACB100697498 /* CurrentUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrentUser.swift; sourceTree = "<group>"; };
 		CB9CE77C2095628800ED03B4 /* UserManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserManager.swift; sourceTree = "<group>"; };
 		CFF2C2E1ED4C13511822A760 /* Pods-Hang.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Hang.release.xcconfig"; path = "Pods/Target Support Files/Pods-Hang/Pods-Hang.release.xcconfig"; sourceTree = "<group>"; };
 		D24800295D4CA57586429064 /* Pods_HangUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HangUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -153,7 +153,7 @@
 		CB3ACF9720956DEF00697498 /* model */ = {
 			isa = PBXGroup;
 			children = (
-				CB3ACF9820956DFB00697498 /* AppUser.swift */,
+				CB3ACFA82097ACB100697498 /* CurrentUser.swift */,
 				CB3ACF9A20956EF000697498 /* Hang.swift */,
 				CB3ACF9C20956F0700697498 /* Friend.swift */,
 				CB3ACF9E20956F1100697498 /* Person.swift */,
@@ -166,6 +166,9 @@
 		CB9CE7792095623600ED03B4 /* data */ = {
 			isa = PBXGroup;
 			children = (
+				CB3ACFA02095700500697498 /* PersonRepository.swift */,
+				CB3ACFA62095731900697498 /* FriendRequestRepository.swift */,
+				CB9CE77C2095628800ED03B4 /* UserManager.swift */,
 				CB3ACF9720956DEF00697498 /* model */,
 				CB9CE77A2095624400ED03B4 /* remote */,
 			);
@@ -175,9 +178,6 @@
 		CB9CE77A2095624400ED03B4 /* remote */ = {
 			isa = PBXGroup;
 			children = (
-				CB9CE77C2095628800ED03B4 /* UserManager.swift */,
-				CB3ACFA02095700500697498 /* PersonRepository.swift */,
-				CB3ACFA62095731900697498 /* FriendRequestRepository.swift */,
 			);
 			path = remote;
 			sourceTree = "<group>";
@@ -390,6 +390,7 @@
 				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
 				"${PODS_ROOT}/Mapbox-iOS-SDK/dynamic/Mapbox.framework",
 				"${PODS_ROOT}/Mapbox-iOS-SDK/dynamic/Mapbox.framework.dSYM",
+				"${BUILT_PRODUCTS_DIR}/ObjectMapper/ObjectMapper.framework",
 				"${BUILT_PRODUCTS_DIR}/RxCocoa/RxCocoa.framework",
 				"${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
@@ -402,6 +403,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Mapbox.framework",
 				"${DWARF_DSYM_FOLDER_PATH}/Mapbox.framework.dSYM",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ObjectMapper.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxCocoa.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
@@ -479,7 +481,6 @@
 				CB3ACFA72095731900697498 /* FriendRequestRepository.swift in Sources */,
 				F18D197620937D2300C30A2F /* CreateStatusController.swift in Sources */,
 				F18D196920937CD600C30A2F /* Users.swift in Sources */,
-				CB3ACF9920956DFB00697498 /* AppUser.swift in Sources */,
 				F1AA1C2020883E9D009B909B /* AppDelegate.swift in Sources */,
 				CB3ACFA12095700500697498 /* PersonRepository.swift in Sources */,
 				F18D197220937D2300C30A2F /* FriendsTableViewCell.swift in Sources */,
@@ -487,6 +488,7 @@
 				F18D197520937D2300C30A2F /* MapViewController.swift in Sources */,
 				CB3ACF9D20956F0700697498 /* Friend.swift in Sources */,
 				CB3ACF9B20956EF000697498 /* Hang.swift in Sources */,
+				CB3ACFA92097ACB100697498 /* CurrentUser.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

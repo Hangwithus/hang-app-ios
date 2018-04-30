@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import RxSwift
 
 class FriendRequestRepository {
     init() {
@@ -28,9 +29,9 @@ class FriendRequestRepository {
         
     }
     
-    func getFriendRequests(userId: String)
+    func getFriendRequests(userId: String) -> Observable<[FriendRequest]>?
     {
-        
+        return nil //STUB -- should remove optional type form return value
     }
     
     func getFriendRequests(person: Person)

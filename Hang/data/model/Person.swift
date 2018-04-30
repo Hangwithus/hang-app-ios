@@ -7,9 +7,21 @@
 //
 
 import Foundation
+import ObjectMapper
 
-class Person: NSObject {
-    override init() {
-        //stub
+class Person: NSObject, Mappable {
+
+    var id: String?
+    var name: String?
+    
+    required init?(map: Map) {
+        if(map.JSON["name"] == nil) { //error checking.. make sure map actually has desired values
+            return nil
+        }
+    }
+    
+    func mapping(map: Map) {
+        name <- map["name"]
+        id <- map["id"]
     }
 }
