@@ -8,6 +8,12 @@
 
 import UIKit
 
+//extension UITableView {
+//    func reloadData(with animation: UITableViewRowAnimation) {
+//        reloadSections(IndexSet(integersIn: 0..<numberOfSections), with: animation)
+//    }
+//}
+
 extension UILabel {
     
     @IBInspectable var kerning: Float {
@@ -40,14 +46,17 @@ extension UILabel {
 
 class FriendsUIViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UIPickerViewDelegate, UIPickerViewDataSource {
   
-    
+    @IBOutlet weak var hangButton: UIButton!
+    @IBOutlet weak var hangButtonContainerView: UIView!
+    @IBOutlet weak var pickerContainerView: UIView!
     @IBOutlet weak var maskView: UIView!
     @IBOutlet weak var tableView: UITableView!
     var friendsAvailable : Array<Dictionary<String,String>> = placeholderFriends
     var friendsUnavailable : Array<Dictionary<String,String>> = placeholderFriendsUavailable
 
     var isAvailable = false
-
+    
+    var selectedCells = Set<IndexPath>()
     
     @IBOutlet weak var statusPicker: UIPickerView!
     
@@ -89,6 +98,10 @@ class FriendsUIViewController: UIViewController, UITableViewDelegate, UITableVie
         
         //tableview
         tableView.backgroundColor = UIColor.clear
+        hangButtonContainerView.alpha = 0
+        hangButtonContainerView.transform = CGAffineTransform(translationX: 0, y: 200)
+        hangButton.layer.cornerRadius = 26
+        hangButtonContainerView.clipsToBounds = true
     }
     
     override
@@ -127,15 +140,20 @@ class FriendsUIViewController: UIViewController, UITableViewDelegate, UITableVie
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         
         //Check whether user is unavailable or available
+      
         if row == 0 {
             //Show the selector ring image if unavailable
             isAvailable = false
             statusRing.isHighlighted = false
+            selectedCells.removeAll()
         } else {
             //Show the selector ring image if unavailable
             isAvailable = true
             statusRing.isHighlighted = true
         }
+//        let range = NSMakeRange(0, self.tableView.numberOfSections)
+//        let sections = NSIndexSet(indexesIn: range)
+//        self.tableView.reloadSections(sections as IndexSet, with: .automatic)
         tableView.reloadData()
     }
     
@@ -224,9 +242,12 @@ class FriendsUIViewController: UIViewController, UITableViewDelegate, UITableVie
         return UIView()
     }
     
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let userAvailable = friendsAvailable[indexPath.row]
         let userUnavailable = friendsUnavailable[indexPath.row]
+        
+       
 
         if isAvailable == true {
             if indexPath.section == 0 {
@@ -240,6 +261,13 @@ class FriendsUIViewController: UIViewController, UITableViewDelegate, UITableVie
                 cell.name.text = userAvailable["name"]
                 cell.info.text = userAvailable["distance"]
                 cell.emoji.text = userAvailable["emoji"]
+                cell.available.isHidden = true
+                cell.checkAccessory.isHidden = false
+                if selectedCells.contains(indexPath) {
+                    cell.checkAccessory.isSelected = true
+                } else {
+                    cell.checkAccessory.isSelected = false
+                }
                 return cell
             } else {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "friendUnavailableCell") as! FriendsUnavailableTableViewCell
@@ -253,12 +281,63 @@ class FriendsUIViewController: UIViewController, UITableViewDelegate, UITableVie
                 cell.name.text = userAvailable["name"]
                 cell.info.text = userAvailable["distance"]
                 cell.emoji.text = userAvailable["emoji"]
+                cell.available.isHidden = false
+                cell.checkAccessory.isHidden = true
+
                 return cell
             } else {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "friendUnavailableCell") as! FriendsUnavailableTableViewCell
                 cell.name.text = userUnavailable["name"]
                 cell.info.text = userUnavailable["lastAvailable"]
                 return cell
+            }
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        if isAvailable == true {
+            if indexPath.section == 0 {
+                
+            } else if indexPath.section == 1 {
+                print("cell tapped")
+                let cell = tableView.cellForRow(at: indexPath) as! FriendsTableViewCell
+                if cell.checkAccessory.isSelected == true {
+                    cell.checkAccessory.isSelected = false
+                    selectedCells.remove(indexPath)
+
+                }else {
+                    cell.checkAccessory.isSelected = true
+                    selectedCells.insert(indexPath)
+                }
+                    UIView.animate(withDuration: 1, delay: 0.2, usingSpringWithDamping: 0.5, initialSpringVelocity: 5, options: .curveEaseInOut, animations: {
+                        if self.selectedCells.count > 0 {
+                            self.hangButtonContainerView.transform = CGAffineTransform(translationX: 0, y: 0)
+                            self.pickerContainerView.transform = CGAffineTransform(translationX: 0, y: 220)
+                            self.pickerContainerView.alpha = 0
+                            self.hangButtonContainerView.alpha = 1
+
+                        } else {
+                            self.pickerContainerView.alpha = 1
+                            self.hangButtonContainerView.alpha = 0
+                            self.pickerContainerView.transform = CGAffineTransform(translationX: 0, y: 0)
+                            self.hangButtonContainerView.transform = CGAffineTransform(translationX: 0, y: 200)
+
+                        }
+                        
+                    }) { (_) in
+                        //animation is finished
+                    }
+              
+
+            } else {
+             
+            }
+        } else {
+            if indexPath.section == 0 {
+                
+            } else {
+               
             }
         }
     }
@@ -311,7 +390,6 @@ class FriendsUIViewController: UIViewController, UITableViewDelegate, UITableVie
         
     }
 
-  
 
     /*
     // MARK: - Navigation
