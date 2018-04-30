@@ -18,7 +18,6 @@
 		F18D197620937D2300C30A2F /* CreateStatusController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F18D197020937D2300C30A2F /* CreateStatusController.swift */; };
 		F18D197720937D2300C30A2F /* FriendsUIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F18D197120937D2300C30A2F /* FriendsUIViewController.swift */; };
 		F18D197920937D8900C30A2F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F18D197820937D8800C30A2F /* GoogleService-Info.plist */; };
-		F18D198120937E9900C30A2F /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F1AA1C2B20883E9D009B909B /* Info.plist */; };
 		F18D198220937EA700C30A2F /* Nunito-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F18D197D20937E2400C30A2F /* Nunito-ExtraBold.ttf */; };
 		F18D198320937EA900C30A2F /* Nunito-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F18D197E20937E2400C30A2F /* Nunito-SemiBold.ttf */; };
 		F18D198420937EAC00C30A2F /* Nunito-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F18D197F20937E2400C30A2F /* Nunito-Bold.ttf */; };
@@ -272,7 +271,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0920;
-				LastUpgradeCheck = 0920;
+				LastUpgradeCheck = 0930;
 				ORGANIZATIONNAME = "Ben Hylak";
 				TargetAttributes = {
 					F1AA1C1B20883E9D009B909B = {
@@ -315,7 +314,6 @@
 				F18D197920937D8900C30A2F /* GoogleService-Info.plist in Resources */,
 				F1AA1C2720883E9D009B909B /* Assets.xcassets in Resources */,
 				F18D198220937EA700C30A2F /* Nunito-ExtraBold.ttf in Resources */,
-				F18D198120937E9900C30A2F /* Info.plist in Resources */,
 				F18D198420937EAC00C30A2F /* Nunito-Bold.ttf in Resources */,
 				F1AA1C2520883E9D009B909B /* Main.storyboard in Resources */,
 			);
@@ -482,6 +480,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -489,6 +488,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -539,6 +539,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -546,6 +547,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -581,7 +583,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 74RK69P838;
+				DEVELOPMENT_TEAM = QB654HUV4R;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -590,7 +592,7 @@
 				INFOPLIST_FILE = Hang/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				NEW_SETTING = "";
-				PRODUCT_BUNDLE_IDENTIFIER = com.joekndy.hang;
+				PRODUCT_BUNDLE_IDENTIFIER = hangapp.co;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -603,7 +605,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 74RK69P838;
+				DEVELOPMENT_TEAM = QB654HUV4R;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -612,7 +614,7 @@
 				INFOPLIST_FILE = Hang/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				NEW_SETTING = "";
-				PRODUCT_BUNDLE_IDENTIFIER = com.joekndy.hang;
+				PRODUCT_BUNDLE_IDENTIFIER = hangapp.co;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
