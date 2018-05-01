@@ -57,7 +57,7 @@ DEPENDENCIES:
   - Firebase/Core
   - Firebase/Database
   - Firebase/Storage
-  - Mapbox-iOS-SDK
+  - Mapbox-iOS-SDK (~> 4.0)
   - SnapKit
 
 SPEC REPOS:
@@ -91,6 +91,6 @@ SPEC CHECKSUMS:
   nanopb: 5601e6bca2dbf1ed831b519092ec110f66982ca3
   SnapKit: a42d492c16e80209130a3379f73596c3454b7694
 
-PODFILE CHECKSUM: d777eb84354a836e772b70da279dac654243c89c
+PODFILE CHECKSUM: 0aa4744a14858f460968b9d1f43b8c6a7c4f9912
 
 COCOAPODS: 1.5.0
