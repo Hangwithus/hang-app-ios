@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		A79BE749809C61435ADCDA7E /* Pods_HangTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E1F09119C98B61BFAE804F46 /* Pods_HangTests.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		E4000BA52097685200C958CB /* SelectionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4000BA42097685100C958CB /* SelectionButton.swift */; };
+		E41EAFDB209A047A00400855 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E41EAFDA209A047A00400855 /* LoginViewController.swift */; };
 		F18D196920937CD600C30A2F /* Users.swift in Sources */ = {isa = PBXBuildFile; fileRef = F18D196720937CD600C30A2F /* Users.swift */; };
 		F18D196A20937CD600C30A2F /* FakeData.swift in Sources */ = {isa = PBXBuildFile; fileRef = F18D196820937CD600C30A2F /* FakeData.swift */; };
 		F18D197220937D2300C30A2F /* FriendsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F18D196C20937D2200C30A2F /* FriendsTableViewCell.swift */; };
@@ -66,6 +67,7 @@
 		D24800295D4CA57586429064 /* Pods_HangUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HangUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E1F09119C98B61BFAE804F46 /* Pods_HangTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HangTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E4000BA42097685100C958CB /* SelectionButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectionButton.swift; sourceTree = "<group>"; };
+		E41EAFDA209A047A00400855 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		F18D196720937CD600C30A2F /* Users.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Users.swift; sourceTree = "<group>"; };
 		F18D196820937CD600C30A2F /* FakeData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FakeData.swift; sourceTree = "<group>"; };
 		F18D196C20937D2200C30A2F /* FriendsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendsTableViewCell.swift; sourceTree = "<group>"; };
@@ -153,6 +155,7 @@
 				F18D196E20937D2300C30A2F /* FriendsUnavailableTableViewCell.swift */,
 				F18D196D20937D2200C30A2F /* HeaderTableViewCell.swift */,
 				F18D196F20937D2300C30A2F /* MapViewController.swift */,
+				E41EAFDA209A047A00400855 /* LoginViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -427,6 +430,7 @@
 				F1AA1C2020883E9D009B909B /* AppDelegate.swift in Sources */,
 				F18D197220937D2300C30A2F /* FriendsTableViewCell.swift in Sources */,
 				F18D197520937D2300C30A2F /* MapViewController.swift in Sources */,
+				E41EAFDB209A047A00400855 /* LoginViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

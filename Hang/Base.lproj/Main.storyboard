@@ -22,6 +22,30 @@
         </array>
     </customFonts>
     <scenes>
+        <!--Login View Controller-->
+        <scene sceneID="gzw-oe-7S0">
+            <objects>
+                <viewController id="5Ez-SZ-mmS" customClass="LoginViewController" customModule="Hang" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="m0w-kW-yY6">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uEv-1G-JE0">
+                                <rect key="frame" x="166" y="304" width="42" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="1" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="PrR-c0-LSU"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="5i3-83-qUa" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="512" y="-1078"/>
+        </scene>
         <!--FriendsUI View Controller-->
         <scene sceneID="ZDx-lr-4Yv">
             <objects>
@@ -343,6 +367,7 @@
                     <connections>
                         <outlet property="mapView" destination="kM0-fb-ND8" id="lyS-se-RkQ"/>
                         <segue destination="Zd6-fE-tsl" kind="show" identifier="showFriends" animates="NO" id="kYM-lc-bjc"/>
+                        <segue destination="5Ez-SZ-mmS" kind="show" identifier="showLogin" animates="NO" id="WLy-F0-35L"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UyO-RN-lXU" userLabel="First Responder" sceneMemberID="firstResponder"/>

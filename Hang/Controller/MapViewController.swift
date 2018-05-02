@@ -28,7 +28,7 @@ class MapViewController: UIViewController, MGLMapViewDelegate {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        self.performSegue(withIdentifier: "showFriends", sender: self)
+        self.performSegue(withIdentifier: "showLogin", sender: self)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
