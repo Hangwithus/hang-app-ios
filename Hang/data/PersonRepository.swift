@@ -11,7 +11,6 @@ import RxSwift
 
 class PersonRepository
 {
-    
     func searchForPeople(name: String)
     {
         //stub

@@ -11,8 +11,7 @@ import ObjectMapper
 
 class CurrentUser: Friend {
     
-    var incomingFriendRequests: [FriendRequest]?
-    var outgoingFriendRequests: [FriendRequest]?
+    var onBoardingComplete: Bool?
     
     required init?(map: Map) {
         //do error checking as necessary
@@ -26,6 +25,6 @@ class CurrentUser: Friend {
     override func mapping(map: Map) {
         super.mapping(map: map)
         
-        self.incomingFriendRequests <- Mapper<FriendRequest>().mapArray(JSONArray: map["incoming_friend_requests"])
+        //self.incomingFriendRequests <- Mapper<FriendRequest>().mapArray(JSONArray: map["incoming_friend_requests"])
     }
 }
