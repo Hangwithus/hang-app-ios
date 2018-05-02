@@ -9,7 +9,6 @@
 import UIKit
 
 //implements UILabel Kerning
-
 extension UILabel {
     
     @IBInspectable var kerning: Float {
@@ -47,12 +46,14 @@ class FriendsUIViewController: UIViewController, UITableViewDelegate, UITableVie
     @IBOutlet weak var pickerContainerView: UIView!
     @IBOutlet weak var maskView: UIView!
     @IBOutlet weak var tableView: UITableView!
+
     //fake data
     var friendsAvailable : Array<Dictionary<String,String>> = placeholderFriends
     var friendsUnavailable : Array<Dictionary<String,String>> = placeholderFriendsUavailable
     //if a status is selected
     var isAvailable = false
     //the index path of the checked cell
+
     var selectedCells = Set<IndexPath>()
     
     @IBOutlet weak var statusPicker: UIPickerView!
@@ -81,7 +82,7 @@ class FriendsUIViewController: UIViewController, UITableViewDelegate, UITableVie
         tableView.dataSource = self
         //removes separator lines
         tableView.tableFooterView = UIView()
-        //disable sticky section headers
+
         let dummyViewHeight = CGFloat(58)
         self.tableView.tableHeaderView = UIView(frame: CGRect(x: 0, y: 0, width: self.tableView.bounds.size.width, height: dummyViewHeight))
         self.tableView.contentInset = UIEdgeInsetsMake(-dummyViewHeight, 0, 0, 0)
@@ -96,10 +97,12 @@ class FriendsUIViewController: UIViewController, UITableViewDelegate, UITableVie
         
         //tableview
         tableView.backgroundColor = UIColor.clear
+
         //pushes hang button below the view on load
         hangButtonContainerView.alpha = 0
         hangButtonContainerView.transform = CGAffineTransform(translationX: 0, y: 200)
         //radius of hang button
+      
         hangButton.layer.cornerRadius = 26
         hangButtonContainerView.clipsToBounds = true
     }
@@ -107,6 +110,7 @@ class FriendsUIViewController: UIViewController, UITableViewDelegate, UITableVie
     override
     func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
+      
         //adds alpha mask to tableview after proper layout is loaded
         addGradient()
     }
@@ -146,12 +150,14 @@ class FriendsUIViewController: UIViewController, UITableViewDelegate, UITableVie
             statusRing.isHighlighted = false
             //sets availability to false and removes checks from marked cells
             isAvailable = false
+
             selectedCells.removeAll()
         } else {
             //Show the selector ring image if unavailable
             isAvailable = true
             statusRing.isHighlighted = true
         }
+
         tableView.reloadData()
     }
     
@@ -197,6 +203,7 @@ class FriendsUIViewController: UIViewController, UITableViewDelegate, UITableVie
    //Table view code
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+
         //define sections for when available
         if isAvailable == true {
             if section == 0 {
@@ -207,6 +214,7 @@ class FriendsUIViewController: UIViewController, UITableViewDelegate, UITableVie
             } else if section == 2 {
                 return friendsUnavailable.count
             }
+
             //define sections for unavailable
         } else {
             if section == 0 {
@@ -252,8 +260,7 @@ class FriendsUIViewController: UIViewController, UITableViewDelegate, UITableVie
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let userAvailable = friendsAvailable[indexPath.row]
         let userUnavailable = friendsUnavailable[indexPath.row]
-        
-       
+
         //set cells for available
         if isAvailable == true {
             if indexPath.section == 0 {
@@ -403,8 +410,6 @@ class FriendsUIViewController: UIViewController, UITableViewDelegate, UITableVie
         maskView.layer.mask = gradient
         
     }
-
-
     /*
     // MARK: - Navigation
 
