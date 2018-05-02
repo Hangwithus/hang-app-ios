@@ -19,6 +19,7 @@
 		F18D197620937D2300C30A2F /* CreateStatusController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F18D197020937D2300C30A2F /* CreateStatusController.swift */; };
 		F18D197720937D2300C30A2F /* FriendsUIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F18D197120937D2300C30A2F /* FriendsUIViewController.swift */; };
 		F18D197920937D8900C30A2F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F18D197820937D8800C30A2F /* GoogleService-Info.plist */; };
+		F18D198120937E9900C30A2F /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F1AA1C2B20883E9D009B909B /* Info.plist */; };
 		F18D198220937EA700C30A2F /* Nunito-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F18D197D20937E2400C30A2F /* Nunito-ExtraBold.ttf */; };
 		F18D198320937EA900C30A2F /* Nunito-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F18D197E20937E2400C30A2F /* Nunito-SemiBold.ttf */; };
 		F18D198420937EAC00C30A2F /* Nunito-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F18D197F20937E2400C30A2F /* Nunito-Bold.ttf */; };
@@ -587,7 +588,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = QB654HUV4R;
+				DEVELOPMENT_TEAM = 74RK69P838;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
