@@ -53,7 +53,7 @@ class FriendsUIViewController: UIViewController, UITableViewDelegate, UITableVie
     @IBOutlet weak var tableView: UITableView!
     var friendsAvailable : Array<Dictionary<String,String>> = placeholderFriends
     var friendsUnavailable : Array<Dictionary<String,String>> = placeholderFriendsUavailable
-
+    
     var isAvailable = false
     
     var selectedCells = Set<IndexPath>()
