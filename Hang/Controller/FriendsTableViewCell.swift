@@ -14,6 +14,10 @@ class FriendsTableViewCell: UITableViewCell {
     @IBOutlet weak var info: UILabel!
     @IBOutlet weak var name: UILabel!
     
+<<<<<<< HEAD
+=======
+    @IBOutlet weak var checkAccessory: UIButton!
+>>>>>>> 3a7340f837ff77967126cd90ac6ec67658bbb2c5
     @IBOutlet weak var available: UIImageView!
     override func awakeFromNib() {
         super.awakeFromNib()

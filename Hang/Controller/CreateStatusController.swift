@@ -4,7 +4,10 @@ class CreateStatusController: UIViewController,UIAlertViewDelegate, UITextFieldD
     
     var users = [Users]()
     
+<<<<<<< HEAD
     //closure for create status button
+=======
+>>>>>>> 3a7340f837ff77967126cd90ac6ec67658bbb2c5
     let emojiField: UITextField = {
         let emojiTextField =  UITextField(frame: CGRect(x: 20, y: 100, width: 300, height: 40))
         emojiTextField.placeholder = "Enter an emoji"
@@ -18,7 +21,10 @@ class CreateStatusController: UIViewController,UIAlertViewDelegate, UITextFieldD
         return emojiTextField
     }()
     
+<<<<<<< HEAD
     //closure for create status button
+=======
+>>>>>>> 3a7340f837ff77967126cd90ac6ec67658bbb2c5
     let statusField: UITextField = {
         let statusTextField =  UITextField(frame: CGRect(x: 20, y: 100, width: 300, height: 40))
         statusTextField.placeholder = "availability title"
@@ -32,7 +38,10 @@ class CreateStatusController: UIViewController,UIAlertViewDelegate, UITextFieldD
         return statusTextField
     }()
     
+<<<<<<< HEAD
     //closure function for create status button
+=======
+>>>>>>> 3a7340f837ff77967126cd90ac6ec67658bbb2c5
     let createStatusButton: UIButton = {
         let button = UIButton(type: .system)
         button.backgroundColor = UIColor(red:0.10, green:0.87, blue:0.19, alpha:1.00)
@@ -41,14 +50,21 @@ class CreateStatusController: UIViewController,UIAlertViewDelegate, UITextFieldD
         button.layer.cornerRadius = 26
         button.layer.masksToBounds = true
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 20)
+<<<<<<< HEAD
         //Sets the button target
         button.addTarget(self, action: #selector(addStatus), for: .touchUpInside)
+=======
+        
+        button.addTarget(self, action: #selector(addStatus), for: .touchUpInside)
+        
+>>>>>>> 3a7340f837ff77967126cd90ac6ec67658bbb2c5
         return button
     }()
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
+<<<<<<< HEAD
         view.backgroundColor = UIColor.white
         
         //Create navigation
@@ -66,10 +82,26 @@ class CreateStatusController: UIViewController,UIAlertViewDelegate, UITextFieldD
         self.view.addSubview(createStatusButton)
         
         //Calls the layout constraints for the field items
+=======
+        
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title:"Cancel", style: .plain, target: self, action: #selector(handleHome))
+        self.navigationItem.title = "Add Status"
+        view.backgroundColor = UIColor.white
+        self.navigationController?.navigationBar.titleTextAttributes = [ kCTFontAttributeName: UIFont(name: "Nunito-Bold", size: 17)!] as [NSAttributedStringKey : Any]
+        emojiField.delegate = self
+        self.view.addSubview(emojiField)
+        
+        statusField.delegate = self
+        self.view.addSubview(statusField)
+        
+        self.view.addSubview(createStatusButton)
+        
+>>>>>>> 3a7340f837ff77967126cd90ac6ec67658bbb2c5
         setupLayout()
     }
     
     func setupLayout() {
+<<<<<<< HEAD
         
         //Enable programmatic autolayout
         emojiField.translatesAutoresizingMaskIntoConstraints = false
@@ -77,12 +109,23 @@ class CreateStatusController: UIViewController,UIAlertViewDelegate, UITextFieldD
         createStatusButton.translatesAutoresizingMaskIntoConstraints = false
         
         //Set constraints for emoji text field, status text field and create status button
+=======
+        emojiField.translatesAutoresizingMaskIntoConstraints = false
+        statusField.translatesAutoresizingMaskIntoConstraints = false
+        
+>>>>>>> 3a7340f837ff77967126cd90ac6ec67658bbb2c5
         emojiField.topAnchor.constraint(equalTo: view.topAnchor, constant: 100).isActive = true
         emojiField.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 0).isActive = true
         statusField.topAnchor.constraint(equalTo: emojiField.topAnchor, constant: 50).isActive = true
         statusField.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 0).isActive = true
         emojiField.widthAnchor.constraint(equalTo: view.widthAnchor, constant: -24).isActive = true
         statusField.widthAnchor.constraint(equalTo: view.widthAnchor, constant: -24).isActive = true
+<<<<<<< HEAD
+=======
+
+        
+        createStatusButton.translatesAutoresizingMaskIntoConstraints = false
+>>>>>>> 3a7340f837ff77967126cd90ac6ec67658bbb2c5
         createStatusButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         createStatusButton.topAnchor.constraint(equalTo: statusField.bottomAnchor, constant: 16).isActive = true
         createStatusButton.widthAnchor.constraint(equalTo: view.widthAnchor, constant: -64).isActive = true
@@ -90,18 +133,38 @@ class CreateStatusController: UIViewController,UIAlertViewDelegate, UITextFieldD
     }
     
     @objc func addStatus() {
+<<<<<<< HEAD
         //Adds the status to the static data array containing user statuses
+=======
+        
+>>>>>>> 3a7340f837ff77967126cd90ac6ec67658bbb2c5
         let emojiInput = emojiField.text
         let statusInput = statusField.text
         status.append(emojiInput!)
         statusText.append(statusInput!)
         statusAdded = true
+<<<<<<< HEAD
     }
     
     //Takes user to the home screen when called
     @objc func handleHome() {
         //Dismisses the create status screen to show home screen
         self.dismiss(animated: true, completion: nil)
+=======
+//        print(emojiInput)
+//        print(statusInput)
+        print([status])
+        
+        
+    }
+    
+    
+    @objc func handleHome() {
+        
+        self.dismiss(animated: true, completion: nil)
+        
+        
+>>>>>>> 3a7340f837ff77967126cd90ac6ec67658bbb2c5
     }
     
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
@@ -150,6 +213,14 @@ class CreateStatusController: UIViewController,UIAlertViewDelegate, UITextFieldD
         return true
     }
     
+<<<<<<< HEAD
+=======
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+    
+>>>>>>> 3a7340f837ff77967126cd90ac6ec67658bbb2c5
 }
 
 
