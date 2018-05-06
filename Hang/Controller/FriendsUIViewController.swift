@@ -82,7 +82,7 @@ class FriendsUIViewController: UIViewController, UITableViewDelegate, UITableVie
         tableView.dataSource = self
         //removes separator lines
         tableView.tableFooterView = UIView()
-
+        //disable sticky headers
         let dummyViewHeight = CGFloat(58)
         self.tableView.tableHeaderView = UIView(frame: CGRect(x: 0, y: 0, width: self.tableView.bounds.size.width, height: dummyViewHeight))
         self.tableView.contentInset = UIEdgeInsetsMake(-dummyViewHeight, 0, 0, 0)
@@ -260,6 +260,8 @@ class FriendsUIViewController: UIViewController, UITableViewDelegate, UITableVie
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let userAvailable = friendsAvailable[indexPath.row]
         let userUnavailable = friendsUnavailable[indexPath.row]
+        
+       
 
         //set cells for available
         if isAvailable == true {
