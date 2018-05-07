@@ -71,6 +71,7 @@ class FriendsUIViewController: UIViewController, UITableViewDelegate, UITableVie
     @IBOutlet weak var customStatusField: UITextField!
     @IBOutlet weak var emojiField: UITextField!
     @IBOutlet weak var friendIDField: UITextField!
+    @IBOutlet weak var friendsPopupYAxis: NSLayoutConstraint!
     
     
     
@@ -151,19 +152,23 @@ class FriendsUIViewController: UIViewController, UITableViewDelegate, UITableVie
     @IBAction func showFriendsPopup(_ sender: Any) {
         
         //Open popup
-        verticalFriendsPopupConstraint.constant = 0
+        friendsPopupYAxis.constant = 0
         UIView.animate(withDuration: 0.7, animations: {
-            self.view.layoutIfNeeded()
             self.popupBackgroundButton.alpha = 0.6
+        })
+        UIView.animate(withDuration: 0.5, delay: 0.3, usingSpringWithDamping: 0.7, initialSpringVelocity: 7, options: .curveEaseInOut, animations: {
+            self.view.layoutIfNeeded()
         })
     }
     
     @IBAction func addFriendButton(_ sender: Any) {
         //Close popup
-        verticalFriendsPopupConstraint.constant = -400
+        friendsPopupYAxis.constant = 800
         UIView.animate(withDuration: 0.7, animations: {
-            self.view.layoutIfNeeded()
             self.popupBackgroundButton.alpha = 0
+        })
+        UIView.animate(withDuration: 0.5, delay: 0.3, usingSpringWithDamping: 0.7, initialSpringVelocity: 7, options: .curveEaseInOut, animations: {
+            self.view.layoutIfNeeded()
         })
     }
     

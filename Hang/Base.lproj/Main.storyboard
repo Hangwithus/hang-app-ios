@@ -359,11 +359,11 @@
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" restorationIdentifier="hangModal" translatesAutoresizingMaskIntoConstraints="NO" id="oL9-Ga-VAC">
-                                <rect key="frame" x="-372" y="174.66666666666663" width="319" height="463"/>
+                                <rect key="frame" x="28" y="972.66666666666663" width="319" height="467.66666666666663"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Create a custom status!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jks-tK-DN4">
-                                        <rect key="frame" x="68.999999999999986" y="228.00000000000003" width="180.66666666666663" height="24"/>
-                                        <fontDescription key="fontDescription" name="Nunito-SemiBold" family="Nunito" pointSize="17"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Custom status" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jks-tK-DN4">
+                                        <rect key="frame" x="91.333333333333329" y="228.00000000000011" width="137.33333333333337" height="28.666666666666686"/>
+                                        <fontDescription key="fontDescription" name="Nunito-SemiBold" family="Nunito" pointSize="21"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -374,7 +374,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Custom status title" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="yPl-bd-3n7">
-                                        <rect key="frame" x="66" y="315" width="186" height="40"/>
+                                        <rect key="frame" x="66" y="319.66666666666663" width="186" height="40"/>
                                         <color key="backgroundColor" white="0.89673549109999995" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="40" id="web-28-NdC"/>
@@ -390,7 +390,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SeN-UL-QVU">
-                                        <rect key="frame" x="98" y="377" width="124" height="52"/>
+                                        <rect key="frame" x="98" y="381.66666666666663" width="124" height="52"/>
                                         <color key="backgroundColor" red="0.098039215690000001" green="0.86666666670000003" blue="0.19215686269999999" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="52" id="spI-PG-mVj"/>
@@ -404,7 +404,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kbk-iB-HGc">
-                                        <rect key="frame" x="109" y="160.00000000000003" width="100" height="50"/>
+                                        <rect key="frame" x="109" y="160.00000000000011" width="100" height="50"/>
                                         <color key="backgroundColor" red="0.098039215690000001" green="0.86666666670000003" blue="0.19215686269999999" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="50" id="8Yg-5K-D9O"/>
@@ -419,7 +419,7 @@
                                         </connections>
                                     </button>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Emoji" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="oHU-kE-dAg">
-                                        <rect key="frame" x="66" y="267" width="186" height="40"/>
+                                        <rect key="frame" x="66" y="271.66666666666663" width="186" height="40"/>
                                         <color key="backgroundColor" white="0.89673549109999995" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="40" id="aFC-v0-kl4"/>
@@ -429,9 +429,10 @@
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter friend ID" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dN9-W3-Kwf">
-                                        <rect key="frame" x="102" y="100.00000000000003" width="114" height="40"/>
+                                        <rect key="frame" x="84.666666666666686" y="100.00000000000011" width="150" height="40"/>
                                         <color key="backgroundColor" white="0.89673549109999995" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
+                                            <constraint firstAttribute="width" constant="150" id="XYL-Pn-njv"/>
                                             <constraint firstAttribute="height" constant="40" id="yMx-MA-WMA"/>
                                         </constraints>
                                         <nil key="textColor"/>
@@ -470,7 +471,7 @@
                             <constraint firstItem="BrH-o7-iIt" firstAttribute="top" secondItem="nC3-9m-CtA" secondAttribute="bottom" constant="8" id="6aV-YA-jpv"/>
                             <constraint firstItem="Ekz-It-ePy" firstAttribute="bottom" secondItem="MDO-h6-y5W" secondAttribute="bottom" id="7NY-eX-THi"/>
                             <constraint firstItem="nC3-9m-CtA" firstAttribute="top" secondItem="Dc9-ox-p7P" secondAttribute="top" id="CNt-B4-6EB"/>
-                            <constraint firstItem="oL9-Ga-VAC" firstAttribute="centerX" secondItem="Dc9-ox-p7P" secondAttribute="centerX" constant="-400" id="ChE-PN-YEn"/>
+                            <constraint firstItem="oL9-Ga-VAC" firstAttribute="centerX" secondItem="Dc9-ox-p7P" secondAttribute="centerX" id="ChE-PN-YEn"/>
                             <constraint firstItem="MDO-h6-y5W" firstAttribute="bottom" secondItem="BrH-o7-iIt" secondAttribute="bottom" constant="100" id="Dju-Nu-7Yq"/>
                             <constraint firstItem="nC3-9m-CtA" firstAttribute="leading" secondItem="MDO-h6-y5W" secondAttribute="leading" id="EuQ-Ai-nUD"/>
                             <constraint firstAttribute="bottom" secondItem="xiR-jN-Bmj" secondAttribute="bottom" id="Ft5-Wd-bDi"/>
@@ -485,7 +486,7 @@
                             <constraint firstItem="UwH-3p-yhD" firstAttribute="bottom" secondItem="Dc9-ox-p7P" secondAttribute="bottomMargin" id="lDQ-GR-1AD"/>
                             <constraint firstItem="xiR-jN-Bmj" firstAttribute="top" secondItem="Dc9-ox-p7P" secondAttribute="top" id="nE0-vh-Shm"/>
                             <constraint firstItem="nC3-9m-CtA" firstAttribute="trailing" secondItem="MDO-h6-y5W" secondAttribute="trailing" id="p8R-IW-RZm"/>
-                            <constraint firstItem="oL9-Ga-VAC" firstAttribute="centerY" secondItem="Dc9-ox-p7P" secondAttribute="centerY" id="wmy-hm-HUq"/>
+                            <constraint firstItem="oL9-Ga-VAC" firstAttribute="centerY" secondItem="Dc9-ox-p7P" secondAttribute="centerY" constant="800" id="wmy-hm-HUq"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="MDO-h6-y5W"/>
                     </view>
@@ -496,6 +497,7 @@
                         <outlet property="emojiField" destination="oHU-kE-dAg" id="xSP-UK-Cq8"/>
                         <outlet property="friendIDField" destination="dN9-W3-Kwf" id="Tun-RG-wH6"/>
                         <outlet property="friendsPopup" destination="oL9-Ga-VAC" id="0sw-m0-Dud"/>
+                        <outlet property="friendsPopupYAxis" destination="wmy-hm-HUq" id="U0r-YQ-1wP"/>
                         <outlet property="hangButton" destination="1RG-Ze-kCg" id="bIk-fc-uph"/>
                         <outlet property="hangButtonContainerView" destination="Ekz-It-ePy" id="ouR-cj-yAA"/>
                         <outlet property="maskView" destination="BrH-o7-iIt" id="K6c-vk-GKA"/>
@@ -509,7 +511,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ImK-o6-Ixq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="511.19999999999999" y="-330.58470764617692"/>
+            <point key="canvasLocation" x="511.19999999999999" y="-331.0344827586207"/>
         </scene>
         <!--Delegate-->
         <scene sceneID="pfm-vY-KTo">
