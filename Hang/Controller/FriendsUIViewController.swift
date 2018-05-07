@@ -100,7 +100,6 @@ class FriendsUIViewController: UIViewController, UITableViewDelegate, UITableVie
         rotationAngle = -90 * (.pi/180)
         statusPicker.transform = CGAffineTransform(rotationAngle: rotationAngle)
         
-        //tableview
         tableView.backgroundColor = UIColor.clear
 
         //pushes hang button below the view on load
