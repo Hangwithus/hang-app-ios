@@ -46,7 +46,13 @@ class FriendsUIViewController: UIViewController, UITableViewDelegate, UITableVie
     @IBOutlet weak var pickerContainerView: UIView!
     @IBOutlet weak var maskView: UIView!
     @IBOutlet weak var tableView: UITableView!
-
+    @IBOutlet weak var statusPicker: UIPickerView!
+    @IBOutlet weak var statusRing: UIImageView!
+    //friends popup outlets
+    @IBOutlet weak var friendsPopup: UIView!
+    @IBOutlet weak var verticalFriendsPopupConstraint: NSLayoutConstraint!
+    @IBOutlet weak var popupBGButton: UIButton!
+    
     //fake data
     var friendsAvailable : Array<Dictionary<String,String>> = placeholderFriends
     var friendsUnavailable : Array<Dictionary<String,String>> = placeholderFriendsUavailable
@@ -55,10 +61,6 @@ class FriendsUIViewController: UIViewController, UITableViewDelegate, UITableVie
     //the index path of the checked cell
 
     var selectedCells = Set<IndexPath>()
-    
-    @IBOutlet weak var statusPicker: UIPickerView!
-    
-    @IBOutlet weak var statusRing: UIImageView!
     
     //Fonts
     let semiBoldLabel = UIFont(name: "Nunito-SemiBold", size: UIFont.labelFontSize)
@@ -91,21 +93,48 @@ class FriendsUIViewController: UIViewController, UITableViewDelegate, UITableVie
         statusPicker.delegate  = self
         statusPicker.dataSource = self
         
-        //Status picker rotation
+        //Status picker styling
         rotationAngle = -90 * (.pi/180)
         statusPicker.transform = CGAffineTransform(rotationAngle: rotationAngle)
         
-        //tableview
+        //tableview styling
         tableView.backgroundColor = UIColor.clear
 
-        //pushes hang button below the view on load
-        hangButtonContainerView.alpha = 0
-        hangButtonContainerView.transform = CGAffineTransform(translationX: 0, y: 200)
-        //radius of hang button
-      
-        hangButton.layer.cornerRadius = 26
-        hangButtonContainerView.clipsToBounds = true
+        //hang button styling
+            //pushes hang button below the view on load
+            hangButtonContainerView.alpha = 0
+            hangButtonContainerView.transform = CGAffineTransform(translationX: 0, y: 200)
+            //radius of hang button
+            hangButton.layer.cornerRadius = 26
+            hangButtonContainerView.clipsToBounds = true
+        
+        //friends popup styling
+        friendsPopup.layer.cornerRadius = 26
+        friendsPopup.layer.masksToBounds = true
     }
+    
+    @IBAction func showFriendsPopup(_ sender: Any) {
+        
+        //Open popup
+        verticalFriendsPopupConstraint.constant = 0
+        UIView.animate(withDuration: 0.7, animations: {
+            self.view.layoutIfNeeded()
+        })
+    }
+    
+    @IBAction func addFriendButton(_ sender: Any) {
+        verticalFriendsPopupConstraint.constant = -400
+        UIView.animate(withDuration: 0.7, animations: {
+            self.view.layoutIfNeeded()
+        })
+
+    }
+    
+    @IBAction func createStatusButton(_ sender: Any) {
+        //Button add sender
+    }
+    
+    
     
     override
     func viewDidLayoutSubviews() {
