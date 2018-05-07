@@ -41,6 +41,7 @@ extension UILabel {
 
 class FriendsUIViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UIPickerViewDelegate, UIPickerViewDataSource {
   
+    
     @IBOutlet weak var hangButton: UIButton!
     @IBOutlet weak var hangButtonContainerView: UIView!
     @IBOutlet weak var pickerContainerView: UIView!
@@ -72,6 +73,10 @@ class FriendsUIViewController: UIViewController, UITableViewDelegate, UITableVie
     var rotationAngle: CGFloat!
     let width:CGFloat = 300
     let height:CGFloat = 300
+    
+    //view transition
+    let scaleTransition = ScaleTransition()
+
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -245,9 +250,12 @@ class FriendsUIViewController: UIViewController, UITableViewDelegate, UITableVie
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        //sets table view section titles
+        //the first section will have a header
+        //the third section can have a header only if the status is set to available
+        //the second section cna have a header only if youre not available
         if section == 0 || (self.isAvailable && section == 2) || (self.isAvailable == false && section == 1) {
             let cell = tableView.dequeueReusableCell(withIdentifier: "headerCell") as! HeaderTableViewCell
+            //first section has available as header text, all others have unavailable
             cell.title.text = section == 0 ? "AVAILABLE" : "UNAVAILABLE"
             cell.title.kerning = 1
             
@@ -400,6 +408,23 @@ class FriendsUIViewController: UIViewController, UITableViewDelegate, UITableVie
             }
         
     }
+    
+    @IBAction func hangPressed(sender: UIButton) {
+        print("hang")
+//         performSegue(withIdentifier: "unwindSegueToVC1", sender: self)
+        navigationController?.popViewController(animated: true)
+        dismiss(animated: true, completion: nil)
+      
+    }
+    
+//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//        let destination = segue.destination
+//        destination.transitioningDelegate = scaleTransition
+//    }
+    
+//    @IBAction func dismissVC(_ sender: Any) {
+//        dismiss(animated: true, completion: nil)
+//    }
 
     //gradient alpha mask
     func addGradient() {
