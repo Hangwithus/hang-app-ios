@@ -280,6 +280,70 @@
                                                     <outlet property="name" destination="1W0-6O-Qkb" id="GCg-hh-hqF"/>
                                                 </connections>
                                             </tableViewCell>
+                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="friendRequest" rowHeight="55" id="oP3-gs-mel" customClass="FriendRequestTableViewCell" customModule="Hang" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="166" width="351" height="55"/>
+                                                <autoresizingMask key="autoresizingMask"/>
+                                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="oP3-gs-mel" id="0Nm-Mc-A5w">
+                                                    <rect key="frame" x="0.0" y="0.0" width="351" height="54.5"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="👋" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="COI-V8-CwB">
+                                                            <rect key="frame" x="14" y="7" width="32" height="34"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="width" constant="32" id="Dkp-Qu-9m4"/>
+                                                                <constraint firstAttribute="height" constant="34" id="htv-YS-KLB"/>
+                                                            </constraints>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="28"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="rjS-Ba-se2">
+                                                            <rect key="frame" x="50" y="6" width="45.5" height="38"/>
+                                                            <subviews>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qf6-UP-sSM">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="45.5" height="23.5"/>
+                                                                    <fontDescription key="fontDescription" name="Nunito-SemiBold" family="Nunito" pointSize="17"/>
+                                                                    <nil key="textColor"/>
+                                                                    <nil key="highlightedColor"/>
+                                                                </label>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Detail" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FvC-sf-GPb">
+                                                                    <rect key="frame" x="0.0" y="23.5" width="45.5" height="14.5"/>
+                                                                    <fontDescription key="fontDescription" name="Nunito-Bold" family="Nunito" pointSize="12"/>
+                                                                    <color key="textColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="calibratedRGB"/>
+                                                                    <nil key="highlightedColor"/>
+                                                                </label>
+                                                            </subviews>
+                                                        </stackView>
+                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="laG-j7-sD9">
+                                                            <rect key="frame" x="265" y="12" width="72" height="30"/>
+                                                            <color key="backgroundColor" red="0.098039215690000001" green="0.86666666670000003" blue="0.19215686269999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="30" id="MRC-s3-Xs3"/>
+                                                                <constraint firstAttribute="width" constant="72" id="UqS-He-Kap"/>
+                                                            </constraints>
+                                                            <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito" pointSize="17"/>
+                                                            <state key="normal" title="Add">
+                                                                <color key="titleColor" red="0.98793035745620728" green="0.99624460935592651" blue="0.99196916818618774" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            </state>
+                                                        </button>
+                                                    </subviews>
+                                                    <constraints>
+                                                        <constraint firstItem="rjS-Ba-se2" firstAttribute="leading" secondItem="COI-V8-CwB" secondAttribute="trailing" constant="4" id="2ZW-lK-fVZ"/>
+                                                        <constraint firstAttribute="bottom" secondItem="laG-j7-sD9" secondAttribute="bottom" constant="12.5" id="JTN-WZ-WzT"/>
+                                                        <constraint firstAttribute="trailing" secondItem="laG-j7-sD9" secondAttribute="trailing" constant="14" id="OGT-rf-iUu"/>
+                                                        <constraint firstItem="COI-V8-CwB" firstAttribute="leading" secondItem="0Nm-Mc-A5w" secondAttribute="leading" constant="14" id="bCV-27-SWh"/>
+                                                        <constraint firstItem="rjS-Ba-se2" firstAttribute="top" secondItem="0Nm-Mc-A5w" secondAttribute="top" constant="6" id="eKo-Uc-CbP"/>
+                                                        <constraint firstAttribute="bottom" secondItem="rjS-Ba-se2" secondAttribute="bottom" constant="10.5" id="x2x-zl-9aa"/>
+                                                        <constraint firstItem="COI-V8-CwB" firstAttribute="top" secondItem="0Nm-Mc-A5w" secondAttribute="top" constant="7" id="ySx-ib-Nu9"/>
+                                                    </constraints>
+                                                </tableViewCellContentView>
+                                                <connections>
+                                                    <outlet property="requestActionBtn" destination="laG-j7-sD9" id="Jro-Vd-NmN"/>
+                                                    <outlet property="requestDetails" destination="FvC-sf-GPb" id="aBH-G9-TIZ"/>
+                                                    <outlet property="requestEmoji" destination="COI-V8-CwB" id="GwI-LK-6RV"/>
+                                                    <outlet property="requesterName" destination="qf6-UP-sSM" id="aeK-Cl-QpI"/>
+                                                </connections>
+                                            </tableViewCell>
                                         </prototypes>
                                         <connections>
                                             <outlet property="dataSource" destination="Zd6-fE-tsl" id="FVn-HM-xKb"/>

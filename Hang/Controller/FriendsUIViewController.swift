@@ -8,11 +8,6 @@
 
 import UIKit
 
-//extension UITableView {
-//    func reloadData(with animation: UITableViewRowAnivarion) {
-//        reloadSections(IndexSet(integersIn: 0..<numberOfSections), with: animation)
-//    }
-//}
 
 extension UILabel {
     
@@ -64,11 +59,14 @@ class FriendsUIViewController: UIViewController, UITableViewDelegate, UITableVie
     @IBOutlet weak var pickerContainerView: UIView!
     @IBOutlet weak var maskView: UIView!
     @IBOutlet weak var tableView: UITableView!
+
+    //fake data
     var friendsAvailable : Array<Dictionary<String,String>> = placeholderFriends
     var friendsUnavailable : Array<Dictionary<String,String>> = placeholderFriendsUavailable
-
+    //if a status is selected
     var isAvailable = false
-    
+    //the index path of the checked cell
+
     var selectedCells = Set<IndexPath>()
     
     @IBOutlet weak var statusPicker: UIPickerView!
@@ -101,6 +99,7 @@ class FriendsUIViewController: UIViewController, UITableViewDelegate, UITableVie
 
         tableView.delegate = self
         tableView.dataSource = self
+        //removes separator lines
         tableView.tableFooterView = UIView()
         //disable sticky headers
         let dummyViewHeight = CGFloat(58)
@@ -117,8 +116,10 @@ class FriendsUIViewController: UIViewController, UITableViewDelegate, UITableVie
         
         //tableview
         tableView.backgroundColor = UIColor.clear
+
+        //pushes hang button below the view on load
         hangButtonContainerView.alpha = 0
-        hangButtonContainerView.transform = CGAffineTransform(translationX: 0, y: 173)
+
         hangButton.layer.cornerRadius = 26
         hangButtonContainerView.clipsToBounds = true
         tableView.transform = CGAffineTransform(scaleX: 2, y: 2)
@@ -129,8 +130,9 @@ class FriendsUIViewController: UIViewController, UITableViewDelegate, UITableVie
     override
     func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
+      
+        //adds alpha mask to tableview after proper layout is loaded
         addGradient()
-        
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -178,8 +180,10 @@ class FriendsUIViewController: UIViewController, UITableViewDelegate, UITableVie
       
         if row == 0 {
             //Show the selector ring image if unavailable
-            isAvailable = false
             statusRing.isHighlighted = false
+            //sets availability to false and removes checks from marked cells
+            isAvailable = false
+
             selectedCells.removeAll()
         } else {
             //Show the selector ring image if unavailable
@@ -233,15 +237,19 @@ class FriendsUIViewController: UIViewController, UITableViewDelegate, UITableVie
    //Table view code
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+
+        //define sections for when available
         if isAvailable == true {
             if section == 0 {
+                //placeholder for current users status cell
                 return 1
             } else if section == 1 {
                 return friendsAvailable.count
             } else if section == 2 {
                 return friendsUnavailable.count
             }
-            
+
+            //define sections for unavailable
         } else {
             if section == 0 {
                 return friendsAvailable.count
@@ -254,6 +262,7 @@ class FriendsUIViewController: UIViewController, UITableViewDelegate, UITableVie
     
     func numberOfSections(in tableView: UITableView) -> Int {
         if isAvailable == true {
+            //sets 3 sections for when available: current user status, available, and unavailable
             return 3
         } else {
             return 2
@@ -261,9 +270,13 @@ class FriendsUIViewController: UIViewController, UITableViewDelegate, UITableVie
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         if isAvailable == true && section == 1 {
+            //sets height of section with no title to separate current user status and available status
             return 16
         }
-        return 58    }
+        //normal height of a section with a title
+        return 58
+        
+    }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         //the first section will have a header
@@ -287,6 +300,7 @@ class FriendsUIViewController: UIViewController, UITableViewDelegate, UITableVie
         
        
 
+        //set cells for available
         if isAvailable == true {
             if indexPath.section == 0 {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "friendCell") as! FriendsTableViewCell
@@ -313,6 +327,7 @@ class FriendsUIViewController: UIViewController, UITableViewDelegate, UITableVie
                 cell.info.text = userUnavailable["lastAvailable"]
                 return cell
             }
+            //set cells for unavailable
         } else {
             if indexPath.section == 0 {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "friendCell") as! FriendsTableViewCell
@@ -333,22 +348,27 @@ class FriendsUIViewController: UIViewController, UITableViewDelegate, UITableVie
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
+        //cell selection for when available
         if isAvailable == true {
+            //current user status cell
             if indexPath.section == 0 {
                 
             } else if indexPath.section == 1 {
+                //available friends cells
                 print("cell tapped")
                 let cell = tableView.cellForRow(at: indexPath) as! FriendsTableViewCell
                 if cell.checkAccessory.isSelected == true {
+                    //if cell is checked, remove checkmark and cell index from selected cells set
                     cell.checkAccessory.isSelected = false
                     selectedCells.remove(indexPath)
 
                 }else {
+                    //if cell is unchecked, add checkmark and add cell to selected cells set
                     cell.checkAccessory.isSelected = true
                     selectedCells.insert(indexPath)
                 }
                     UIView.animate(withDuration: 1, delay: 0.2, usingSpringWithDamping: 0.5, initialSpringVelocity: 5, options: .curveEaseInOut, animations: {
+                        //remove satus picker and display hang button if a cell is checked
                         if self.selectedCells.count > 0 {
                             self.hangButtonContainerView.transform = CGAffineTransform(translationX: 0, y: 0)
                             self.pickerContainerView.transform = CGAffineTransform(translationX: 0, y: 220)
@@ -356,6 +376,7 @@ class FriendsUIViewController: UIViewController, UITableViewDelegate, UITableVie
                             self.hangButtonContainerView.alpha = 1
 
                         } else {
+                            //dismiss hang button and display status picker when no cells are checked
                             self.pickerContainerView.alpha = 1
                             self.hangButtonContainerView.alpha = 0
                             self.pickerContainerView.transform = CGAffineTransform(translationX: 0, y: 0)
@@ -367,7 +388,6 @@ class FriendsUIViewController: UIViewController, UITableViewDelegate, UITableVie
                         //animation is finished
                     }
               
-
             } else {
              
             }
@@ -380,6 +400,8 @@ class FriendsUIViewController: UIViewController, UITableViewDelegate, UITableVie
         }
     }
     
+    
+    //rounded cell corners
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath)
     {
         
@@ -463,7 +485,7 @@ class FriendsUIViewController: UIViewController, UITableViewDelegate, UITableVie
 //        dismiss(animated: true, completion: nil)
 //    }
 
-
+    //gradient alpha mask
     func addGradient() {
         let gradient = CAGradientLayer()
         
@@ -474,8 +496,6 @@ class FriendsUIViewController: UIViewController, UITableViewDelegate, UITableVie
         maskView.layer.mask = gradient
         
     }
-
-
     /*
     // MARK: - Navigation
 
