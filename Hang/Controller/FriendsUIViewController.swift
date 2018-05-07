@@ -51,7 +51,7 @@ class FriendsUIViewController: UIViewController, UITableViewDelegate, UITableVie
     //friends popup outlets
     @IBOutlet weak var friendsPopup: UIView!
     @IBOutlet weak var verticalFriendsPopupConstraint: NSLayoutConstraint!
-    @IBOutlet weak var popupBGButton: UIButton!
+    @IBOutlet weak var popupBackgroundButton: UIButton!
     
     //fake data
     var friendsAvailable : Array<Dictionary<String,String>> = placeholderFriends
@@ -119,19 +119,21 @@ class FriendsUIViewController: UIViewController, UITableViewDelegate, UITableVie
         verticalFriendsPopupConstraint.constant = 0
         UIView.animate(withDuration: 0.7, animations: {
             self.view.layoutIfNeeded()
+            self.popupBackgroundButton.alpha = 0.6
         })
     }
     
     @IBAction func addFriendButton(_ sender: Any) {
+        //Close popup
         verticalFriendsPopupConstraint.constant = -400
         UIView.animate(withDuration: 0.7, animations: {
             self.view.layoutIfNeeded()
+            self.popupBackgroundButton.alpha = 0
         })
-
     }
     
     @IBAction func createStatusButton(_ sender: Any) {
-        //Button add sender
+        //Remove popup
     }
     
     
@@ -289,8 +291,6 @@ class FriendsUIViewController: UIViewController, UITableViewDelegate, UITableVie
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let userAvailable = friendsAvailable[indexPath.row]
         let userUnavailable = friendsUnavailable[indexPath.row]
-        
-       
 
         //set cells for available
         if isAvailable == true {
