@@ -13,6 +13,7 @@
 		E41258A4209D15760013EB43 /* PresentMapFromFriends.swift in Sources */ = {isa = PBXBuildFile; fileRef = E41258A3209D15760013EB43 /* PresentMapFromFriends.swift */; };
 		E41EAFDB209A047A00400855 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E41EAFDA209A047A00400855 /* LoginViewController.swift */; };
 		E475F6CC209FB84000EF4210 /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E475F6CB209FB84000EF4210 /* GradientView.swift */; };
+		E475F6CE20A09A1800EF4210 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E475F6CD20A09A1800EF4210 /* MessageUI.framework */; };
 		E4E2445C209B97B200468D4E /* ScaleTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4E2445B209B97B200468D4E /* ScaleTransition.swift */; };
 		F18D196920937CD600C30A2F /* Users.swift in Sources */ = {isa = PBXBuildFile; fileRef = F18D196720937CD600C30A2F /* Users.swift */; };
 		F18D196A20937CD600C30A2F /* FakeData.swift in Sources */ = {isa = PBXBuildFile; fileRef = F18D196820937CD600C30A2F /* FakeData.swift */; };
@@ -23,7 +24,6 @@
 		F18D197620937D2300C30A2F /* CreateStatusController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F18D197020937D2300C30A2F /* CreateStatusController.swift */; };
 		F18D197720937D2300C30A2F /* FriendsUIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F18D197120937D2300C30A2F /* FriendsUIViewController.swift */; };
 		F18D197920937D8900C30A2F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F18D197820937D8800C30A2F /* GoogleService-Info.plist */; };
-		F18D198120937E9900C30A2F /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F1AA1C2B20883E9D009B909B /* Info.plist */; };
 		F18D198220937EA700C30A2F /* Nunito-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F18D197D20937E2400C30A2F /* Nunito-ExtraBold.ttf */; };
 		F18D198320937EA900C30A2F /* Nunito-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F18D197E20937E2400C30A2F /* Nunito-SemiBold.ttf */; };
 		F18D198420937EAC00C30A2F /* Nunito-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F18D197F20937E2400C30A2F /* Nunito-Bold.ttf */; };
@@ -75,6 +75,7 @@
 		E41258A3209D15760013EB43 /* PresentMapFromFriends.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentMapFromFriends.swift; sourceTree = "<group>"; };
 		E41EAFDA209A047A00400855 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		E475F6CB209FB84000EF4210 /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
+		E475F6CD20A09A1800EF4210 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		E4E2445B209B97B200468D4E /* ScaleTransition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScaleTransition.swift; sourceTree = "<group>"; };
 		F18D196720937CD600C30A2F /* Users.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Users.swift; sourceTree = "<group>"; };
 		F18D196820937CD600C30A2F /* FakeData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FakeData.swift; sourceTree = "<group>"; };
@@ -106,6 +107,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E475F6CE20A09A1800EF4210 /* MessageUI.framework in Frameworks */,
 				F18D198D209386C000C30A2F /* Pods_Hang.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -124,6 +126,7 @@
 		02DB98F6CA42BA763E555ACD /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				E475F6CD20A09A1800EF4210 /* MessageUI.framework */,
 				13A7CFBED44ED2B663A82A83 /* Pods_Hang.framework */,
 				E1F09119C98B61BFAE804F46 /* Pods_HangTests.framework */,
 				D24800295D4CA57586429064 /* Pods_HangUITests.framework */,
@@ -613,7 +616,7 @@
 				INFOPLIST_FILE = Hang/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				NEW_SETTING = "";
-				PRODUCT_BUNDLE_IDENTIFIER = hangapp.co;
+				PRODUCT_BUNDLE_IDENTIFIER = com.joekndy.hang;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -635,7 +638,7 @@
 				INFOPLIST_FILE = Hang/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				NEW_SETTING = "";
-				PRODUCT_BUNDLE_IDENTIFIER = hangapp.co;
+				PRODUCT_BUNDLE_IDENTIFIER = com.joekndy.hang;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

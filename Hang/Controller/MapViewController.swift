@@ -8,11 +8,13 @@
 
 import UIKit
 import Mapbox
+import MessageUI
 
-class MapViewController: UIViewController, MGLMapViewDelegate {
-  
+class MapViewController: UIViewController, MGLMapViewDelegate, MFMessageComposeViewControllerDelegate {
+
    
-    let scaleTransition = ScaleTransition()
+    let messageController = MFMessageComposeViewController()
+    var mapViewPresented = false
 
     @IBOutlet weak var leaveBtn: UIButton!
     @IBOutlet weak var chatButton: SelectionButton!
@@ -50,20 +52,32 @@ class MapViewController: UIViewController, MGLMapViewDelegate {
         
     }
     
-    @IBAction func chatTapped(_ sender: Any) {
-       
+    @IBAction func chatPressed(_ sender: Any) {
+        if MFMessageComposeViewController.canSendText() {
+            messageController.body = "Let's Hang"
+            messageController.recipients = ["11111111111"]
+            messageController.messageComposeDelegate = self
+            self.present(messageController, animated: true, completion: nil)
+            
+        }
+        else
+        {
+
+            print("cant send dat shit")
+        }
     }
-    
+ 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        self.performSegue(withIdentifier: "showFriends", sender: self)
+        if mapViewPresented {
+            
+        } else {
+            self.performSegue(withIdentifier: "showFriends", sender: self)
+            mapViewPresented = true
+        }
     
 //        print("test")
     }
-    
-   
-    
- 
     
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -94,8 +108,13 @@ class MapViewController: UIViewController, MGLMapViewDelegate {
         // Pass the selected object to the new view controller.
     }
     */
-
+    
+    func messageComposeViewController(_ controller: MFMessageComposeViewController, didFinishWith result: MessageComposeResult) {
+    messageController.dismiss(animated: true, completion: nil)
+    }
+    
 }
+
 
 extension MapViewController : FriendsUIViewControllerDelegate {
     func friendsDidDismiss() {

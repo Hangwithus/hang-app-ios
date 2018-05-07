@@ -49,7 +49,7 @@ protocol FriendsUIViewControllerDelegate {
 class FriendsUIViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UIPickerViewDelegate, UIPickerViewDataSource {
     
     var delegate : FriendsUIViewControllerDelegate?
-
+    
     
     @IBOutlet weak var settingsBtn: UIButton!
     @IBOutlet weak var addBtn: UIButton!
@@ -124,7 +124,8 @@ class FriendsUIViewController: UIViewController, UITableViewDelegate, UITableVie
         hangButtonContainerView.clipsToBounds = true
         tableView.transform = CGAffineTransform(scaleX: 2, y: 2)
         tableView.alpha = 0
-      
+        hangButtonContainerView.transform = CGAffineTransform(translationX: 0, y: 173)
+
     }
     
     override
