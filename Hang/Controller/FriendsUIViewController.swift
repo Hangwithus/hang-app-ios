@@ -163,6 +163,7 @@ class FriendsUIViewController: UIViewController, UITableViewDelegate, UITableVie
     
     @IBAction func addFriendButton(_ sender: Any) {
         //Close popup
+        print("you pressed that button dawg")
         friendsPopupYAxis.constant = 800
         UIView.animate(withDuration: 0.7, animations: {
             self.popupBackgroundButton.alpha = 0
