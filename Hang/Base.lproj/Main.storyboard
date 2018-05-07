@@ -359,38 +359,41 @@
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" restorationIdentifier="hangModal" translatesAutoresizingMaskIntoConstraints="NO" id="oL9-Ga-VAC">
-                                <rect key="frame" x="-358" y="210.66666666666663" width="291" height="391"/>
+                                <rect key="frame" x="-372" y="174.66666666666663" width="319" height="463"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="createStatus" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jks-tK-DN4">
-                                        <rect key="frame" x="98" y="198.00000000000003" width="95" height="24"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Create a custom status!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jks-tK-DN4">
+                                        <rect key="frame" x="68.999999999999986" y="228.00000000000003" width="180.66666666666663" height="24"/>
                                         <fontDescription key="fontDescription" name="Nunito-SemiBold" family="Nunito" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="hangCode" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lTH-jD-0RC">
-                                        <rect key="frame" x="85" y="44" width="122" height="36"/>
+                                        <rect key="frame" x="99" y="44" width="122" height="36"/>
                                         <fontDescription key="fontDescription" name="Nunito-Bold" family="Nunito" pointSize="26"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Custom status title" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="yPl-bd-3n7">
-                                        <rect key="frame" x="66" y="275" width="158" height="30"/>
+                                        <rect key="frame" x="66" y="315" width="186" height="40"/>
                                         <color key="backgroundColor" white="0.89673549109999995" alpha="1" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="40" id="web-28-NdC"/>
+                                        </constraints>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="hangIDHeader" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="f5f-fX-eq0">
-                                        <rect key="frame" x="89" y="10" width="113" height="24"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your Hang ID" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="f5f-fX-eq0">
+                                        <rect key="frame" x="108" y="10" width="103" height="24"/>
                                         <fontDescription key="fontDescription" name="Nunito-SemiBold" family="Nunito" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SeN-UL-QVU">
-                                        <rect key="frame" x="98" y="327" width="96" height="30"/>
+                                        <rect key="frame" x="98" y="377" width="124" height="52"/>
                                         <color key="backgroundColor" red="0.098039215690000001" green="0.86666666670000003" blue="0.19215686269999999" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="30" id="spI-PG-mVj"/>
+                                            <constraint firstAttribute="height" constant="52" id="spI-PG-mVj"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito" pointSize="17"/>
                                         <state key="normal" title="Create">
@@ -401,11 +404,11 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kbk-iB-HGc">
-                                        <rect key="frame" x="109" y="150.00000000000003" width="72" height="30"/>
+                                        <rect key="frame" x="109" y="160.00000000000003" width="100" height="50"/>
                                         <color key="backgroundColor" red="0.098039215690000001" green="0.86666666670000003" blue="0.19215686269999999" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="30" id="8Yg-5K-D9O"/>
-                                            <constraint firstAttribute="width" constant="72" id="ril-QL-jSU"/>
+                                            <constraint firstAttribute="height" constant="50" id="8Yg-5K-D9O"/>
+                                            <constraint firstAttribute="width" constant="100" id="ril-QL-jSU"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito" pointSize="17"/>
                                         <state key="normal" title="Add">
@@ -416,15 +419,21 @@
                                         </connections>
                                     </button>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Emoji" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="oHU-kE-dAg">
-                                        <rect key="frame" x="66" y="237.00000000000003" width="158" height="29.999999999999972"/>
+                                        <rect key="frame" x="66" y="267" width="186" height="40"/>
                                         <color key="backgroundColor" white="0.89673549109999995" alpha="1" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="40" id="aFC-v0-kl4"/>
+                                        </constraints>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter friend ID" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dN9-W3-Kwf">
-                                        <rect key="frame" x="88" y="100.00000000000003" width="114" height="30"/>
+                                        <rect key="frame" x="102" y="100.00000000000003" width="114" height="40"/>
                                         <color key="backgroundColor" white="0.89673549109999995" alpha="1" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="40" id="yMx-MA-WMA"/>
+                                        </constraints>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
@@ -443,17 +452,15 @@
                                     <constraint firstItem="f5f-fX-eq0" firstAttribute="top" secondItem="oL9-Ga-VAC" secondAttribute="top" constant="10" id="TFW-gU-vbv"/>
                                     <constraint firstItem="kbk-iB-HGc" firstAttribute="leading" secondItem="oL9-Ga-VAC" secondAttribute="leading" constant="109" id="Vzh-EU-5x3"/>
                                     <constraint firstItem="jks-tK-DN4" firstAttribute="centerX" secondItem="oL9-Ga-VAC" secondAttribute="centerX" id="WtN-2p-uBQ"/>
+                                    <constraint firstItem="f5f-fX-eq0" firstAttribute="centerX" secondItem="oL9-Ga-VAC" secondAttribute="centerX" id="YyO-Uf-3Qp"/>
                                     <constraint firstAttribute="trailing" secondItem="SeN-UL-QVU" secondAttribute="trailing" constant="97" id="dB8-8i-G7f"/>
                                     <constraint firstItem="dN9-W3-Kwf" firstAttribute="top" secondItem="lTH-jD-0RC" secondAttribute="bottom" constant="20" id="f7X-ND-ThZ"/>
                                     <constraint firstItem="jks-tK-DN4" firstAttribute="top" secondItem="kbk-iB-HGc" secondAttribute="bottom" constant="18" id="fh6-ws-WJR"/>
                                     <constraint firstAttribute="trailing" secondItem="oHU-kE-dAg" secondAttribute="trailing" constant="67" id="fqN-nV-BhO"/>
-                                    <constraint firstItem="f5f-fX-eq0" firstAttribute="leading" secondItem="oL9-Ga-VAC" secondAttribute="leading" constant="89" id="iSk-RS-Uo2"/>
                                     <constraint firstAttribute="trailing" secondItem="kbk-iB-HGc" secondAttribute="trailing" constant="110" id="lRR-Zo-ZJc"/>
-                                    <constraint firstItem="jks-tK-DN4" firstAttribute="leading" secondItem="oL9-Ga-VAC" secondAttribute="leading" constant="98" id="ntf-mN-1ZH"/>
                                     <constraint firstItem="yPl-bd-3n7" firstAttribute="top" secondItem="oHU-kE-dAg" secondAttribute="bottom" constant="8" id="oDX-y7-YLT"/>
                                     <constraint firstAttribute="trailing" secondItem="yPl-bd-3n7" secondAttribute="trailing" constant="67" id="t04-JN-reX"/>
                                     <constraint firstItem="oHU-kE-dAg" firstAttribute="top" secondItem="jks-tK-DN4" secondAttribute="bottom" constant="15" id="tfz-pj-fD5"/>
-                                    <constraint firstAttribute="trailing" secondItem="f5f-fX-eq0" secondAttribute="trailing" constant="89" id="wcj-vW-ISw"/>
                                     <constraint firstItem="SeN-UL-QVU" firstAttribute="top" secondItem="yPl-bd-3n7" secondAttribute="bottom" constant="22" id="zAo-mA-u5b"/>
                                 </constraints>
                             </view>
@@ -483,6 +490,11 @@
                         <viewLayoutGuide key="safeArea" id="MDO-h6-y5W"/>
                     </view>
                     <connections>
+                        <outlet property="addFriendBtn" destination="kbk-iB-HGc" id="B9B-3o-CoP"/>
+                        <outlet property="createStatusBtn" destination="SeN-UL-QVU" id="NAx-Qq-5jb"/>
+                        <outlet property="customStatusField" destination="yPl-bd-3n7" id="vZ3-C6-uaJ"/>
+                        <outlet property="emojiField" destination="oHU-kE-dAg" id="xSP-UK-Cq8"/>
+                        <outlet property="friendIDField" destination="dN9-W3-Kwf" id="Tun-RG-wH6"/>
                         <outlet property="friendsPopup" destination="oL9-Ga-VAC" id="0sw-m0-Dud"/>
                         <outlet property="hangButton" destination="1RG-Ze-kCg" id="bIk-fc-uph"/>
                         <outlet property="hangButtonContainerView" destination="Ekz-It-ePy" id="ouR-cj-yAA"/>

@@ -8,6 +8,20 @@
 
 import UIKit
 
+//Implements keyboard dismissal
+
+extension UIViewController {
+    func hideKeyboardWhenTappedAround() {
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(UIViewController.dismissKeyboard))
+        tap.cancelsTouchesInView = false
+        view.addGestureRecognizer(tap)
+    }
+    
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
+    }
+}
+
 //implements UILabel Kerning
 extension UILabel {
     
@@ -52,6 +66,15 @@ class FriendsUIViewController: UIViewController, UITableViewDelegate, UITableVie
     @IBOutlet weak var friendsPopup: UIView!
     @IBOutlet weak var verticalFriendsPopupConstraint: NSLayoutConstraint!
     @IBOutlet weak var popupBackgroundButton: UIButton!
+    @IBOutlet weak var addFriendBtn: UIButton!
+    @IBOutlet weak var createStatusBtn: UIButton!
+    @IBOutlet weak var customStatusField: UITextField!
+    @IBOutlet weak var emojiField: UITextField!
+    @IBOutlet weak var friendIDField: UITextField!
+    
+    
+    
+    
     
     //fake data
     var friendsAvailable : Array<Dictionary<String,String>> = placeholderFriends
@@ -59,7 +82,6 @@ class FriendsUIViewController: UIViewController, UITableViewDelegate, UITableVie
     //if a status is selected
     var isAvailable = false
     //the index path of the checked cell
-
     var selectedCells = Set<IndexPath>()
     
     //Fonts
@@ -77,6 +99,9 @@ class FriendsUIViewController: UIViewController, UITableViewDelegate, UITableVie
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        //Dismiss keyboard when tapping outside of input fields
+        self.hideKeyboardWhenTappedAround()
         
         //Table View
         tableView.reloadData()
@@ -111,6 +136,16 @@ class FriendsUIViewController: UIViewController, UITableViewDelegate, UITableVie
         //friends popup styling
         friendsPopup.layer.cornerRadius = 26
         friendsPopup.layer.masksToBounds = true
+        createStatusBtn.layer.cornerRadius = 26
+        createStatusBtn.layer.masksToBounds = true
+        addFriendBtn.layer.cornerRadius = 26
+        addFriendBtn.layer.masksToBounds = true
+        emojiField.layer.cornerRadius = 16
+        emojiField.layer.masksToBounds = true
+        friendIDField.layer.cornerRadius = 16
+        friendIDField.layer.masksToBounds = true
+        customStatusField.layer.cornerRadius = 16
+        customStatusField.layer.masksToBounds = true
     }
     
     @IBAction func showFriendsPopup(_ sender: Any) {
@@ -135,8 +170,6 @@ class FriendsUIViewController: UIViewController, UITableViewDelegate, UITableVie
     @IBAction func createStatusButton(_ sender: Any) {
         //Remove popup
     }
-    
-    
     
     override
     func viewDidLayoutSubviews() {
