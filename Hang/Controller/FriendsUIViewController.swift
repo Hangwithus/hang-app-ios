@@ -9,7 +9,7 @@
 import UIKit
 
 //extension UITableView {
-//    func reloadData(with animation: UITableViewRowAnimation) {
+//    func reloadData(with animation: UITableViewRowAnivarion) {
 //        reloadSections(IndexSet(integersIn: 0..<numberOfSections), with: animation)
 //    }
 //}
@@ -44,9 +44,21 @@ extension UILabel {
     }
 }
 
-class FriendsUIViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UIPickerViewDelegate, UIPickerViewDataSource {
-  
+
+protocol FriendsUIViewControllerDelegate {
+    func friendsDidDismiss()
     
+    
+}
+
+class FriendsUIViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UIPickerViewDelegate, UIPickerViewDataSource {
+    
+    var delegate : FriendsUIViewControllerDelegate?
+
+    
+    @IBOutlet weak var settingsBtn: UIButton!
+    @IBOutlet weak var addBtn: UIButton!
+    @IBOutlet weak var darkView: UIView!
     @IBOutlet weak var hangButton: UIButton!
     @IBOutlet weak var hangButtonContainerView: UIView!
     @IBOutlet weak var pickerContainerView: UIView!
@@ -77,14 +89,16 @@ class FriendsUIViewController: UIViewController, UITableViewDelegate, UITableVie
     let height:CGFloat = 300
     
     //view transition
-    let scaleTransition = ScaleTransition()
 
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
         //Table View
-        tableView.reloadData()
+//        tableView.reloadData()
+       UIView.transition(with: tableView, duration: 0.3, options: .transitionCrossDissolve, animations: {self.tableView.reloadData()}, completion: nil)
+
+
         tableView.delegate = self
         tableView.dataSource = self
         tableView.tableFooterView = UIView()
@@ -104,9 +118,12 @@ class FriendsUIViewController: UIViewController, UITableViewDelegate, UITableVie
         //tableview
         tableView.backgroundColor = UIColor.clear
         hangButtonContainerView.alpha = 0
-        hangButtonContainerView.transform = CGAffineTransform(translationX: 0, y: 200)
+        hangButtonContainerView.transform = CGAffineTransform(translationX: 0, y: 173)
         hangButton.layer.cornerRadius = 26
         hangButtonContainerView.clipsToBounds = true
+        tableView.transform = CGAffineTransform(scaleX: 2, y: 2)
+        tableView.alpha = 0
+      
     }
     
     override
@@ -114,6 +131,19 @@ class FriendsUIViewController: UIViewController, UITableViewDelegate, UITableVie
         super.viewDidLayoutSubviews()
         addGradient()
         
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+     
+        UIView.animate(withDuration: 1, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 7, options: .curveEaseInOut, animations: {
+            self.tableView.transform = CGAffineTransform(scaleX: 1, y: 1)
+            self.tableView.alpha = 1
+    
+        }) { (_) in
+            //animation is finished
+         
+        }
     }
     
     //picker code
@@ -156,10 +186,9 @@ class FriendsUIViewController: UIViewController, UITableViewDelegate, UITableVie
             isAvailable = true
             statusRing.isHighlighted = true
         }
-//        let range = NSMakeRange(0, self.tableView.numberOfSections)
-//        let sections = NSIndexSet(indexesIn: range)
-//        self.tableView.reloadSections(sections as IndexSet, with: .automatic)
-        tableView.reloadData()
+
+        UIView.transition(with: tableView, duration: 0.3, options: .transitionCrossDissolve, animations: {self.tableView.reloadData()}, completion: nil)
+
     }
     
     //Create Custom UI View for picker
@@ -330,7 +359,7 @@ class FriendsUIViewController: UIViewController, UITableViewDelegate, UITableVie
                             self.pickerContainerView.alpha = 1
                             self.hangButtonContainerView.alpha = 0
                             self.pickerContainerView.transform = CGAffineTransform(translationX: 0, y: 0)
-                            self.hangButtonContainerView.transform = CGAffineTransform(translationX: 0, y: 200)
+                            self.hangButtonContainerView.transform = CGAffineTransform(translationX: 0, y: 173)
 
                         }
                         
@@ -387,12 +416,42 @@ class FriendsUIViewController: UIViewController, UITableViewDelegate, UITableVie
         
     }
     
+    
+   
+    
     @IBAction func hangPressed(sender: UIButton) {
-        print("hang")
-//         performSegue(withIdentifier: "unwindSegueToVC1", sender: self)
-        navigationController?.popViewController(animated: true)
-        dismiss(animated: true, completion: nil)
+        UIView.animate(withDuration: 0.5, delay: 0.3, usingSpringWithDamping: 0.7, initialSpringVelocity: 7, options: .curveEaseInOut, animations: {
+            self.hangButtonContainerView.alpha = 0
+            self.hangButtonContainerView.transform = CGAffineTransform(translationX: 0, y: 173)
+//            self.maskView.transform = CGAffineTransform(scaleX: 2, y: 2)
+            self.tableView.transform = CGAffineTransform(scaleX: 2, y: 2)
+            self.tableView.alpha = 0
+            self.darkView.alpha = 0
+            self.addBtn.alpha = 0
+            self.settingsBtn.alpha = 0
+            
+        }) { (_) in
+            //animation is finished
+            self.dismiss(animated: true, completion: nil)
+            self.delegate?.friendsDidDismiss()
+            
+        }
       
+    }
+    
+    override func viewWillDisappear(_ animated: Bool)
+    {
+        super.viewWillDisappear(animated)
+        if self.isMovingFromParentViewController
+        {
+            print("test")
+            //View Controller Popped
+        }
+        else
+        {
+            print("test2")
+            //New view controller pushed
+        }
     }
     
 //    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -411,7 +470,7 @@ class FriendsUIViewController: UIViewController, UITableViewDelegate, UITableVie
         gradient.frame = maskView.bounds
         gradient.colors = [UIColor.clear.cgColor, UIColor.clear.cgColor, UIColor.black.cgColor, UIColor.black.cgColor, UIColor.clear.cgColor, UIColor.clear.cgColor
         ]
-        gradient.locations = [0.0, 0.0, 0.08, 0.8, 1.0, 1.0]
+        gradient.locations = [0.0, 0.0, 0.07, 0.8, 1.0, 1.0]
         maskView.layer.mask = gradient
         
     }

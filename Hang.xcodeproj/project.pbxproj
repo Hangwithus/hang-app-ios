@@ -11,6 +11,7 @@
 		E4000BA52097685200C958CB /* SelectionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4000BA42097685100C958CB /* SelectionButton.swift */; };
 		E41258A4209D15760013EB43 /* PresentMapFromFriends.swift in Sources */ = {isa = PBXBuildFile; fileRef = E41258A3209D15760013EB43 /* PresentMapFromFriends.swift */; };
 		E41EAFDB209A047A00400855 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E41EAFDA209A047A00400855 /* LoginViewController.swift */; };
+		E475F6CC209FB84000EF4210 /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E475F6CB209FB84000EF4210 /* GradientView.swift */; };
 		E4E2445C209B97B200468D4E /* ScaleTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4E2445B209B97B200468D4E /* ScaleTransition.swift */; };
 		F18D196920937CD600C30A2F /* Users.swift in Sources */ = {isa = PBXBuildFile; fileRef = F18D196720937CD600C30A2F /* Users.swift */; };
 		F18D196A20937CD600C30A2F /* FakeData.swift in Sources */ = {isa = PBXBuildFile; fileRef = F18D196820937CD600C30A2F /* FakeData.swift */; };
@@ -71,6 +72,7 @@
 		E4000BA42097685100C958CB /* SelectionButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectionButton.swift; sourceTree = "<group>"; };
 		E41258A3209D15760013EB43 /* PresentMapFromFriends.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentMapFromFriends.swift; sourceTree = "<group>"; };
 		E41EAFDA209A047A00400855 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		E475F6CB209FB84000EF4210 /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
 		E4E2445B209B97B200468D4E /* ScaleTransition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScaleTransition.swift; sourceTree = "<group>"; };
 		F18D196720937CD600C30A2F /* Users.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Users.swift; sourceTree = "<group>"; };
 		F18D196820937CD600C30A2F /* FakeData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FakeData.swift; sourceTree = "<group>"; };
@@ -148,6 +150,7 @@
 				F18D196720937CD600C30A2F /* Users.swift */,
 				E4E2445B209B97B200468D4E /* ScaleTransition.swift */,
 				E41258A3209D15760013EB43 /* PresentMapFromFriends.swift */,
+				E475F6CB209FB84000EF4210 /* GradientView.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -430,6 +433,7 @@
 				E4E2445C209B97B200468D4E /* ScaleTransition.swift in Sources */,
 				F18D197720937D2300C30A2F /* FriendsUIViewController.swift in Sources */,
 				F18D197320937D2300C30A2F /* HeaderTableViewCell.swift in Sources */,
+				E475F6CC209FB84000EF4210 /* GradientView.swift in Sources */,
 				F18D197420937D2300C30A2F /* FriendsUnavailableTableViewCell.swift in Sources */,
 				F18D197620937D2300C30A2F /* CreateStatusController.swift in Sources */,
 				F18D196920937CD600C30A2F /* Users.swift in Sources */,
