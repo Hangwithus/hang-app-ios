@@ -47,6 +47,7 @@ protocol FriendsUIViewControllerDelegate {
 }
 
 class FriendsUIViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UIPickerViewDelegate, UIPickerViewDataSource {
+    
     var delegate : FriendsUIViewControllerDelegate?
 
     
@@ -85,7 +86,8 @@ class FriendsUIViewController: UIViewController, UITableViewDelegate, UITableVie
     let width:CGFloat = 300
     let height:CGFloat = 300
     
-    let scaleTransition = ScaleTransition()
+    //view transition
+
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -436,6 +438,9 @@ class FriendsUIViewController: UIViewController, UITableViewDelegate, UITableVie
         
     }
     
+    
+   
+    
     @IBAction func hangPressed(sender: UIButton) {
         UIView.animate(withDuration: 0.5, delay: 0.3, usingSpringWithDamping: 0.7, initialSpringVelocity: 7, options: .curveEaseInOut, animations: {
             self.hangButtonContainerView.alpha = 0
@@ -470,15 +475,6 @@ class FriendsUIViewController: UIViewController, UITableViewDelegate, UITableVie
             //New view controller pushed
         }
     }
-    
-//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//        let destination = segue.destination
-//        destination.transitioningDelegate = scaleTransition
-//    }
-    
-//    @IBAction func dismissVC(_ sender: Any) {
-//        dismiss(animated: true, completion: nil)
-//    }
 
     //gradient alpha mask
     func addGradient() {
