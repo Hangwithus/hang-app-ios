@@ -7,6 +7,9 @@
 //
 
 import UIKit
+import Firebase
+import FirebaseDatabase
+import FirebaseAuth
 
 //implements UILabel Kerning
 extension UILabel {
@@ -121,6 +124,48 @@ class FriendsUIViewController: UIViewController, UITableViewDelegate, UITableVie
     }
     
     //picker code
+    override func viewWillAppear(_ animated: Bool) {
+        
+        checkIfUserIsLogeedIn()
+    }
+    
+    func checkIfUserIsLogeedIn() {
+        if Auth.auth().currentUser?.uid == nil {
+            perform(#selector(handleLogout), with: nil, afterDelay: 0)
+        } else {
+            let uid = Auth.auth().currentUser?.uid
+            Database.database().reference().child("users").child(uid!).observeSingleEvent(of: .value, with: { (snapshot) in
+                
+                if let dictionary = snapshot.value as? [String: AnyObject]  {
+                    
+                    self.navigationItem.title = dictionary["name"] as? String
+                    
+                }
+                
+            }, withCancel: nil)
+        }
+        
+    }
+    
+    @objc func handleLogout() {
+        
+        do {
+            try Auth.auth().signOut()
+        } catch let logoutError {
+            print(logoutError)
+        }
+        
+        //presents login view
+        let loginController = LoginController()
+        present(loginController, animated: true, completion: nil)
+        
+        perform(#selector(removeNavigationText), with: nil, afterDelay: 1)
+        
+    }
+    
+    @objc func removeNavigationText() {
+        self.navigationItem.title = " "
+    }
     
     func numberOfComponents(in statusPicker: UIPickerView) -> Int {
         
