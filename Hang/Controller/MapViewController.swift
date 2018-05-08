@@ -61,11 +61,6 @@ class MapViewController: UIViewController, MGLMapViewDelegate {
 //        print("test")
     }
     
-   
-    
- 
-    
-    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         super.prepare(for: segue, sender: sender)
         segue.destination.modalPresentationStyle = .overCurrentContext

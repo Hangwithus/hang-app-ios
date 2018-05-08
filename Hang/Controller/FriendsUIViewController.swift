@@ -47,7 +47,6 @@ protocol FriendsUIViewControllerDelegate {
 }
 
 class FriendsUIViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UIPickerViewDelegate, UIPickerViewDataSource {
-    
     var delegate : FriendsUIViewControllerDelegate?
 
     
@@ -86,8 +85,7 @@ class FriendsUIViewController: UIViewController, UITableViewDelegate, UITableVie
     let width:CGFloat = 300
     let height:CGFloat = 300
     
-    //view transition
-
+    let scaleTransition = ScaleTransition()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -437,9 +435,6 @@ class FriendsUIViewController: UIViewController, UITableViewDelegate, UITableVie
             }
         
     }
-    
-    
-   
     
     @IBAction func hangPressed(sender: UIButton) {
         UIView.animate(withDuration: 0.5, delay: 0.3, usingSpringWithDamping: 0.7, initialSpringVelocity: 7, options: .curveEaseInOut, animations: {
