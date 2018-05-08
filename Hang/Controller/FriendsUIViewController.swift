@@ -96,9 +96,8 @@ class FriendsUIViewController: UIViewController, UITableViewDelegate, UITableVie
     //if a status is selected
     var isAvailable = false
     //the index path of the checked cell
-    var users = [Users]()
-
     var selectedCells = Set<IndexPath>()
+    
     
     //Fonts
     let semiBoldLabel = UIFont(name: "Nunito-SemiBold", size: UIFont.labelFontSize)
@@ -113,8 +112,9 @@ class FriendsUIViewController: UIViewController, UITableViewDelegate, UITableVie
     let width:CGFloat = 300
     let height:CGFloat = 300
     
-    //view transition
-
+    //boolean to determine whether to assign timer picker or status picker the delegates
+    var showTimerPicker = false
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -133,13 +133,15 @@ class FriendsUIViewController: UIViewController, UITableViewDelegate, UITableVie
         self.tableView.tableHeaderView = UIView(frame: CGRect(x: 0, y: 0, width: self.tableView.bounds.size.width, height: dummyViewHeight))
         self.tableView.contentInset = UIEdgeInsetsMake(-dummyViewHeight, 0, 0, 0)
         
-        //Status Picker
-        statusPicker.delegate  = self
-        statusPicker.dataSource = self
-        
-        //Time Picker
-        timePicker.delegate  = self
-        timePicker.dataSource = self
+        if showTimerPicker == false {
+            //Status Picker
+            statusPicker.delegate  = self
+            statusPicker.dataSource = self
+        } else {
+            //Time Picker
+            timePicker.delegate  = self
+            timePicker.dataSource = self
+        }
         
         //Status picker rotation
         rotationAngle = -90 * (.pi/180)
@@ -249,7 +251,12 @@ class FriendsUIViewController: UIViewController, UITableViewDelegate, UITableVie
         UIView.animate(withDuration: 0.5, delay: 0.3, usingSpringWithDamping: 0.7, initialSpringVelocity: 7, options: .curveEaseInOut, animations: {
             self.view.layoutIfNeeded()
         })
-        createStatusBtn.addTarget(self, action: #selector(addStatus), for: .touchUpInside)
+        addStatus()
+        print("Pressed create status")
+        if statusAdded == true {
+            statusPicker.reloadAllComponents()
+            print("reloaded components")
+        }
     }
     
     @objc func addStatus (){
@@ -261,7 +268,7 @@ class FriendsUIViewController: UIViewController, UITableViewDelegate, UITableVie
         print([statusInput])
     }
     
-    //picker code
+    //Status picker code
     
     
     func numberOfComponents(in statusPicker: UIPickerView) -> Int {
@@ -306,10 +313,6 @@ class FriendsUIViewController: UIViewController, UITableViewDelegate, UITableVie
             statusRing.isHighlighted = true
             
         }
-        
-        if statusAdded == true {
-            statusPicker.reloadAllComponents()
-        }
 
         UIView.transition(with: tableView, duration: 0.3, options: .transitionCrossDissolve, animations: {self.tableView.reloadData()}, completion: nil)
 
@@ -317,41 +320,41 @@ class FriendsUIViewController: UIViewController, UITableViewDelegate, UITableVie
     
     //Create Custom UI View for picker
     func pickerView(_ statusPicker: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
-        let view = UIView()
-        view.frame = CGRect(x: 0, y: 0, width: width, height: height)
-        
-        let availabilityEmoji = UILabel()
-        
-        availabilityEmoji.frame = CGRect(x: 0, y: 0, width: width, height: 250)
-        availabilityEmoji.textAlignment = .center
-        
-        if #available(iOS 11.0, *) {
-            availabilityEmoji.font = UIFontMetrics.default.scaledFont(for: largeLabel!)
-        } else {
-            // Fallback on earlier versions
-        }
-        availabilityEmoji.text = status[row]
-        
-        let availabilityTitle = UILabel()
-        availabilityTitle.textColor = UIColor.white
-        availabilityTitle.frame = CGRect(x:0, y:20, width: width, height:height)
-        availabilityTitle.textAlignment = .center
-        //availabilityTitle.translatesAutoresizingMaskIntoConstraints = false
-        //availabilityTitle.bottomAnchor.constraint(equalTo: UIView.topAnchor).isActive = true
-        if #available(iOS 11.0, *) {
-            availabilityTitle.font = UIFontMetrics.default.scaledFont(for: boldLabel!)
-        } else {
-            // Fallback on earlier versions
-        }
-        availabilityTitle.text = statusText[row]
-        
-        view.addSubview(availabilityTitle)
-        view.addSubview(availabilityEmoji)
-        
-        //View rotation
-        view.transform = CGAffineTransform(rotationAngle: 90 * (.pi/180))
-        
-        return view
+            let view = UIView()
+            view.frame = CGRect(x: 0, y: 0, width: width, height: height)
+            
+            let availabilityEmoji = UILabel()
+            
+            availabilityEmoji.frame = CGRect(x: 0, y: 0, width: width, height: 250)
+            availabilityEmoji.textAlignment = .center
+            
+            if #available(iOS 11.0, *) {
+                availabilityEmoji.font = UIFontMetrics.default.scaledFont(for: largeLabel!)
+            } else {
+                // Fallback on earlier versions
+            }
+            availabilityEmoji.text = status[row]
+            
+            let availabilityTitle = UILabel()
+            availabilityTitle.textColor = UIColor.white
+            availabilityTitle.frame = CGRect(x:0, y:20, width: width, height:height)
+            availabilityTitle.textAlignment = .center
+            //availabilityTitle.translatesAutoresizingMaskIntoConstraints = false
+            //availabilityTitle.bottomAnchor.constraint(equalTo: UIView.topAnchor).isActive = true
+            if #available(iOS 11.0, *) {
+                availabilityTitle.font = UIFontMetrics.default.scaledFont(for: boldLabel!)
+            } else {
+                // Fallback on earlier versions
+            }
+            availabilityTitle.text = statusText[row]
+            
+            view.addSubview(availabilityTitle)
+            view.addSubview(availabilityEmoji)
+            
+            //View rotation
+            view.transform = CGAffineTransform(rotationAngle: 90 * (.pi/180))
+            
+            return view
     }
     
    //Table view code
@@ -519,7 +522,6 @@ class FriendsUIViewController: UIViewController, UITableViewDelegate, UITableVie
             }
         }
     }
-    
     
     //rounded cell corners
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath)
