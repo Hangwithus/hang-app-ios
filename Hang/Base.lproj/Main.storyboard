@@ -397,10 +397,6 @@
                                         <rect key="frame" x="0.0" y="-31" width="320" height="216"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </pickerView>
-                                    <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fdZ-Yw-imW" userLabel="Time Picker">
-                                        <rect key="frame" x="-0.5" y="584.5" width="320" height="216"/>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                    </pickerView>
                                     <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" image="statusSelector_2x" highlightedImage="statusSelected_2x" adjustsImageSizeForAccessibilityContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="DJB-LA-iSo">
                                         <rect key="frame" x="122.5" y="10" width="75" height="75"/>
                                         <constraints>
@@ -421,8 +417,6 @@
                                 <constraints>
                                     <constraint firstItem="gYe-if-mYp" firstAttribute="centerX" secondItem="UwH-3p-yhD" secondAttribute="centerX" id="37u-Fm-11q"/>
                                     <constraint firstAttribute="height" constant="185" id="Ghh-eQ-7CY"/>
-                                    <constraint firstItem="fdZ-Yw-imW" firstAttribute="centerY" secondItem="UwH-3p-yhD" secondAttribute="centerY" constant="600" id="Uz4-u8-NH8"/>
-                                    <constraint firstItem="fdZ-Yw-imW" firstAttribute="centerX" secondItem="UwH-3p-yhD" secondAttribute="centerX" id="VcK-dI-qqr"/>
                                     <constraint firstItem="Fv2-dJ-peR" firstAttribute="bottom" secondItem="IDD-Ba-DaG" secondAttribute="bottom" id="Y9B-lY-8Kq"/>
                                     <constraint firstItem="DJB-LA-iSo" firstAttribute="centerX" secondItem="UwH-3p-yhD" secondAttribute="centerX" id="h6C-aB-Osj"/>
                                     <constraint firstAttribute="bottom" secondItem="DJB-LA-iSo" secondAttribute="bottom" constant="100" id="hW1-iu-jn3"/>
@@ -599,8 +593,6 @@
                         <outlet property="statusRing" destination="DJB-LA-iSo" id="0KZ-N0-LGp"/>
                         <outlet property="tableView" destination="BYT-RO-t0e" id="2LZ-3P-0x2"/>
                         <outlet property="timeIcon" destination="gYe-if-mYp" id="h1Y-fd-H5O"/>
-                        <outlet property="timePicker" destination="fdZ-Yw-imW" id="46S-jV-k5L"/>
-                        <outlet property="timePickerYAxis" destination="Uz4-u8-NH8" id="x8f-uO-fln"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ImK-o6-Ixq" userLabel="First Responder" sceneMemberID="firstResponder"/>

@@ -75,8 +75,6 @@ class FriendsUIViewController: UIViewController, UITableViewDelegate, UITableVie
     @IBOutlet weak var statusPicker: UIPickerView!
     @IBOutlet weak var statusRing: UIImageView!
     //Time picker
-    @IBOutlet weak var timePicker: UIPickerView!
-    @IBOutlet weak var timePickerYAxis: NSLayoutConstraint!
     @IBOutlet weak var timeIcon: UIButton!
     //Friends modal
     @IBOutlet weak var friendsPopup: UIView!
@@ -139,8 +137,8 @@ class FriendsUIViewController: UIViewController, UITableViewDelegate, UITableVie
             statusPicker.dataSource = self
         } else {
             //Time Picker
-            timePicker.delegate  = self
-            timePicker.dataSource = self
+            //timePicker.delegate  = self
+            //timePicker.dataSource = self
         }
         
         //Status picker rotation
