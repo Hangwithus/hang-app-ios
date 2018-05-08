@@ -110,6 +110,9 @@ class FriendsUIViewController: UIViewController, UITableViewDelegate, UITableVie
     let height:CGFloat = 300
     var canAddFriend = true
     
+    var userStatus = "Status Not Found"
+    var userEmoji = "❓"
+    var currentGuy = ""
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -159,7 +162,9 @@ class FriendsUIViewController: UIViewController, UITableViewDelegate, UITableVie
         friendIDField.layer.masksToBounds = true
         customStatusField.layer.cornerRadius = 16
         customStatusField.layer.masksToBounds = true
-        
+        currentGuy = Auth.auth().currentUser?.uid ?? "uid not found"
+        print("printing currentGuy: "+currentGuy)
+        //currentGuy = String(currentGuy)
         fetchUser()
     }
     
@@ -368,20 +373,33 @@ class FriendsUIViewController: UIViewController, UITableViewDelegate, UITableVie
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         
         //Check whether user is unavailable or available
-      
+        var values = ["available":"", "status":"", "emoji":""]
         if row == 0 {
             //Show the selector ring image if unavailable
             statusRing.isHighlighted = false
             //sets availability to false and removes checks from marked cells
             isAvailable = false
-
+            values = ["available":"false", "status":"unavailable"]
             selectedCells.removeAll()
         } else {
+            values = ["available":"true", "status":statusText[row], "emoji":status[row]]
             //Show the selector ring image if unavailable
             isAvailable = true
             statusRing.isHighlighted = true
         }
-
+        let usersReference = Database.database().reference().child("users").child(currentGuy)
+        usersReference.updateChildValues(values, withCompletionBlock: { (err, ref) in
+            
+            if err != nil {
+                print(err!)
+                return
+            }
+            
+            //self.dismiss(animated: true, completion: nil)
+            
+            print("updated the status")
+            
+        })
         tableView.reloadData()
     }
     
@@ -485,17 +503,28 @@ class FriendsUIViewController: UIViewController, UITableViewDelegate, UITableVie
     
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        fetchUser()
-        let userAvailable = friendsAvailable[indexPath.row]
-        let userUnavailable = friendsUnavailable[indexPath.row]
+        //fetchUser()
+        //let userAvailable = friendsAvailable[indexPath.row]
+        //let userUnavailable = friendsUnavailable[indexPath.row]
         
         //set cells for available
         if isAvailable == true {
             if indexPath.section == 0 {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "friendCell") as! FriendsTableViewCell
+                /*let currentGuy = Auth.auth().currentUser?.uid ?? "something went wrong"
+                let rootRef = Database.database().reference()
+                let query = rootRef.child("users").child(currentGuy)
+                query.observe(.value){ (snapshot) in
+                    if let value = snapshot.value as? NSDictionary{
+                        cell.info.text = value["status"] as? String ?? "Status not found"
+                        cell.emoji.text = value["emoji"] as? String ?? "❓"
+                    }
+                }*/
+                cell.info.text = userStatus
+                cell.emoji.text = userEmoji
                 cell.name.text = "You"
-                cell.info.text = "meow"
-                cell.emoji.text = "🍗"
+                //cell.info.text = "meow"
+                //cell.emoji.text = "🍗"
                 return cell
             } else if indexPath.section == 1 {
                 /*let cell = tableView.dequeueReusableCell(withIdentifier: "friendCell") as! FriendsTableViewCell
@@ -688,10 +717,11 @@ class FriendsUIViewController: UIViewController, UITableViewDelegate, UITableVie
                 if let value = child.value as? NSDictionary {
                     let user = Users()
                     //let key = child.key
+                    let key = child.key
                     let availability = value["available"] as? String ?? "availability"
-                    print("this is the availability")
-                    print(value["available"])
-                    print(availability)
+                    //print("this is the availability")
+                   // print(value["available"])
+                   // print(availability)
                     let name = value["name"] as? String ?? "Name not found"
                     //let email = value["email"] as? String ?? "Email not found"
                     let status = value["status"] as? String ?? "Status not found"
@@ -719,19 +749,31 @@ class FriendsUIViewController: UIViewController, UITableViewDelegate, UITableVie
                      self.unavailableUsers.append(user)
                      }*/
                     //^^^^ Add this back in after I know that the user authentication is working
-                    if(user.availability == "true"){
-                        self.availableUsers.append(user)
-                        //print("got available user")
-                    }else{
-                        self.unavailableUsers.append(user)
-                        //print("got unaviable user")
-                    }
-                    //print("availableUsers --")
-                    //print(self.availableUsers)
-                    // print("unavailableUsers --")
-                    DispatchQueue.main.async { self.tableView.reloadData() }
                     
-                    //print(self.unavailableUsers)
+                    if(key == self.currentGuy){
+                        //print(userStatus)
+                        //print(userEmoji)
+                        self.userStatus = status
+                        self.userEmoji = emoji
+                        //print(userStatus)
+                        //print(self.userStatus)
+                        //print(userEmoji)
+                       // print(self.userEmoji)
+                    }else{
+                        if(user.availability == "true"){
+                            self.availableUsers.append(user)
+                            //print("got available user")
+                        }else{
+                            self.unavailableUsers.append(user)
+                            //print("got unaviable user")
+                        }
+                        //print("availableUsers --")
+                        //print(self.availableUsers)
+                        // print("unavailableUsers --")
+                        DispatchQueue.main.async { self.tableView.reloadData() }
+                        
+                        //print(self.unavailableUsers)
+                    }
                 }
             }
         }
