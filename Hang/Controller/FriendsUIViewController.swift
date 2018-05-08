@@ -395,7 +395,7 @@ class FriendsUIViewController: UIViewController, UITableViewDelegate, UITableVie
                 return
             }
             
-            //self.dismiss(animated: true, completion: nil)
+            self.dismiss(animated: true, completion: nil)
             
             print("updated the status")
             
