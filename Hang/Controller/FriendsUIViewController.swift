@@ -59,6 +59,16 @@ class FriendsUIViewController: UIViewController, UITableViewDelegate, UITableVie
     @IBOutlet weak var pickerContainerView: UIView!
     @IBOutlet weak var maskView: UIView!
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var statusPicker: UIPickerView!
+    @IBOutlet weak var statusRing: UIImageView!
+    
+    //Friends modal
+    @IBOutlet weak var friendsPopup: UIView!
+    @IBOutlet weak var friendIDField: UITextField!
+    @IBOutlet weak var emojiField: UITextField!
+    @IBOutlet weak var customStatusField: UITextField!
+    @IBOutlet weak var friendsPopupVerticalAxis: NSLayoutConstraint!
+    
 
     //fake data
     var friendsAvailable : Array<Dictionary<String,String>> = placeholderFriends
@@ -68,10 +78,6 @@ class FriendsUIViewController: UIViewController, UITableViewDelegate, UITableVie
     //the index path of the checked cell
 
     var selectedCells = Set<IndexPath>()
-    
-    @IBOutlet weak var statusPicker: UIPickerView!
-    
-    @IBOutlet weak var statusRing: UIImageView!
     
     //Fonts
     let semiBoldLabel = UIFont(name: "Nunito-SemiBold", size: UIFont.labelFontSize)
@@ -148,6 +154,9 @@ class FriendsUIViewController: UIViewController, UITableViewDelegate, UITableVie
          
         }
     }
+    
+    //Friends popup
+    
     
     //picker code
     
