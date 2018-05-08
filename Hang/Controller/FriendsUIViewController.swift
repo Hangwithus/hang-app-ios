@@ -39,6 +39,19 @@ extension UILabel {
     }
 }
 
+extension UIViewController {
+    func hideKeyboardWhenTappedAround() {
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(UIViewController.dismissKeyboard))
+        tap.cancelsTouchesInView = false
+        view.addGestureRecognizer(tap)
+    }
+    
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
+    }
+}
+
+
 
 protocol FriendsUIViewControllerDelegate {
     func friendsDidDismiss()
@@ -61,7 +74,10 @@ class FriendsUIViewController: UIViewController, UITableViewDelegate, UITableVie
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var statusPicker: UIPickerView!
     @IBOutlet weak var statusRing: UIImageView!
-    
+    //Time picker
+    @IBOutlet weak var timePicker: UIPickerView!
+    @IBOutlet weak var timePickerYAxis: NSLayoutConstraint!
+    @IBOutlet weak var timeIcon: UIButton!
     //Friends modal
     @IBOutlet weak var friendsPopup: UIView!
     @IBOutlet weak var friendIDField: UITextField!
@@ -70,6 +86,7 @@ class FriendsUIViewController: UIViewController, UITableViewDelegate, UITableVie
     @IBOutlet weak var addFriendBtn: UIButton!
     @IBOutlet weak var createStatusBtn: UIButton!
     @IBOutlet weak var friendsPopupYAxis: NSLayoutConstraint!
+    @IBOutlet weak var popupBackgroundButton: UIButton!
     
     
 
@@ -79,6 +96,7 @@ class FriendsUIViewController: UIViewController, UITableViewDelegate, UITableVie
     //if a status is selected
     var isAvailable = false
     //the index path of the checked cell
+    var users = [Users]()
 
     var selectedCells = Set<IndexPath>()
     
@@ -119,6 +137,10 @@ class FriendsUIViewController: UIViewController, UITableViewDelegate, UITableVie
         statusPicker.delegate  = self
         statusPicker.dataSource = self
         
+        //Time Picker
+        timePicker.delegate  = self
+        timePicker.dataSource = self
+        
         //Status picker rotation
         rotationAngle = -90 * (.pi/180)
         statusPicker.transform = CGAffineTransform(rotationAngle: rotationAngle)
@@ -148,7 +170,9 @@ class FriendsUIViewController: UIViewController, UITableViewDelegate, UITableVie
         friendIDField.layer.masksToBounds = true
         customStatusField.layer.cornerRadius = 16
         customStatusField.layer.masksToBounds = true
-   
+        
+        //Keyboard dismissal
+        self.hideKeyboardWhenTappedAround()
     }
     
     override
@@ -174,42 +198,71 @@ class FriendsUIViewController: UIViewController, UITableViewDelegate, UITableVie
     
     //Friends popup
 
-@IBAction func showFriendsPopup(_ sender: Any) {
-    
-    //Open popupg
-    friendsPopupYAxis.constant = 0
-    UIView.animate(withDuration: 0.7, animations: {
-        self.popupBackgroundButton.alpha = 0.6
-    })
-    UIView.animate(withDuration: 0.5, delay: 0.3, usingSpringWithDamping: 0.7, initialSpringVelocity: 7, options: .curveEaseInOut, animations: {
-        self.view.layoutIfNeeded()
-    })
-}
 
-@IBAction func addFriendButton(_ sender: Any) {
-    //Close popup
-    friendsPopupYAxis.constant = 800
-    UIView.animate(withDuration: 0.7, animations: {
-        self.popupBackgroundButton.alpha = 0
-    })
-    UIView.animate(withDuration: 0.5, delay: 0.3, usingSpringWithDamping: 0.7, initialSpringVelocity: 7, options: .curveEaseInOut, animations: {
-        self.view.layoutIfNeeded()
-    })
-}
-
-@IBAction func createStatusButton(_ sender: Any) {
-    //Remove popup
-    //pushes hang button below the view on load
-    hangButtonContainerView.alpha = 0
+    @IBAction func showFriendsPopup(_ sender: Any) {
+        //Open popupg
+        friendsPopupYAxis.constant = 0
+        UIView.animate(withDuration: 0.7, animations: {
+            self.popupBackgroundButton.alpha = 0.9
+        })
+        UIView.animate(withDuration: 0.7, delay: 0.3, usingSpringWithDamping: 0.7, initialSpringVelocity: 7, options: .curveEaseInOut, animations: {
+            self.view.layoutIfNeeded()
+        })
+        print(popupBackgroundButton.alpha)
+    }
     
-    hangButton.layer.cornerRadius = 26
-    hangButtonContainerView.clipsToBounds = true
-    tableView.transform = CGAffineTransform(scaleX: 2, y: 2)
-    tableView.alpha = 0
+    @IBAction func popupBGTouched(_ sender: Any) {
+        //Close popup
+        friendsPopupYAxis.constant = 800
+        UIView.animate(withDuration: 0.7, animations: {
+            self.popupBackgroundButton.alpha = 0
+        })
+        UIView.animate(withDuration: 0.5, delay: 0.3, usingSpringWithDamping: 0.7, initialSpringVelocity: 7, options: .curveEaseInOut, animations: {
+            self.view.layoutIfNeeded()
+        })
+        print("touched")
+        emojiField.text = ""
+        customStatusField.text = ""
+        friendIDField.text = ""
+    }
     
-}
+    @IBAction func addFriendButton(_ sender: Any) {
+        //Close popup
+        friendsPopupYAxis.constant = 800
+        UIView.animate(withDuration: 0.7, animations: {
+            self.popupBackgroundButton.alpha = 0
+        })
+        UIView.animate(withDuration: 0.5, delay: 0.3, usingSpringWithDamping: 0.7, initialSpringVelocity: 7, options: .curveEaseInOut, animations: {
+            self.view.layoutIfNeeded()
+        })
+        emojiField.text = ""
+        customStatusField.text = ""
+        friendIDField.text = ""
+    }
+    
+    @IBAction func createStatusButton(_ sender: Any) {
+        //Close popup
+        friendsPopupYAxis.constant = 800
+        UIView.animate(withDuration: 0.7, animations: {
+            self.popupBackgroundButton.alpha = 0
+        })
+        UIView.animate(withDuration: 0.5, delay: 0.3, usingSpringWithDamping: 0.7, initialSpringVelocity: 7, options: .curveEaseInOut, animations: {
+            self.view.layoutIfNeeded()
+        })
+        createStatusBtn.addTarget(self, action: #selector(addStatus), for: .touchUpInside)
+    }
+    
+    @objc func addStatus (){
+        let emojiInput = emojiField.text
+        let statusInput = customStatusField.text
+        status.append(emojiInput!)
+        statusText.append(statusInput!)
+        statusAdded = true
+        print([statusInput])
+    }
     
     //picker code
+    
     
     func numberOfComponents(in statusPicker: UIPickerView) -> Int {
         
@@ -244,12 +297,18 @@ class FriendsUIViewController: UIViewController, UITableViewDelegate, UITableVie
             statusRing.isHighlighted = false
             //sets availability to false and removes checks from marked cells
             isAvailable = false
+            
 
             selectedCells.removeAll()
         } else {
             //Show the selector ring image if unavailable
             isAvailable = true
             statusRing.isHighlighted = true
+            
+        }
+        
+        if statusAdded == true {
+            statusPicker.reloadAllComponents()
         }
 
         UIView.transition(with: tableView, duration: 0.3, options: .transitionCrossDissolve, animations: {self.tableView.reloadData()}, completion: nil)
@@ -367,7 +426,7 @@ class FriendsUIViewController: UIViewController, UITableViewDelegate, UITableVie
                 let cell = tableView.dequeueReusableCell(withIdentifier: "friendCell") as! FriendsTableViewCell
                 cell.name.text = "You"
                 cell.info.text = "1hr left to Hang"
-                cell.emoji.text = "🏖"
+                cell.emoji.text = "🍻"
                 return cell
             } else if indexPath.section == 1 {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "friendCell") as! FriendsTableViewCell

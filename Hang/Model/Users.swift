@@ -16,6 +16,9 @@ class Users: NSObject {
     var status: String?
 }
 
-var status = ["","💻", "🍱", "🍻"]
-var statusText = ["unavailable","working", "food", "beer"]
+var status = ["","💻", "🍱", "🍻", "🚬"]
+var statusText = ["unavailable","working", "food", "beer", "Smoking"]
 var statusAdded = false
+
+var timeLeftArray = ["1","2","3"]
+var timeDenomArray = ["Hour","Hours","Hours"]
