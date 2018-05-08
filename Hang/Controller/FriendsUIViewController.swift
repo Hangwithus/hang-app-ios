@@ -204,7 +204,9 @@ class FriendsUIViewController: UIViewController, UITableViewDelegate, UITableVie
             }
             let rootRef = Database.database().reference()
             let query = rootRef.child("users").queryOrdered(byChild: "friendCode")
-            query.observe(.value){ (snapshot) in
+            //query.observeOnce(.value){ (snapshot) in
+            query.observeSingleEvent(of: .value, with: { (snapshot) in
+
                 for child in snapshot.children.allObjects as! [DataSnapshot]{
                     if let value = child.value as? NSDictionary{
                         let friend = Users()
@@ -219,8 +221,8 @@ class FriendsUIViewController: UIViewController, UITableViewDelegate, UITableVie
                                 return
                             }
                             let userQuery = rootRef.child("users").child(currentGuy)
-                            var userNumFriends = "0"
-                            userQuery.observe(.value){ (snapshot) in
+                            var userNumFriends = self.thisUserData.numFriends
+                            /*userQuery.observeSingleEvent(of: .value, with: { (snapshot) in
                                 if let userValue = snapshot.value as? NSDictionary{
                                     userNumFriends = userValue["numFriends"] as? String ?? "0"
                                     print("you have this many friends: ")
@@ -228,16 +230,17 @@ class FriendsUIViewController: UIViewController, UITableViewDelegate, UITableVie
                                 }else{
                                     return
                                 }
-                            }
+                            })*/
                             print("done getting the friend value")
                             var ifriendNumFriends = (friendNumFriends as NSString).integerValue
-                            var iuserNumFriends  = (userNumFriends as NSString).integerValue
+                            var iuserNumFriends  = (userNumFriends as! NSString).integerValue
                             ifriendNumFriends = ifriendNumFriends + 1
                             iuserNumFriends = iuserNumFriends + 1
                             print(ifriendNumFriends)
                             print(iuserNumFriends)
                             let sFriendNumFriends = "\(ifriendNumFriends)"
                             let sUserNumFriends = "\(iuserNumFriends)"
+                            self.thisUserData.numFriends = sUserNumFriends
                             let userValues = [sUserNumFriends:key]
                             let friendValues = [sFriendNumFriends:currentGuy]
                             let userNumValues = ["numFriends":sUserNumFriends]
@@ -284,7 +287,7 @@ class FriendsUIViewController: UIViewController, UITableViewDelegate, UITableVie
                         //return
                     }
                 }
-            }
+            })
         }
         canAddFriend = false
     }
@@ -755,6 +758,8 @@ class FriendsUIViewController: UIViewController, UITableViewDelegate, UITableVie
                         //print(userEmoji)
                         self.userStatus = status
                         self.userEmoji = emoji
+                        user.numFriends = value["numFriends"] as? String ?? "NumFriends not found"
+                        self.thisUserData = user
                         //print(userStatus)
                         //print(self.userStatus)
                         //print(userEmoji)

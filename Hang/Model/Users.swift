@@ -18,6 +18,7 @@ class Users: NSObject {
     var emoji: String?
     var location: String?
     var time: String?
+    var numFriends: String?
 }
 
 var status = ["","💻", "🍱", "🍻"]
