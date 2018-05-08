@@ -31,7 +31,6 @@ class MapViewController: UIViewController, MGLMapViewDelegate {
         self.performSegue(withIdentifier: "showFriends", sender: self)
     }
     
-    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         super.prepare(for: segue, sender: sender)
         segue.destination.modalPresentationStyle = .overCurrentContext

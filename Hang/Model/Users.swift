@@ -14,6 +14,10 @@ class Users: NSObject {
     var email: String?
     var availability: String?
     var status: String?
+    var lastAvailable: String?
+    var emoji: String?
+    var location: String?
+    var time: String?
 }
 
 var status = ["","💻", "🍱", "🍻"]
