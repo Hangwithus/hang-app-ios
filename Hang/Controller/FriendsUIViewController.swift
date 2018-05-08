@@ -151,7 +151,7 @@ class FriendsUIViewController: UIViewController, UITableViewDelegate, UITableVie
     
     @IBAction func showFriendsPopup(_ sender: Any) {
         
-        //Open popup
+        //Open popupg
         friendsPopupYAxis.constant = 0
         UIView.animate(withDuration: 0.7, animations: {
             self.popupBackgroundButton.alpha = 0.6
@@ -205,7 +205,7 @@ class FriendsUIViewController: UIViewController, UITableViewDelegate, UITableVie
     func pickerView(_ statusPicker: UIPickerView, rowHeightForComponent component: Int) -> CGFloat {
         return 100
     }
-    
+
     func pickerView(_ statusPicker: UIPickerView, widthForComponent component: Int) -> CGFloat {
         return 100
     }
