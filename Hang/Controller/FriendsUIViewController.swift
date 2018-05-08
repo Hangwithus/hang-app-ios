@@ -67,7 +67,10 @@ class FriendsUIViewController: UIViewController, UITableViewDelegate, UITableVie
     @IBOutlet weak var friendIDField: UITextField!
     @IBOutlet weak var emojiField: UITextField!
     @IBOutlet weak var customStatusField: UITextField!
-    @IBOutlet weak var friendsPopupVerticalAxis: NSLayoutConstraint!
+    @IBOutlet weak var addFriendBtn: UIButton!
+    @IBOutlet weak var createStatusBtn: UIButton!
+    @IBOutlet weak var friendsPopupYAxis: NSLayoutConstraint!
+    
     
 
     //fake data
@@ -131,6 +134,20 @@ class FriendsUIViewController: UIViewController, UITableViewDelegate, UITableVie
         tableView.transform = CGAffineTransform(scaleX: 2, y: 2)
         tableView.alpha = 0
         hangButtonContainerView.transform = CGAffineTransform(translationX: 0, y: 173)
+        
+        //friends popup styling
+        friendsPopup.layer.cornerRadius = 26
+        friendsPopup.layer.masksToBounds = true
+        createStatusBtn.layer.cornerRadius = 26
+        createStatusBtn.layer.masksToBounds = true
+        addFriendBtn.layer.cornerRadius = 26
+        addFriendBtn.layer.masksToBounds = true
+        emojiField.layer.cornerRadius = 16
+        emojiField.layer.masksToBounds = true
+        friendIDField.layer.cornerRadius = 16
+        friendIDField.layer.masksToBounds = true
+        customStatusField.layer.cornerRadius = 16
+        customStatusField.layer.masksToBounds = true
    
     }
     
@@ -156,7 +173,41 @@ class FriendsUIViewController: UIViewController, UITableViewDelegate, UITableVie
     }
     
     //Friends popup
+
+@IBAction func showFriendsPopup(_ sender: Any) {
     
+    //Open popupg
+    friendsPopupYAxis.constant = 0
+    UIView.animate(withDuration: 0.7, animations: {
+        self.popupBackgroundButton.alpha = 0.6
+    })
+    UIView.animate(withDuration: 0.5, delay: 0.3, usingSpringWithDamping: 0.7, initialSpringVelocity: 7, options: .curveEaseInOut, animations: {
+        self.view.layoutIfNeeded()
+    })
+}
+
+@IBAction func addFriendButton(_ sender: Any) {
+    //Close popup
+    friendsPopupYAxis.constant = 800
+    UIView.animate(withDuration: 0.7, animations: {
+        self.popupBackgroundButton.alpha = 0
+    })
+    UIView.animate(withDuration: 0.5, delay: 0.3, usingSpringWithDamping: 0.7, initialSpringVelocity: 7, options: .curveEaseInOut, animations: {
+        self.view.layoutIfNeeded()
+    })
+}
+
+@IBAction func createStatusButton(_ sender: Any) {
+    //Remove popup
+    //pushes hang button below the view on load
+    hangButtonContainerView.alpha = 0
+    
+    hangButton.layer.cornerRadius = 26
+    hangButtonContainerView.clipsToBounds = true
+    tableView.transform = CGAffineTransform(scaleX: 2, y: 2)
+    tableView.alpha = 0
+    
+}
     
     //picker code
     

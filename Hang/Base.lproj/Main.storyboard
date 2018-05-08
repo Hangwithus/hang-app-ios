@@ -555,11 +555,13 @@
                     </view>
                     <connections>
                         <outlet property="addBtn" destination="Hhi-QP-MrA" id="6bv-0q-ays"/>
+                        <outlet property="addFriendBtn" destination="Qhr-ta-6AY" id="B2j-cO-GGr"/>
+                        <outlet property="createStatusBtn" destination="rzT-7F-vHl" id="JeV-G6-X5R"/>
                         <outlet property="customStatusField" destination="S99-11-9rZ" id="qMB-cG-UWq"/>
                         <outlet property="darkView" destination="muz-Rc-8Cx" id="cEk-mZ-uFr"/>
                         <outlet property="friendIDField" destination="Pfx-VC-nZA" id="Rg3-pz-UWU"/>
                         <outlet property="friendsPopup" destination="MIc-ye-Mua" id="nt4-bJ-fys"/>
-                        <outlet property="friendsPopupVerticalAxis" destination="5ix-gC-ZpM" id="acC-vK-fs5"/>
+                        <outlet property="friendsPopupYAxis" destination="5ix-gC-ZpM" id="Hhq-U8-N8H"/>
                         <outlet property="hangButton" destination="1RG-Ze-kCg" id="bIk-fc-uph"/>
                         <outlet property="hangButtonContainerView" destination="Ekz-It-ePy" id="ouR-cj-yAA"/>
                         <outlet property="maskView" destination="BrH-o7-iIt" id="K6c-vk-GKA"/>
