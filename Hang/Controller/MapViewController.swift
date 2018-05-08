@@ -84,8 +84,8 @@ class MapViewController: UIViewController, MGLMapViewDelegate {
                             var lat = value["latitude"] as? Double ?? 0
                             let annotation = MGLPointAnnotation()
                             annotation.coordinate = CLLocationCoordinate2D(latitude: lat, longitude: long)
-                            annotation.title = "Central Park"
-                            annotation.subtitle = "The biggest park in New York City!"
+                            annotation.title = "One of your friends"
+                            annotation.subtitle = "quite a good friend"
                             self.mapView.addAnnotation(annotation)
                             print("key: "+child.key)
                             print(long)
