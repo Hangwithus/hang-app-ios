@@ -12,6 +12,7 @@
 		E4000BA52097685200C958CB /* SelectionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4000BA42097685100C958CB /* SelectionButton.swift */; };
 		E41258A4209D15760013EB43 /* PresentMapFromFriends.swift in Sources */ = {isa = PBXBuildFile; fileRef = E41258A3209D15760013EB43 /* PresentMapFromFriends.swift */; };
 		E41EAFDB209A047A00400855 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E41EAFDA209A047A00400855 /* LoginViewController.swift */; };
+		E43F3A5320A12E9B00F10942 /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E43F3A5220A12E9B00F10942 /* LoginController.swift */; };
 		E475F6CC209FB84000EF4210 /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E475F6CB209FB84000EF4210 /* GradientView.swift */; };
 		E475F6CE20A09A1800EF4210 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E475F6CD20A09A1800EF4210 /* MessageUI.framework */; };
 		E4E2445C209B97B200468D4E /* ScaleTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4E2445B209B97B200468D4E /* ScaleTransition.swift */; };
@@ -74,6 +75,7 @@
 		E4000BA42097685100C958CB /* SelectionButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectionButton.swift; sourceTree = "<group>"; };
 		E41258A3209D15760013EB43 /* PresentMapFromFriends.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentMapFromFriends.swift; sourceTree = "<group>"; };
 		E41EAFDA209A047A00400855 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		E43F3A5220A12E9B00F10942 /* LoginController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginController.swift; sourceTree = "<group>"; };
 		E475F6CB209FB84000EF4210 /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
 		E475F6CD20A09A1800EF4210 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		E4E2445B209B97B200468D4E /* ScaleTransition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScaleTransition.swift; sourceTree = "<group>"; };
@@ -163,6 +165,7 @@
 		F18D196B20937CF200C30A2F /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				E43F3A5220A12E9B00F10942 /* LoginController.swift */,
 				F18D197020937D2300C30A2F /* CreateStatusController.swift */,
 				F18D196C20937D2200C30A2F /* FriendsTableViewCell.swift */,
 				C149B95D20995FF500BAF433 /* FriendRequestTableViewCell.swift */,
@@ -447,6 +450,7 @@
 				F1AA1C2020883E9D009B909B /* AppDelegate.swift in Sources */,
 				F18D197220937D2300C30A2F /* FriendsTableViewCell.swift in Sources */,
 				F18D197520937D2300C30A2F /* MapViewController.swift in Sources */,
+				E43F3A5320A12E9B00F10942 /* LoginController.swift in Sources */,
 				E41258A4209D15760013EB43 /* PresentMapFromFriends.swift in Sources */,
 				E41EAFDB209A047A00400855 /* LoginViewController.swift in Sources */,
 			);

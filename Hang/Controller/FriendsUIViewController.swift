@@ -125,7 +125,7 @@ class FriendsUIViewController: UIViewController, UITableViewDelegate, UITableVie
         tableView.transform = CGAffineTransform(scaleX: 2, y: 2)
         tableView.alpha = 0
         hangButtonContainerView.transform = CGAffineTransform(translationX: 0, y: 173)
-
+   
     }
     
     override
