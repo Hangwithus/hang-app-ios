@@ -427,6 +427,13 @@
                                 </constraints>
                                 <viewLayoutGuide key="safeArea" id="IDD-Ba-DaG"/>
                             </view>
+                            <button opaque="NO" alpha="0.0" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lto-eU-Jh9">
+                                <rect key="frame" x="0.0" y="-73" width="375" height="812"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="375" id="sSb-V3-qcU"/>
+                                </constraints>
+                            </button>
                             <view contentMode="scaleToFill" restorationIdentifier="hangModal" translatesAutoresizingMaskIntoConstraints="NO" id="MIc-ye-Mua">
                                 <rect key="frame" x="49.5" y="100" width="276" height="467"/>
                                 <subviews>
