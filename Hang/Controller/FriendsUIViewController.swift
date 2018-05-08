@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import Firebase
+import FirebaseDatabase
 
 //Implements keyboard dismissal
 
@@ -163,6 +165,7 @@ class FriendsUIViewController: UIViewController, UITableViewDelegate, UITableVie
     
     @IBAction func addFriendButton(_ sender: Any) {
         //Close popup
+        addFriend()
         print("you pressed that button dawg")
         friendsPopupYAxis.constant = 800
         UIView.animate(withDuration: 0.7, animations: {
@@ -171,6 +174,90 @@ class FriendsUIViewController: UIViewController, UITableViewDelegate, UITableVie
         UIView.animate(withDuration: 0.5, delay: 0.3, usingSpringWithDamping: 0.7, initialSpringVelocity: 7, options: .curveEaseInOut, animations: {
             self.view.layoutIfNeeded()
         })
+    }
+    
+    func addFriend(){
+        guard let inputedFriendCode = friendIDField.text else{
+            print("field is not valid")
+            return
+        }
+        let rootRef = Database.database().reference()
+        let query = rootRef.child("users").queryOrdered(byChild: "friendCode")
+        query.observe(.value){ (snapshot) in
+            for child in snapshot.children.allObjects as! [DataSnapshot]{
+                if let value = child.value as? NSDictionary{
+                    let friend = Users()
+                    let key = child.key
+                    var friendNumFriends = value["numFriends"] as? Int ?? 0
+                    let friendFriendCode = value["friendCode"] as? String ?? "Friend Code not found"
+                    
+                    if(friendFriendCode == inputedFriendCode){
+                        print("found the friend")
+                        guard let currentGuy = Auth.auth().currentUser?.uid else{
+                            print("you are not logged in or something went wrong")
+                            return
+                        }
+                        let userQuery = rootRef.child("users").child(currentGuy)
+                        var userNumFriends = 0
+                        userQuery.observe(.value){ (snapshot) in
+                            if let userValue = snapshot.value as? NSDictionary{
+                                userNumFriends = userValue["numFriends"] as? Int ?? 0
+                            }else{
+                                return
+                            }
+                        }
+                        friendNumFriends = friendNumFriends + 1
+                        userNumFriends = userNumFriends + 1
+                        print(friendNumFriends)
+                        print(userNumFriends)
+                        let sFriendNumFriends = "\(friendNumFriends)"
+                        let sUserNumFriends = "\(userNumFriends)"
+                        let userValues = [sUserNumFriends:key]
+                        let friendValues = [sFriendNumFriends:currentGuy]
+                        let userNumValues = ["numFriends":sUserNumFriends]
+                        let friendNumValues = ["numFriends":sFriendNumFriends]
+                        
+                        let userFriendsListReference = rootRef.child("users").child(currentGuy).child("friendsList")
+                        let friendFriendsListReference = rootRef.child("users").child(key).child("friendsList")
+                        let userReference = rootRef.child("users").child(currentGuy)
+                        let friendReference = rootRef.child("users").child(key)
+                        userFriendsListReference.updateChildValues(userValues, withCompletionBlock: { (err, ref) in
+                            if err != nil {
+                                print(err!)
+                                return
+                            }
+                            print("added the users friend")
+                        })
+                        friendFriendsListReference.updateChildValues(friendValues, withCompletionBlock: { (err, ref) in
+                            if err != nil {
+                                print(err!)
+                                return
+                            }
+                            print("added the friends friend")
+                        })
+                        userReference.updateChildValues(userNumValues, withCompletionBlock: { (err, ref) in
+                            if err != nil{
+                                print(err!)
+                                return
+                            }
+                            print("updated the users number friends")
+                        })
+                        friendReference.updateChildValues(friendNumValues, withCompletionBlock: { (err, ref) in
+                            if err != nil{
+                                print(err!)
+                                return
+                            }
+                            print("updated the friends number friends")
+                        })
+                    }else{
+                        print("its not me!")
+                    }
+                }else{
+                    //return
+                }
+            }
+            
+        }
     }
     
     @IBAction func createStatusButton(_ sender: Any) {
