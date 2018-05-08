@@ -75,21 +75,26 @@ class MapViewController: UIViewController, MGLMapViewDelegate {
         query.observe(.value){ (snapshot) in
             for child in snapshot.children.allObjects as! [DataSnapshot]{
                 if(child.key != self.currentGuy){
-                    let locationQuery = Database.database().reference().child("users").child(child.key).child("location")
-                    locationQuery.observe(.value){(snapshot2) in
-                        if let value = snapshot2.value as? NSDictionary{
-                            print("the value is")
-                            print(value)
-                            var long = value["longitude"] as? Double ?? 0
-                            var lat = value["latitude"] as? Double ?? 0
-                            let annotation = MGLPointAnnotation()
-                            annotation.coordinate = CLLocationCoordinate2D(latitude: lat, longitude: long)
-                            annotation.title = "One of your friends"
-                            annotation.subtitle = "quite a good friend"
-                            self.mapView.addAnnotation(annotation)
-                            print("key: "+child.key)
-                            print(long)
-                            print(lat)
+                    if let value0 = snapshot.value as? NSDictionary{
+                        var availableUser = value0["availability"] as? String ?? "Availability not found"
+                        if(availableUser == "true"){
+                            let locationQuery = Database.database().reference().child("users").child(child.key).child("location")
+                            locationQuery.observe(.value){(snapshot2) in
+                                if let value = snapshot2.value as? NSDictionary{
+                                    print("the value is")
+                                    print(value)
+                                    var long = value["longitude"] as? Double ?? 0
+                                    var lat = value["latitude"] as? Double ?? 0
+                                    let annotation = MGLPointAnnotation()
+                                    annotation.coordinate = CLLocationCoordinate2D(latitude: lat, longitude: long)
+                                    annotation.title = "One of your friends"
+                                    annotation.subtitle = "quite a good friend"
+                                    self.mapView.addAnnotation(annotation)
+                                    print("key: "+child.key)
+                                    print(long)
+                                    print(lat)
+                                }
+                            }
                         }
                     }
                 }
