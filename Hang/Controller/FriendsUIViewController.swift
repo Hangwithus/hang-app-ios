@@ -162,7 +162,8 @@ class FriendsUIViewController: UIViewController, UITableViewDelegate, UITableVie
         //Status picker rotation
         rotationAngle = -90 * (.pi/180)
         statusPicker.transform = CGAffineTransform(rotationAngle: rotationAngle)
-        
+        statusRing.transform = CGAffineTransform(scaleX: 0.8, y: 0.8)
+
         //tableview
         tableView.backgroundColor = UIColor.clear
 
@@ -417,7 +418,15 @@ class FriendsUIViewController: UIViewController, UITableViewDelegate, UITableVie
         var values = ["available":"", "status":"", "emoji":""]
         if row == 0 && showTimerPicker == false {
             //Show the selector ring image if unavailable
-            statusRing.isHighlighted = false
+UIView.animate(withDuration: 1, delay: 0.2, usingSpringWithDamping: 0.5, initialSpringVelocity: 5, options: .curveEaseInOut, animations: {
+                self.statusRing.isHighlighted = false
+            self.statusRing.transform = CGAffineTransform(scaleX: 0.8, y: 0.8)
+
+            }) { (_) in
+                //animation is finished
+            }
+           
+
             //sets availability to false and removes checks from marked cells
             isAvailable = false
             
@@ -427,7 +436,13 @@ class FriendsUIViewController: UIViewController, UITableViewDelegate, UITableVie
             values = ["available":"true", "status":statusText[row], "emoji":status[row]]
             //Show the selector ring image if unavailable
             isAvailable = true
-            statusRing.isHighlighted = true
+            UIView.animate(withDuration: 1, delay: 0.2, usingSpringWithDamping: 0.5, initialSpringVelocity: 5, options: .curveEaseInOut, animations: {
+                    self.statusRing.isHighlighted = true
+                self.statusRing.transform = CGAffineTransform(scaleX: 1, y: 1)
+
+            }) { (_) in
+                //animation is finished
+            }
         }
         
         if showTimerPicker == true {
