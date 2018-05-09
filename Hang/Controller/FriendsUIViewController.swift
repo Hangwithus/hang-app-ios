@@ -81,6 +81,7 @@ class FriendsUIViewController: UIViewController, UITableViewDelegate, UITableVie
     @IBOutlet weak var timeIconBottomConstraint: NSLayoutConstraint!
     //Friends modal
     @IBOutlet weak var friendsPopup: UIView!
+    @IBOutlet weak var yourHangCode: UILabel!
     @IBOutlet weak var friendIDField: UITextField!
     @IBOutlet weak var emojiField: UITextField!
     @IBOutlet weak var customStatusField: UITextField!
@@ -171,6 +172,7 @@ class FriendsUIViewController: UIViewController, UITableViewDelegate, UITableVie
         hangButtonContainerView.transform = CGAffineTransform(translationX: 0, y: 173)
         
         //friends popup styling
+        yourHangCode.text = thisUserData.friendCode
         friendsPopup.layer.cornerRadius = 26
         friendsPopup.layer.masksToBounds = true
         createStatusBtn.layer.cornerRadius = 26
@@ -213,6 +215,11 @@ class FriendsUIViewController: UIViewController, UITableViewDelegate, UITableVie
             //animation is finished
          
         }
+    }
+    
+    //Setting modal
+    @IBAction func settingsPressed(_ sender: Any) {
+        handleLogout()
     }
     
     //Friends popup
