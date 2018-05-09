@@ -198,7 +198,6 @@ class FriendsUIViewController: UIViewController, UITableViewDelegate, UITableVie
     
     //Friends popup
 
-
     @IBAction func showFriendsPopup(_ sender: Any) {
         //Open popupg
         friendsPopupYAxis.constant = 0
@@ -266,9 +265,18 @@ class FriendsUIViewController: UIViewController, UITableViewDelegate, UITableVie
         print([statusInput])
     }
     
-    //Status picker code
+    //Time icon pressed
+    @IBAction func timeIconPressed(_ sender: Any) {
+        showTimerPicker = !showTimerPicker
+        statusPicker.reloadAllComponents()
+        if showTimerPicker == true {
+            statusRing.isHighlighted = false
+        }
+        print("Pressed time icon")
+        print (showTimerPicker)
+    }
     
-    
+    //Picker code
     func numberOfComponents(in statusPicker: UIPickerView) -> Int {
         
         statusPicker.subviews.forEach({
@@ -281,8 +289,15 @@ class FriendsUIViewController: UIViewController, UITableViewDelegate, UITableVie
     
     func pickerView(_ statusPicker: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         
-        //Return how many rows needed from data
-        return status.count
+        var numberOfRows = 0
+        if showTimerPicker == false {
+            //Return how many rows needed from data
+            numberOfRows = status.count
+        } else {
+            numberOfRows = timeLeftArray.count
+        }
+        print(numberOfRows)
+        return numberOfRows
     }
     
     func pickerView(_ statusPicker: UIPickerView, rowHeightForComponent component: Int) -> CGFloat {
@@ -297,7 +312,7 @@ class FriendsUIViewController: UIViewController, UITableViewDelegate, UITableVie
         
         //Check whether user is unavailable or available
       
-        if row == 0 {
+        if row == 0 && showTimerPicker == false {
             //Show the selector ring image if unavailable
             statusRing.isHighlighted = false
             //sets availability to false and removes checks from marked cells
@@ -309,7 +324,10 @@ class FriendsUIViewController: UIViewController, UITableViewDelegate, UITableVie
             //Show the selector ring image if unavailable
             isAvailable = true
             statusRing.isHighlighted = true
-            
+        }
+        
+        if showTimerPicker == true {
+            statusRing.isHighlighted = false
         }
 
         UIView.transition(with: tableView, duration: 0.3, options: .transitionCrossDissolve, animations: {self.tableView.reloadData()}, completion: nil)
@@ -320,7 +338,8 @@ class FriendsUIViewController: UIViewController, UITableViewDelegate, UITableVie
     func pickerView(_ statusPicker: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
             let view = UIView()
             view.frame = CGRect(x: 0, y: 0, width: width, height: height)
-            
+        
+        if showTimerPicker == false {
             let availabilityEmoji = UILabel()
             
             availabilityEmoji.frame = CGRect(x: 0, y: 0, width: width, height: 250)
@@ -348,10 +367,38 @@ class FriendsUIViewController: UIViewController, UITableViewDelegate, UITableVie
             
             view.addSubview(availabilityTitle)
             view.addSubview(availabilityEmoji)
+        } else {
+            let timeLeft = UILabel()
             
+            timeLeft.frame = CGRect(x: 0, y: 0, width: width, height: 250)
+            timeLeft.textAlignment = .center
+            timeLeft.textColor = UIColor.white
+            
+            if #available(iOS 11.0, *) {
+                timeLeft.font = UIFontMetrics.default.scaledFont(for: largeLabel!)
+            } else {
+                // Fallback on earlier versions
+            }
+            timeLeft.text = timeLeftArray[row]
+            
+            let timeDenom = UILabel()
+            timeDenom.textColor = UIColor.white
+            timeDenom.frame = CGRect(x:0, y:20, width: width, height:height)
+            timeDenom.textAlignment = .center
+            //availabilityTitle.translatesAutoresizingMaskIntoConstraints = false
+            //availabilityTitle.bottomAnchor.constraint(equalTo: UIView.topAnchor).isActive = true
+            if #available(iOS 11.0, *) {
+                timeDenom.font = UIFontMetrics.default.scaledFont(for: boldLabel!)
+            } else {
+                // Fallback on earlier versions
+            }
+            timeDenom.text = timeDenomArray[row]
+            
+            view.addSubview(timeDenom)
+            view.addSubview(timeLeft)
+        }
             //View rotation
             view.transform = CGAffineTransform(rotationAngle: 90 * (.pi/180))
-            
             return view
     }
     

@@ -411,6 +411,9 @@
                                             <constraint firstAttribute="width" constant="22" id="ggv-lt-jbc"/>
                                         </constraints>
                                         <state key="normal" image="timeIcon"/>
+                                        <connections>
+                                            <action selector="timeIconPressed:" destination="Zd6-fE-tsl" eventType="touchUpInside" id="JBW-y4-piq"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
