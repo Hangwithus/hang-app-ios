@@ -9,6 +9,8 @@
 import UIKit
 import Mapbox
 import MessageUI
+import Firebase
+import FirebaseDatabase
 
 class MapViewController: UIViewController, MGLMapViewDelegate, MFMessageComposeViewControllerDelegate {
 
@@ -16,6 +18,9 @@ class MapViewController: UIViewController, MGLMapViewDelegate, MFMessageComposeV
     let messageController = MFMessageComposeViewController()
     var mapViewPresented = false
 
+    var currentGuy = ""
+
+    
     @IBOutlet weak var leaveBtn: UIButton!
     @IBOutlet weak var chatButton: SelectionButton!
     @IBOutlet weak var mapView: MGLMapView!
@@ -37,6 +42,7 @@ class MapViewController: UIViewController, MGLMapViewDelegate, MFMessageComposeV
             }
         #endif
         
+        currentGuy = Auth.auth().currentUser?.uid ?? "uid not found"
 
     }
     
@@ -97,7 +103,55 @@ class MapViewController: UIViewController, MGLMapViewDelegate, MFMessageComposeV
     func mapView(_ mapView: MGLMapView, didUpdate userLocation: MGLUserLocation?) {
         let location = mapView.userLocation?.location
         mapView.setCenter(CLLocationCoordinate2D(latitude: (location?.coordinate.latitude)!, longitude: (location?.coordinate.longitude)!),zoomLevel: 15, animated: false)
-        
+        var query = Database.database().reference().child("users").child(currentGuy).child("location")
+        let longvalues = ["longitude": location?.coordinate.longitude]
+        let latvalues = ["latitude": location?.coordinate.latitude]
+        grabUserLocations()
+        query.updateChildValues(longvalues, withCompletionBlock: { (err, ref) in
+            if err != nil{
+                print(err!)
+                return
+            }
+            //print("updated longitude")
+        })
+        query.updateChildValues(latvalues, withCompletionBlock: { (err, ref) in
+            if err != nil{
+                print(err!)
+                return
+            }
+            //print("updated latitude")
+        })
+    }
+    func grabUserLocations(){
+        let query = Database.database().reference().child("users")
+        query.observe(.value){ (snapshot) in
+            for child in snapshot.children.allObjects as! [DataSnapshot]{
+                if(child.key != self.currentGuy){
+                    if let value0 = snapshot.value as? NSDictionary{
+                        var availableUser = value0["availability"] as? String ?? "Availability not found"
+                        if(availableUser == "true"){
+                            let locationQuery = Database.database().reference().child("users").child(child.key).child("location")
+                            locationQuery.observe(.value){(snapshot2) in
+                                if let value = snapshot2.value as? NSDictionary{
+                                    print("the value is")
+                                    print(value)
+                                    var long = value["longitude"] as? Double ?? 0
+                                    var lat = value["latitude"] as? Double ?? 0
+                                    let annotation = MGLPointAnnotation()
+                                    annotation.coordinate = CLLocationCoordinate2D(latitude: lat, longitude: long)
+                                    annotation.title = "One of your friends"
+                                    annotation.subtitle = "quite a good friend"
+                                    self.mapView.addAnnotation(annotation)
+                                    print("key: "+child.key)
+                                    print(long)
+                                    print(lat)
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
     /*
     // MARK: - Navigation

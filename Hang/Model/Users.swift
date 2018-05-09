@@ -14,11 +14,18 @@ class Users: NSObject {
     var email: String?
     var availability: String?
     var status: String?
+    var lastAvailable: String?
+    var emoji: String?
+    var location: String?
+    var time: String?
+    var numFriends: String?
+    var friendCode: String?
 }
 
-var status = ["","💻", "🍱", "🍻", "🚬"]
-var statusText = ["unavailable","working", "food", "beer", "Smoking"]
+var status = ["","💻", "🍱", "🍻"]
+var statusText = ["unavailable","working", "food", "beer"]
 var statusAdded = false
+
 
 var timeLeftArray = ["∞","1","2","3"]
 var timeDenomArray = ["","Hour","Hours","Hours"]

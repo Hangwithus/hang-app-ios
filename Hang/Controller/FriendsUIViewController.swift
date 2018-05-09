@@ -7,7 +7,9 @@
 //
 
 import UIKit
-
+import Firebase
+import FirebaseAuth
+import FirebaseDatabase
 
 extension UILabel {
     
@@ -97,7 +99,13 @@ class FriendsUIViewController: UIViewController, UITableViewDelegate, UITableVie
     //the index path of the checked cell
     var selectedCells = Set<IndexPath>()
     
-    
+    //variables to hold the real data
+    var users = [Users]()
+    var availableUsers = [Users]()
+    var unavailableUsers = [Users]()
+    var thisUserData = Users()
+    var canAddFriend = true
+
     //Fonts
     let semiBoldLabel = UIFont(name: "Nunito-SemiBold", size: UIFont.labelFontSize)
     let semiBoldLabelSmall = UIFont(name: "Nunito-SemiBold", size: UIFont.smallSystemFontSize)
@@ -115,7 +123,10 @@ class FriendsUIViewController: UIViewController, UITableViewDelegate, UITableVie
     //boolean to determine whether to assign timer picker or status picker the delegates
     var showTimerPicker = false
     
-
+    var userStatus = "Status Not Found"
+    var userEmoji = "❓"
+    var currentGuy = ""
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -175,6 +186,12 @@ class FriendsUIViewController: UIViewController, UITableViewDelegate, UITableVie
         
         //Keyboard dismissal
         self.hideKeyboardWhenTappedAround()
+        
+        currentGuy = Auth.auth().currentUser?.uid ?? "uid not found"
+        print("printing currentGuy: "+currentGuy)
+        //currentGuy = String(currentGuy)
+        fetchUser()
+        //hangCodeTag.text = thisUserData.friendCode
     }
     
     override
@@ -229,6 +246,7 @@ class FriendsUIViewController: UIViewController, UITableViewDelegate, UITableVie
     
     @IBAction func addFriendButton(_ sender: Any) {
         //Close popup
+        addFriend()
         friendsPopupYAxis.constant = 800
         UIView.animate(withDuration: 0.7, animations: {
             self.popupBackgroundButton.alpha = 0
@@ -282,6 +300,49 @@ class FriendsUIViewController: UIViewController, UITableViewDelegate, UITableVie
         print (showTimerPicker)
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        
+        checkIfUserIsLogeedIn()
+    }
+    
+    func checkIfUserIsLogeedIn() {
+        if Auth.auth().currentUser?.uid == nil {
+            perform(#selector(handleLogout), with: nil, afterDelay: 0)
+        } else {
+            let uid = Auth.auth().currentUser?.uid
+            Database.database().reference().child("users").child(uid!).observeSingleEvent(of: .value, with: { (snapshot) in
+                
+                if let dictionary = snapshot.value as? [String: AnyObject]  {
+                    
+                    self.navigationItem.title = dictionary["name"] as? String
+                    
+                }
+                
+            }, withCancel: nil)
+        }
+        
+    }
+    
+    @objc func handleLogout() {
+        
+        do {
+            try Auth.auth().signOut()
+        } catch let logoutError {
+            print(logoutError)
+        }
+        
+        //presents login view
+        let loginController = LoginController()
+        present(loginController, animated: true, completion: nil)
+        
+        perform(#selector(removeNavigationText), with: nil, afterDelay: 1)
+        
+    }
+    
+    @objc func removeNavigationText() {
+        self.navigationItem.title = " "
+    }
+    
     //Picker code
     func numberOfComponents(in statusPicker: UIPickerView) -> Int {
         
@@ -317,16 +378,17 @@ class FriendsUIViewController: UIViewController, UITableViewDelegate, UITableVie
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         
         //Check whether user is unavailable or available
-      
+        var values = ["available":"", "status":"", "emoji":""]
         if row == 0 && showTimerPicker == false {
             //Show the selector ring image if unavailable
             statusRing.isHighlighted = false
             //sets availability to false and removes checks from marked cells
             isAvailable = false
             
-
+            values = ["available":"false", "status":"unavailable"]
             selectedCells.removeAll()
         } else {
+            values = ["available":"true", "status":statusText[row], "emoji":status[row]]
             //Show the selector ring image if unavailable
             isAvailable = true
             statusRing.isHighlighted = true
@@ -356,7 +418,20 @@ class FriendsUIViewController: UIViewController, UITableViewDelegate, UITableVie
         }
 
         UIView.transition(with: tableView, duration: 0.3, options: .transitionCrossDissolve, animations: {self.tableView.reloadData()}, completion: nil)
-
+        let usersReference = Database.database().reference().child("users").child(currentGuy)
+        usersReference.updateChildValues(values, withCompletionBlock: { (err, ref) in
+            
+            if err != nil {
+                print(err!)
+                return
+            }
+            
+            //self.dismiss(animated: true, completion: nil)
+            
+            print("updated the status")
+            
+        })
+        tableView.reloadData()
     }
     
     //Create Custom UI View for picker
@@ -437,18 +512,25 @@ class FriendsUIViewController: UIViewController, UITableViewDelegate, UITableVie
                 //placeholder for current users status cell
                 return 1
             } else if section == 1 {
-                return friendsAvailable.count
+               // return friendsAvailable.count
+                return availableUsers.count
+
             } else if section == 2 {
-                return friendsUnavailable.count
+                //return friendsUnavailable.count
+                return unavailableUsers.count
+
             }
 
             //define sections for unavailable
         } else {
             if section == 0 {
-                return friendsAvailable.count
-                
+                //return friendsAvailable.count
+                return availableUsers.count
+
             }
-            return friendsUnavailable.count
+            //return friendsUnavailable.count
+            return unavailableUsers.count
+
         }
         return 0
     }
@@ -488,8 +570,8 @@ class FriendsUIViewController: UIViewController, UITableViewDelegate, UITableVie
     
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let userAvailable = friendsAvailable[indexPath.row]
-        let userUnavailable = friendsUnavailable[indexPath.row]
+        //let userAvailable = friendsAvailable[indexPath.row]
+       // let userUnavailable = friendsUnavailable[indexPath.row]
         
        
 
@@ -497,13 +579,16 @@ class FriendsUIViewController: UIViewController, UITableViewDelegate, UITableVie
         if isAvailable == true {
             if indexPath.section == 0 {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "friendCell") as! FriendsTableViewCell
-                cell.name.text = "You"
+                /*cell.name.text = "You"
                 cell.info.text = "1hr left to Hang"
-                cell.emoji.text = "🍻"
+                cell.emoji.text = "🍻"*/
+                cell.info.text = userStatus
+                cell.emoji.text = userEmoji
+                cell.name.text = "You"
                 return cell
             } else if indexPath.section == 1 {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "friendCell") as! FriendsTableViewCell
-                cell.name.text = userAvailable["name"]
+                /*cell.name.text = userAvailable["name"]
                 cell.info.text = userAvailable["distance"]
                 cell.emoji.text = userAvailable["emoji"]
                 cell.available.isHidden = true
@@ -512,29 +597,52 @@ class FriendsUIViewController: UIViewController, UITableViewDelegate, UITableVie
                     cell.checkAccessory.isSelected = true
                 } else {
                     cell.checkAccessory.isSelected = false
+                }*/
+                cell.name.text = availableUsers[indexPath.row].name
+                cell.info.text = availableUsers[indexPath.row].status
+                cell.emoji.text = availableUsers[indexPath.row].emoji
+                cell.available.isHidden = true
+                cell.checkAccessory.isHidden = false
+                if selectedCells.contains(indexPath){
+                    cell.checkAccessory.isSelected = true
+                }else{
+                    cell.checkAccessory.isSelected = false
                 }
                 return cell
             } else {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "friendUnavailableCell") as! FriendsUnavailableTableViewCell
-                cell.name.text = userUnavailable["name"]
-                cell.info.text = userUnavailable["lastAvailable"]
+                //cell.name.text = userUnavailable["name"]
+                //cell.info.text = userUnavailable["lastAvailable"]
+                cell.name.text = unavailableUsers[indexPath.row].name
+                cell.info.text = unavailableUsers[indexPath.row].lastAvailable
                 return cell
             }
             //set cells for unavailable
         } else {
             if indexPath.section == 0 {
-                let cell = tableView.dequeueReusableCell(withIdentifier: "friendCell") as! FriendsTableViewCell
+                /*let cell = tableView.dequeueReusableCell(withIdentifier: "friendCell") as! FriendsTableViewCell
                 cell.name.text = userAvailable["name"]
                 cell.info.text = userAvailable["distance"]
                 cell.emoji.text = userAvailable["emoji"]
                 cell.available.isHidden = false
                 cell.checkAccessory.isHidden = true
 
+                return cell*/
+                let cell = tableView.dequeueReusableCell(withIdentifier: "friendCell") as! FriendsTableViewCell
+                cell.name.text = availableUsers[indexPath.row].name
+                cell.info.text = availableUsers[indexPath.row].status
+                cell.emoji.text = availableUsers[indexPath.row].emoji
+                cell.available.isHidden = false
+                cell.checkAccessory.isHidden = true
                 return cell
             } else {
-                let cell = tableView.dequeueReusableCell(withIdentifier: "friendUnavailableCell") as! FriendsUnavailableTableViewCell
+                /*let cell = tableView.dequeueReusableCell(withIdentifier: "friendUnavailableCell") as! FriendsUnavailableTableViewCell
                 cell.name.text = userUnavailable["name"]
                 cell.info.text = userUnavailable["lastAvailable"]
+                return cell*/
+                let cell = tableView.dequeueReusableCell(withIdentifier: "friendUnavailableCell") as! FriendsUnavailableTableViewCell
+                cell.name.text = unavailableUsers[indexPath.row].name
+                cell.info.text = unavailableUsers[indexPath.row].availability
                 return cell
             }
         }
@@ -697,5 +805,180 @@ class FriendsUIViewController: UIViewController, UITableViewDelegate, UITableVie
         // Pass the selected object to the new view controller.
     }
     */
+    
+    func addFriend(){
+        print("trying to call")
+        print(canAddFriend)
+        if(canAddFriend == true){
+            guard let inputedFriendCode = friendIDField.text else{
+                print("field is not valid")
+                return
+            }
+            let rootRef = Database.database().reference()
+            let query = rootRef.child("users").queryOrdered(byChild: "friendCode")
+            //query.observeOnce(.value){ (snapshot) in
+            query.observeSingleEvent(of: .value, with: { (snapshot) in
+                
+                for child in snapshot.children.allObjects as! [DataSnapshot]{
+                    if let value = child.value as? NSDictionary{
+                        let friend = Users()
+                        let key = child.key
+                        var friendNumFriends = value["numFriends"] as? String ?? "0"
+                        let friendFriendCode = value["friendCode"] as? String ?? "Friend Code not found"
+                        
+                        if(friendFriendCode == inputedFriendCode){
+                            print("found the friend")
+                            guard let currentGuy = Auth.auth().currentUser?.uid else{
+                                print("you are not logged in or something went wrong")
+                                return
+                            }
+                            let userQuery = rootRef.child("users").child(currentGuy)
+                            var userNumFriends = self.thisUserData.numFriends
+                            /*userQuery.observeSingleEvent(of: .value, with: { (snapshot) in
+                             if let userValue = snapshot.value as? NSDictionary{
+                             userNumFriends = userValue["numFriends"] as? String ?? "0"
+                             print("you have this many friends: ")
+                             print(userValue["numFriends"])
+                             }else{
+                             return
+                             }
+                             })*/
+                            print("done getting the friend value")
+                            var ifriendNumFriends = (friendNumFriends as NSString).integerValue
+                            var iuserNumFriends  = (userNumFriends as! NSString).integerValue
+                            ifriendNumFriends = ifriendNumFriends + 1
+                            iuserNumFriends = iuserNumFriends + 1
+                            print(ifriendNumFriends)
+                            print(iuserNumFriends)
+                            let sFriendNumFriends = "\(ifriendNumFriends)"
+                            let sUserNumFriends = "\(iuserNumFriends)"
+                            self.thisUserData.numFriends = sUserNumFriends
+                            let userValues = [sUserNumFriends:key]
+                            let friendValues = [sFriendNumFriends:currentGuy]
+                            let userNumValues = ["numFriends":sUserNumFriends]
+                            let friendNumValues = ["numFriends":sFriendNumFriends]
+                            
+                            let userFriendsListReference = rootRef.child("users").child(currentGuy).child("friendsList")
+                            let friendFriendsListReference = rootRef.child("users").child(key).child("friendsList")
+                            let userReference = rootRef.child("users").child(currentGuy)
+                            let friendReference = rootRef.child("users").child(key)
+                            //if(canAddFriend == true){
+                            userFriendsListReference.updateChildValues(userValues, withCompletionBlock: { (err, ref) in
+                                if err != nil {
+                                    print(err!)
+                                    return
+                                }
+                                print("added the users friend")
+                            })
+                            friendFriendsListReference.updateChildValues(friendValues, withCompletionBlock: { (err, ref) in
+                                if err != nil {
+                                    print(err!)
+                                    return
+                                }
+                                print("added the friends friend")
+                            })
+                            userReference.updateChildValues(userNumValues, withCompletionBlock: { (err, ref) in
+                                if err != nil{
+                                    print(err!)
+                                    return
+                                }
+                                print("updated the users number friends")
+                            })
+                            friendReference.updateChildValues(friendNumValues, withCompletionBlock: { (err, ref) in
+                                if err != nil{
+                                    print(err!)
+                                    return
+                                }
+                                print("updated the friends number friends")
+                            })
+                            //}
+                        }else{
+                            print("its not me!")
+                        }
+                    }else{
+                        //return
+                    }
+                }
+            })
+        }
+        canAddFriend = false
+    }
+    
+    func fetchUser() {
+        DispatchQueue.main.async { self.tableView.reloadData() }
+        
+        let rootRef = Database.database().reference()
+        let query = rootRef.child("users").queryOrdered(byChild: "name")
+        query.observe(.value) { (snapshot) in
+            self.availableUsers.removeAll()
+            self.unavailableUsers.removeAll()
+            for child in snapshot.children.allObjects as! [DataSnapshot] {
+                if let value = child.value as? NSDictionary {
+                    let user = Users()
+                    //let key = child.key
+                    let key = child.key
+                    let availability = value["available"] as? String ?? "availability"
+                    //print("this is the availability")
+                    // print(value["available"])
+                    // print(availability)
+                    let name = value["name"] as? String ?? "Name not found"
+                    //let email = value["email"] as? String ?? "Email not found"
+                    let status = value["status"] as? String ?? "Status not found"
+                    let lastAvailable = value["lastAvailable"] as? String ?? "Last Seen not found"
+                    let emoji = value["emoji"] as? String ?? "Emoji not found"
+                    let time = value["time"] as? String ?? "Time Left not found"
+                    let location = value["location"] as? String ?? "Location not found"
+                    user.name = name
+                    user.lastAvailable = lastAvailable
+                    user.emoji = emoji
+                    user.time = time
+                    user.location = location
+                    //user.email = email
+                    user.availability = availability
+                    user.status = status
+                    self.users.append(user)
+                    /*if(child.key == Auth.auth().currentUser?.uid){
+                     self.thisUserData = user
+                     }else if(user.availability == "true"){
+                     //self.availableUsers.append(key)
+                     self.availableUsers.append(user)
+                     print("got that");
+                     }else{
+                     //self.unavailableUsers.append(key)
+                     self.unavailableUsers.append(user)
+                     }*/
+                    //^^^^ Add this back in after I know that the user authentication is working
+                    
+                    if(key == self.currentGuy){
+                        //print(userStatus)
+                        //print(userEmoji)
+                        self.userStatus = status
+                        self.userEmoji = emoji
+                        user.numFriends = value["numFriends"] as? String ?? "NumFriends not found"
+                        user.friendCode = value["friendCode"] as? String ?? "Friend Code not found"
+                        self.thisUserData = user
+                        //print(userStatus)
+                        //print(self.userStatus)
+                        //print(userEmoji)
+                        // print(self.userEmoji)
+                    }else{
+                        if(user.availability == "true"){
+                            self.availableUsers.append(user)
+                            //print("got available user")
+                        }else{
+                            self.unavailableUsers.append(user)
+                            //print("got unaviable user")
+                        }
+                        //print("availableUsers --")
+                        //print(self.availableUsers)
+                        // print("unavailableUsers --")
+                        DispatchQueue.main.async { self.tableView.reloadData() }
+                        
+                        //print(self.unavailableUsers)
+                    }
+                }
+            }
+        }
+    }
 
 }

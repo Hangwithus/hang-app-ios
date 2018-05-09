@@ -143,7 +143,20 @@ class LoginController: UIViewController, UITextFieldDelegate {
             //successfully authenticated
             let ref = Database.database().reference(fromURL: "https://hang-8b734.firebaseio.com/")
             let usersReference = ref.child("users").child(uid)
-            let values = ["name": name, "email": email, "available":"false", "status":"status"]
+            let friendCode = name+String(arc4random_uniform(9))+String(arc4random_uniform(9))+String(arc4random_uniform(9))+String(arc4random_uniform(9))+String(arc4random_uniform(9))+String(arc4random_uniform(9))
+            let stringUID: String = String(uid)
+            let friendsListData = [
+                "0": stringUID
+            ]
+            let locationData = [
+                "longitude":"0",
+                "latitude":"0"
+            ]
+            //let friendsList = [friendsListData]
+            
+            usersReference.setValue(["friendsList":friendsListData])
+            usersReference.setValue(["location":locationData])
+            let values = ["name": name, "email": email, "available":"false", "status":"status", "friendCode":friendCode, "numFriends":"0", "emoji":"❤️", "time":"0m", "lastAvailable":"5-9-18_10:05"]
             usersReference.updateChildValues(values, withCompletionBlock: { (err, ref) in
                 
                 if err != nil {
@@ -156,7 +169,7 @@ class LoginController: UIViewController, UITextFieldDelegate {
                 print("saved user successfully into firebase db")
                 
             })
-
+            
         })
     }
     
