@@ -11,6 +11,7 @@ import UIKit
 class FriendsTableViewCell: UITableViewCell {
     @IBOutlet weak var emoji: UILabel!
     
+    @IBOutlet weak var userId: UILabel!
     @IBOutlet weak var info: UILabel!
     @IBOutlet weak var name: UILabel!
     
