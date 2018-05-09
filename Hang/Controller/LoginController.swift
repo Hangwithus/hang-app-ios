@@ -147,6 +147,7 @@ class LoginController: UIViewController, UITextFieldDelegate {
             let stringUID: String = String(uid)
             let friendsListData = [
                 "0": stringUID
+                //"1": stringUID
             ]
             let locationData = [
                 "longitude":"0",
@@ -154,8 +155,9 @@ class LoginController: UIViewController, UITextFieldDelegate {
             ]
             //let friendsList = [friendsListData]
             
-            usersReference.setValue(["friendsList":friendsListData])
             usersReference.setValue(["location":locationData])
+            usersReference.setValue(["friendsList":friendsListData])
+            
             let values = ["name": name, "email": email, "available":"false", "status":"status", "friendCode":friendCode, "numFriends":"0", "emoji":"❤️", "time":"0m", "lastAvailable":"5-9-18_10:05"]
             usersReference.updateChildValues(values, withCompletionBlock: { (err, ref) in
                 
@@ -219,7 +221,7 @@ class LoginController: UIViewController, UITextFieldDelegate {
         view.addSubview(inputsContainerView)
         view.addSubview(loginRegisterButton)
         view.addSubview(loginRegisterSegmentedControl)
-
+        
         setupInputsContainerView()
         setupLoginRegisterButton()
         setupLogoImageView()
@@ -252,13 +254,13 @@ class LoginController: UIViewController, UITextFieldDelegate {
         inputsContainerView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
         inputsContainerView.widthAnchor.constraint(equalTo: view.widthAnchor, constant: -24).isActive = true
         inputsContainerViewHeightAnchor = inputsContainerView.heightAnchor.constraint(equalToConstant: 150);inputsContainerViewHeightAnchor?.isActive = true
-
+        
         inputsContainerView.addSubview(nameTextField)
         inputsContainerView.addSubview(nameSeparatorView)
         inputsContainerView.addSubview(emailTextField)
         inputsContainerView.addSubview(emailSeparatorView)
         inputsContainerView.addSubview(passwordTextField)
-
+        
         nameTextField.leftAnchor.constraint(equalTo: inputsContainerView.leftAnchor, constant: 12).isActive = true
         nameTextField.topAnchor.constraint(equalTo: inputsContainerView.topAnchor).isActive = true
         nameTextField.widthAnchor.constraint(equalTo: inputsContainerView.widthAnchor).isActive = true
@@ -295,20 +297,20 @@ class LoginController: UIViewController, UITextFieldDelegate {
         loginRegisterButton.heightAnchor.constraint(equalToConstant: 52).isActive = true
     }
     
-//    @objc func keyboardWillShow(sender: NSNotification) {
-//        self.view.frame.origin.y -= 100
-//    }
-//    @objc func keyboardWillHide(sender: NSNotification) {
-//        self.view.frame.origin.y += 100
-//    }
+    //    @objc func keyboardWillShow(sender: NSNotification) {
+    //        self.view.frame.origin.y -= 100
+    //    }
+    //    @objc func keyboardWillHide(sender: NSNotification) {
+    //        self.view.frame.origin.y += 100
+    //    }
     
-   @objc func keyboardWillHide() {
+    @objc func keyboardWillHide() {
         self.view.frame.origin.y = 0
     }
     
-   @objc  func keyboardWillChange(notification: NSNotification) {
+    @objc  func keyboardWillChange(notification: NSNotification) {
         
-    if ((notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue) != nil {
+        if ((notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue) != nil {
             if nameTextField.isFirstResponder || emailTextField.isFirstResponder || passwordTextField.isFirstResponder{
                 self.view.frame.origin.y = -86
             }
@@ -338,5 +340,5 @@ class LoginController: UIViewController, UITextFieldDelegate {
         }
         return true
     }
-
+    
 }
