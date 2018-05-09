@@ -547,6 +547,33 @@
                                     <constraint firstItem="Qhr-ta-6AY" firstAttribute="centerX" secondItem="MIc-ye-Mua" secondAttribute="centerX" id="vpH-ue-cuO"/>
                                 </constraints>
                             </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GbY-5p-s1P">
+                                <rect key="frame" x="67" y="1161.6666666666667" width="240" height="89"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tgT-Lj-YTC">
+                                        <rect key="frame" x="40" y="18" width="160" height="52"/>
+                                        <color key="backgroundColor" red="0.098039215690000001" green="0.86666666670000003" blue="0.19215686269999999" alpha="1" colorSpace="calibratedRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="160" id="Iil-Wu-Vaq"/>
+                                            <constraint firstAttribute="height" constant="52" id="Ogt-WK-9qD"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito" pointSize="17"/>
+                                        <state key="normal" title="Log out">
+                                            <color key="titleColor" red="0.98793035750000002" green="0.99624460940000004" blue="0.99196916820000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="logoutPressed:" destination="Zd6-fE-tsl" eventType="touchUpInside" id="VGH-Cr-Obv"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="tgT-Lj-YTC" secondAttribute="bottom" constant="19" id="4O7-c1-SXd"/>
+                                    <constraint firstItem="tgT-Lj-YTC" firstAttribute="leading" secondItem="GbY-5p-s1P" secondAttribute="leading" constant="40" id="9vg-HI-oG4"/>
+                                    <constraint firstAttribute="trailing" secondItem="tgT-Lj-YTC" secondAttribute="trailing" constant="40" id="cc7-SM-yQu"/>
+                                    <constraint firstItem="tgT-Lj-YTC" firstAttribute="top" secondItem="GbY-5p-s1P" secondAttribute="top" constant="18" id="iYt-2B-Bd7"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -563,6 +590,7 @@
                             <constraint firstAttribute="trailingMargin" secondItem="UwH-3p-yhD" secondAttribute="trailing" constant="11.5" id="H4E-84-T2y"/>
                             <constraint firstItem="lto-eU-Jh9" firstAttribute="trailing" secondItem="MDO-h6-y5W" secondAttribute="trailing" id="Kok-J8-tas"/>
                             <constraint firstItem="MDO-h6-y5W" firstAttribute="trailing" secondItem="BrH-o7-iIt" secondAttribute="trailing" constant="12" id="SRU-qF-H22"/>
+                            <constraint firstItem="GbY-5p-s1P" firstAttribute="centerY" secondItem="Dc9-ox-p7P" secondAttribute="centerY" constant="800" id="UqE-tr-WFa"/>
                             <constraint firstItem="lto-eU-Jh9" firstAttribute="centerY" secondItem="Dc9-ox-p7P" secondAttribute="centerY" id="W7G-MN-T0q"/>
                             <constraint firstItem="Ekz-It-ePy" firstAttribute="trailing" secondItem="MDO-h6-y5W" secondAttribute="trailing" id="Xz8-hV-tS4"/>
                             <constraint firstItem="UwH-3p-yhD" firstAttribute="leading" secondItem="Dc9-ox-p7P" secondAttribute="leadingMargin" constant="11.5" id="YOc-G6-lx8"/>
@@ -576,6 +604,7 @@
                             <constraint firstItem="muz-Rc-8Cx" firstAttribute="leading" secondItem="MDO-h6-y5W" secondAttribute="leading" id="ml5-EA-yJb"/>
                             <constraint firstItem="nC3-9m-CtA" firstAttribute="trailing" secondItem="MDO-h6-y5W" secondAttribute="trailing" id="p8R-IW-RZm"/>
                             <constraint firstItem="MIc-ye-Mua" firstAttribute="centerX" secondItem="Dc9-ox-p7P" secondAttribute="centerX" id="xd7-JS-oq9"/>
+                            <constraint firstItem="GbY-5p-s1P" firstAttribute="centerX" secondItem="Dc9-ox-p7P" secondAttribute="centerX" id="zyy-dw-0CP"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="MDO-h6-y5W"/>
                     </view>
@@ -591,10 +620,13 @@
                         <outlet property="friendsPopupYAxis" destination="5ix-gC-ZpM" id="Hhq-U8-N8H"/>
                         <outlet property="hangButton" destination="1RG-Ze-kCg" id="bIk-fc-uph"/>
                         <outlet property="hangButtonContainerView" destination="Ekz-It-ePy" id="ouR-cj-yAA"/>
+                        <outlet property="logoutBtn" destination="tgT-Lj-YTC" id="U9z-nO-mnG"/>
                         <outlet property="maskView" destination="BrH-o7-iIt" id="K6c-vk-GKA"/>
                         <outlet property="pickerContainerView" destination="UwH-3p-yhD" id="OLL-G0-fcf"/>
                         <outlet property="popupBackgroundButton" destination="lto-eU-Jh9" id="Maz-0h-pe3"/>
                         <outlet property="settingsBtn" destination="mk1-l3-u4G" id="LDR-uM-cqA"/>
+                        <outlet property="settingsPopup" destination="GbY-5p-s1P" id="EMo-qc-hC1"/>
+                        <outlet property="settingsPopupYAxis" destination="UqE-tr-WFa" id="1Sg-mI-d7E"/>
                         <outlet property="statusPicker" destination="Fv2-dJ-peR" id="n6Q-rA-9ck"/>
                         <outlet property="statusRing" destination="DJB-LA-iSo" id="0KZ-N0-LGp"/>
                         <outlet property="tableView" destination="BYT-RO-t0e" id="2LZ-3P-0x2"/>
@@ -605,7 +637,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ImK-o6-Ixq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="511.19999999999999" y="-330.58470764617692"/>
+            <point key="canvasLocation" x="511.19999999999999" y="-331.0344827586207"/>
         </scene>
         <!--Delegate-->
         <scene sceneID="pfm-vY-KTo">

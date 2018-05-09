@@ -79,6 +79,10 @@ class FriendsUIViewController: UIViewController, UITableViewDelegate, UITableVie
     //Time picker
     @IBOutlet weak var timeIcon: UIButton!
     @IBOutlet weak var timeIconBottomConstraint: NSLayoutConstraint!
+    //Settings modal
+    @IBOutlet weak var settingsPopup: UIView!
+    @IBOutlet weak var settingsPopupYAxis: NSLayoutConstraint!
+    @IBOutlet weak var logoutBtn: UIButton!
     //Friends modal
     @IBOutlet weak var friendsPopup: UIView!
     @IBOutlet weak var yourHangCode: UILabel!
@@ -171,7 +175,7 @@ class FriendsUIViewController: UIViewController, UITableViewDelegate, UITableVie
         tableView.alpha = 0
         hangButtonContainerView.transform = CGAffineTransform(translationX: 0, y: 173)
         
-        //friends popup styling
+        //Friends popup styling
         yourHangCode.text = thisUserData.friendCode
         friendsPopup.layer.cornerRadius = 26
         friendsPopup.layer.masksToBounds = true
@@ -185,6 +189,12 @@ class FriendsUIViewController: UIViewController, UITableViewDelegate, UITableVie
         friendIDField.layer.masksToBounds = true
         customStatusField.layer.cornerRadius = 16
         customStatusField.layer.masksToBounds = true
+        
+        //Settings styling
+        settingsPopup.layer.cornerRadius = 26
+        settingsPopup.layer.masksToBounds = true
+        settingsBtn.layer.cornerRadius = 16
+        settingsBtn.layer.masksToBounds = true
         
         //Keyboard dismissal
         self.hideKeyboardWhenTappedAround()
@@ -218,8 +228,26 @@ class FriendsUIViewController: UIViewController, UITableViewDelegate, UITableVie
     }
     
     //Setting modal
+    
     @IBAction func settingsPressed(_ sender: Any) {
+        settingsPopupYAxis.constant = 0
+        UIView.animate(withDuration: 0.7, animations: {
+            self.popupBackgroundButton.alpha = 0.9
+        })
+        UIView.animate(withDuration: 0.7, delay: 0.3, usingSpringWithDamping: 0.7, initialSpringVelocity: 7, options: .curveEaseInOut, animations: {
+            self.view.layoutIfNeeded()
+        })
+    }
+    
+    @IBAction func logoutPressed(_ sender: Any) {
         handleLogout()
+        settingsPopupYAxis.constant = 800
+        UIView.animate(withDuration: 0.7, animations: {
+            self.popupBackgroundButton.alpha = 0
+        })
+        UIView.animate(withDuration: 0.5, delay: 0.3, usingSpringWithDamping: 0.7, initialSpringVelocity: 7, options: .curveEaseInOut, animations: {
+            self.view.layoutIfNeeded()
+        })
     }
     
     //Friends popup
@@ -239,6 +267,7 @@ class FriendsUIViewController: UIViewController, UITableViewDelegate, UITableVie
     @IBAction func popupBGTouched(_ sender: Any) {
         //Close popup
         friendsPopupYAxis.constant = 800
+        settingsPopupYAxis.constant = 800
         UIView.animate(withDuration: 0.7, animations: {
             self.popupBackgroundButton.alpha = 0
         })
