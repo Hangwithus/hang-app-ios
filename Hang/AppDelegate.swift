@@ -29,7 +29,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UIApplication.shared.statusBarStyle = .lightContent
         self.window = UIWindow(frame: UIScreen.main.bounds)
         let mainStoryboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-        let exampleViewController: FriendsUIViewController = mainStoryboard.instantiateViewController(withIdentifier: "FriendsUI") as! FriendsUIViewController
+        let exampleViewController: MapViewController = mainStoryboard.instantiateViewController(withIdentifier: "mapView") as! MapViewController
         //let exampleViewController: LoginController = mainStoryboard.instantiateViewController(withIdentifier: "loginView") as! LoginController
         
 

@@ -644,11 +644,11 @@
             <objects>
                 <viewController storyboardIdentifier="mapView" id="g9T-dH-Gak" customClass="MapViewController" customModule="Hang" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="SQ1-M3-9b7">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kM0-fb-ND8" customClass="MGLMapView">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <connections>
                                     <outlet property="delegate" destination="g9T-dH-Gak" id="8rp-vg-EfT"/>
@@ -703,7 +703,7 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sXO-aO-7nG" customClass="GradientView" customModule="Hang" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="494" width="375" height="173"/>
+                                <rect key="frame" x="0.0" y="639" width="375" height="173"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QpL-0J-AOo" customClass="SelectionButton" customModule="Hang" customModuleProvider="target">
                                         <rect key="frame" x="32" y="75" width="311" height="52"/>
