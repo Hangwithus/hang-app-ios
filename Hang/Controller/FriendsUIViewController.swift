@@ -76,6 +76,7 @@ class FriendsUIViewController: UIViewController, UITableViewDelegate, UITableVie
     @IBOutlet weak var statusRing: UIImageView!
     //Time picker
     @IBOutlet weak var timeIcon: UIButton!
+    @IBOutlet weak var timeIconBottomConstraint: NSLayoutConstraint!
     //Friends modal
     @IBOutlet weak var friendsPopup: UIView!
     @IBOutlet weak var friendIDField: UITextField!
@@ -105,6 +106,7 @@ class FriendsUIViewController: UIViewController, UITableViewDelegate, UITableVie
     
     //Picker variables
     var pickerRowVariable = 0
+    var timerRowVariable = 0
     let pickerView = UIPickerView()
     var rotationAngle: CGFloat!
     let width:CGFloat = 300
@@ -268,10 +270,14 @@ class FriendsUIViewController: UIViewController, UITableViewDelegate, UITableVie
     //Time icon pressed
     @IBAction func timeIconPressed(_ sender: Any) {
         showTimerPicker = !showTimerPicker
-        statusPicker.reloadAllComponents()
         if showTimerPicker == true {
             statusRing.isHighlighted = false
+            statusPicker.selectRow(timerRowVariable, inComponent: 0, animated: false)
+        } else {
+            statusPicker.selectRow(pickerRowVariable, inComponent: 0, animated: false)
+            statusRing.isHighlighted = true
         }
+        statusPicker.reloadAllComponents()
         print("Pressed time icon")
         print (showTimerPicker)
     }
@@ -328,6 +334,25 @@ class FriendsUIViewController: UIViewController, UITableViewDelegate, UITableVie
         
         if showTimerPicker == true {
             statusRing.isHighlighted = false
+            timerRowVariable = row
+        } else {
+            //If status picker is showing then store current status row number into pickerRowVariable
+            pickerRowVariable = row
+            print(pickerRowVariable)
+        }
+        
+        //if statement to set alpha of time Icon based on if available or not
+        if isAvailable == true {
+            timeIconBottomConstraint.constant = 30
+            UIView.animate(withDuration: 0.7, delay: 0.3, usingSpringWithDamping: 0.7, initialSpringVelocity: 7, options: .curveEaseInOut, animations: {
+                self.view.layoutIfNeeded()
+            })
+        } else {
+            timeIconBottomConstraint.constant = -100
+            UIView.animate(withDuration: 0.7, delay: 0.3, usingSpringWithDamping: 0.7, initialSpringVelocity: 7, options: .curveEaseInOut, animations: {
+                self.view.layoutIfNeeded()
+            })
+            //add zero time
         }
 
         UIView.transition(with: tableView, duration: 0.3, options: .transitionCrossDissolve, animations: {self.tableView.reloadData()}, completion: nil)

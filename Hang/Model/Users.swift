@@ -20,5 +20,5 @@ var status = ["","💻", "🍱", "🍻", "🚬"]
 var statusText = ["unavailable","working", "food", "beer", "Smoking"]
 var statusAdded = false
 
-var timeLeftArray = ["1","2","3"]
-var timeDenomArray = ["Hour","Hours","Hours"]
+var timeLeftArray = ["∞","1","2","3"]
+var timeDenomArray = ["","Hour","Hours","Hours"]
