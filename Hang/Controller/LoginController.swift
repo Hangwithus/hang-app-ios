@@ -155,7 +155,6 @@ class LoginController: UIViewController, UITextFieldDelegate {
             ]
             //let friendsList = [friendsListData]
             
-            usersReference.setValue(["location":locationData])
             usersReference.setValue(["friendsList":friendsListData])
             
             let values = ["name": name, "email": email, "available":"false", "status":"status", "friendCode":friendCode, "numFriends":"0", "emoji":"❤️", "time":"0m", "lastAvailable":"5-9-18_10:05"]
@@ -171,6 +170,8 @@ class LoginController: UIViewController, UITextFieldDelegate {
                 print("saved user successfully into firebase db")
                 
             })
+            usersReference.setValue(["location":locationData])
+
             
         })
     }
