@@ -139,7 +139,7 @@ class LoginController: UIViewController, UITextFieldDelegate {
     
     @objc func handleRegister() {
         
-        guard let email = emailTextField.text, let password = passwordTextField.text, let number = nameTextField.text, let name = nameTextField.text else {
+        guard let email = emailTextField.text, let password = passwordTextField.text, let number = numberTextField.text, let name = nameTextField.text else {
             print("form is not valid")
             return
         }
@@ -210,7 +210,7 @@ class LoginController: UIViewController, UITextFieldDelegate {
         
         //change height of number field
         numberTextFieldHeightAnchor?.isActive = false
-        numberTextFieldHeightAnchor = numberTextField.heightAnchor.constraint(equalTo: inputsContainerView.heightAnchor, multiplier: loginRegisterSegmentedControl.selectedSegmentIndex == 0 ? 1/2 : 1/4)
+        numberTextFieldHeightAnchor = numberTextField.heightAnchor.constraint(equalTo: inputsContainerView.heightAnchor, multiplier: loginRegisterSegmentedControl.selectedSegmentIndex == 0 ? 0 : 1/4)
         numberTextFieldHeightAnchor?.isActive = true
         
         //change height of password field
@@ -219,7 +219,8 @@ class LoginController: UIViewController, UITextFieldDelegate {
         passwordTextFieldHeightAnchor?.isActive = true
         
         nameSeparatorViewHeightAnchor?.constant = loginRegisterSegmentedControl.selectedSegmentIndex == 0 ? 0 : 1
-        
+        numberSeparatorViewHeightAnchor?.constant = loginRegisterSegmentedControl.selectedSegmentIndex == 0 ? 0 : 1
+
         
     }
     
