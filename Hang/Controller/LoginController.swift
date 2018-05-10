@@ -8,15 +8,16 @@
 
 import UIKit
 import Firebase
+import Lottie
 
 class LoginController: UIViewController, UITextFieldDelegate {
     
-    let logoImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.image = UIImage(named: "logolarge")
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        return imageView
-        
+    let logoImageView: LOTAnimationView = {
+        let animationView = LOTAnimationView(name: "hanganim")
+        animationView.play{ (finished) in
+            // Do something after finished
+        }
+        return animationView
     }()
     
     //creates container view for inputs
@@ -238,8 +239,8 @@ class LoginController: UIViewController, UITextFieldDelegate {
     func setupLogoImageView() {
         logoImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         logoImageView.bottomAnchor.constraint(equalTo: loginRegisterSegmentedControl.topAnchor, constant: -32).isActive = true
-        logoImageView.widthAnchor.constraint(equalToConstant: 144).isActive = true
-        logoImageView.heightAnchor.constraint(equalToConstant: 120).isActive = true
+        logoImageView.widthAnchor.constraint(equalToConstant: 10).isActive = true
+        logoImageView.heightAnchor.constraint(equalToConstant: 10).isActive = true
     }
     
     var inputsContainerViewHeightAnchor: NSLayoutConstraint?
