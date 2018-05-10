@@ -132,6 +132,8 @@ class FriendsUIViewController: UIViewController, UITableViewDelegate, UITableVie
     var userEmoji = "❓"
     var currentGuy = ""
     
+    var selectedPeople = [String]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -652,6 +654,7 @@ UIView.animate(withDuration: 1, delay: 0.2, usingSpringWithDamping: 0.5, initial
                 cell.name.text = availableUsers[indexPath.row].name
                 cell.info.text = availableUsers[indexPath.row].status
                 cell.emoji.text = availableUsers[indexPath.row].emoji
+                cell.userId.text = availableUsers[indexPath.row].uid
                 cell.available.isHidden = true
                 cell.checkAccessory.isHidden = false
                 if selectedCells.contains(indexPath){
@@ -698,9 +701,10 @@ UIView.animate(withDuration: 1, delay: 0.2, usingSpringWithDamping: 0.5, initial
             }
         }
     }
-    
+   
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         //cell selection for when available
+        
         if isAvailable == true {
             //current user status cell
             if indexPath.section == 0 {
@@ -713,11 +717,18 @@ UIView.animate(withDuration: 1, delay: 0.2, usingSpringWithDamping: 0.5, initial
                     //if cell is checked, remove checkmark and cell index from selected cells set
                     cell.checkAccessory.isSelected = false
                     selectedCells.remove(indexPath)
-
+                    selectedPeople = selectedPeople.filter{$0 != cell.userId.text!}
+                    print(selectedPeople)
+                    peopleToChill = selectedPeople
+                    //selectedPeople.remove(at: indexPath)
                 }else {
                     //if cell is unchecked, add checkmark and add cell to selected cells set
                     cell.checkAccessory.isSelected = true
                     selectedCells.insert(indexPath)
+                    //selectedPeople.insert(at: indexPath, cell.userId)
+                    selectedPeople.append(cell.userId.text!)
+                    print(selectedPeople)
+                    peopleToChill = selectedPeople
                 }
                     UIView.animate(withDuration: 1, delay: 0.2, usingSpringWithDamping: 0.5, initialSpringVelocity: 5, options: .curveEaseInOut, animations: {
                         //remove satus picker and display hang button if a cell is checked
@@ -983,6 +994,7 @@ UIView.animate(withDuration: 1, delay: 0.2, usingSpringWithDamping: 0.5, initial
                     user.lastAvailable = lastAvailable
                     user.emoji = emoji
                     user.time = time
+                    user.uid = child.key
                     user.location = location
                     //user.email = email
                     user.availability = availability
