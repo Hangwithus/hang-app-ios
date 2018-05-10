@@ -20,6 +20,7 @@ class Users: NSObject {
     var time: String?
     var numFriends: String?
     var friendCode: String?
+    var uid:String?
 }
 
 var status = ["","💻", "🍱", "🍻"]

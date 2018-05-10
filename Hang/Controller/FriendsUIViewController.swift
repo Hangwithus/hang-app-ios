@@ -132,6 +132,8 @@ class FriendsUIViewController: UIViewController, UITableViewDelegate, UITableVie
     var userEmoji = "❓"
     var currentGuy = ""
     
+    var selectedPeople = [String]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -162,7 +164,8 @@ class FriendsUIViewController: UIViewController, UITableViewDelegate, UITableVie
         //Status picker rotation
         rotationAngle = -90 * (.pi/180)
         statusPicker.transform = CGAffineTransform(rotationAngle: rotationAngle)
-        
+        statusRing.transform = CGAffineTransform(scaleX: 0.8, y: 0.8)
+
         //tableview
         tableView.backgroundColor = UIColor.clear
 
@@ -417,7 +420,15 @@ class FriendsUIViewController: UIViewController, UITableViewDelegate, UITableVie
         var values = ["available":"", "status":"", "emoji":""]
         if row == 0 && showTimerPicker == false {
             //Show the selector ring image if unavailable
-            statusRing.isHighlighted = false
+UIView.animate(withDuration: 1, delay: 0.2, usingSpringWithDamping: 0.5, initialSpringVelocity: 5, options: .curveEaseInOut, animations: {
+                self.statusRing.isHighlighted = false
+            self.statusRing.transform = CGAffineTransform(scaleX: 0.8, y: 0.8)
+
+            }) { (_) in
+                //animation is finished
+            }
+           
+
             //sets availability to false and removes checks from marked cells
             isAvailable = false
             
@@ -427,7 +438,13 @@ class FriendsUIViewController: UIViewController, UITableViewDelegate, UITableVie
             values = ["available":"true", "status":statusText[row], "emoji":status[row]]
             //Show the selector ring image if unavailable
             isAvailable = true
-            statusRing.isHighlighted = true
+            UIView.animate(withDuration: 1, delay: 0.2, usingSpringWithDamping: 0.5, initialSpringVelocity: 5, options: .curveEaseInOut, animations: {
+                    self.statusRing.isHighlighted = true
+                self.statusRing.transform = CGAffineTransform(scaleX: 1, y: 1)
+
+            }) { (_) in
+                //animation is finished
+            }
         }
         
         if showTimerPicker == true {
@@ -637,6 +654,7 @@ class FriendsUIViewController: UIViewController, UITableViewDelegate, UITableVie
                 cell.name.text = availableUsers[indexPath.row].name
                 cell.info.text = availableUsers[indexPath.row].status
                 cell.emoji.text = availableUsers[indexPath.row].emoji
+                cell.userId.text = availableUsers[indexPath.row].uid
                 cell.available.isHidden = true
                 cell.checkAccessory.isHidden = false
                 if selectedCells.contains(indexPath){
@@ -683,9 +701,10 @@ class FriendsUIViewController: UIViewController, UITableViewDelegate, UITableVie
             }
         }
     }
-    
+   
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         //cell selection for when available
+        
         if isAvailable == true {
             //current user status cell
             if indexPath.section == 0 {
@@ -698,11 +717,18 @@ class FriendsUIViewController: UIViewController, UITableViewDelegate, UITableVie
                     //if cell is checked, remove checkmark and cell index from selected cells set
                     cell.checkAccessory.isSelected = false
                     selectedCells.remove(indexPath)
-
+                    selectedPeople = selectedPeople.filter{$0 != cell.userId.text!}
+                    print(selectedPeople)
+                    peopleToChill = selectedPeople
+                    //selectedPeople.remove(at: indexPath)
                 }else {
                     //if cell is unchecked, add checkmark and add cell to selected cells set
                     cell.checkAccessory.isSelected = true
                     selectedCells.insert(indexPath)
+                    //selectedPeople.insert(at: indexPath, cell.userId)
+                    selectedPeople.append(cell.userId.text!)
+                    print(selectedPeople)
+                    peopleToChill = selectedPeople
                 }
                     UIView.animate(withDuration: 1, delay: 0.2, usingSpringWithDamping: 0.5, initialSpringVelocity: 5, options: .curveEaseInOut, animations: {
                         //remove satus picker and display hang button if a cell is checked
@@ -968,6 +994,7 @@ class FriendsUIViewController: UIViewController, UITableViewDelegate, UITableVie
                     user.lastAvailable = lastAvailable
                     user.emoji = emoji
                     user.time = time
+                    user.uid = child.key
                     user.location = location
                     //user.email = email
                     user.availability = availability

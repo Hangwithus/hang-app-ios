@@ -12,6 +12,9 @@ import MessageUI
 import Firebase
 import FirebaseDatabase
 
+var peopleToChill = [String]()
+
+
 class MapViewController: UIViewController, MGLMapViewDelegate, MFMessageComposeViewControllerDelegate {
 
    
@@ -19,8 +22,8 @@ class MapViewController: UIViewController, MGLMapViewDelegate, MFMessageComposeV
     var mapViewPresented = false
 
     var currentGuy = ""
-
-    
+    //var peopleToChill = [String]()
+    var phoneNumbers = [String]()
     @IBOutlet weak var leaveBtn: UIButton!
     @IBOutlet weak var chatButton: SelectionButton!
     @IBOutlet weak var mapView: MGLMapView!
@@ -61,7 +64,9 @@ class MapViewController: UIViewController, MGLMapViewDelegate, MFMessageComposeV
     @IBAction func chatPressed(_ sender: Any) {
         if MFMessageComposeViewController.canSendText() {
             messageController.body = "Let's Hang"
-            messageController.recipients = ["11111111111"]
+            //messageController.recipients = ["11111111111"]
+            messageController.recipients = phoneNumbers
+
             messageController.messageComposeDelegate = self
             self.present(messageController, animated: true, completion: nil)
             
@@ -123,32 +128,52 @@ class MapViewController: UIViewController, MGLMapViewDelegate, MFMessageComposeV
         })
     }
     func grabUserLocations(){
-        let query = Database.database().reference().child("users")
-        query.observe(.value){ (snapshot) in
-            for child in snapshot.children.allObjects as! [DataSnapshot]{
-                if(child.key != self.currentGuy){
-                    if let value0 = snapshot.value as? NSDictionary{
-                        var availableUser = value0["availability"] as? String ?? "Availability not found"
-                        if(availableUser == "true"){
-                            let locationQuery = Database.database().reference().child("users").child(child.key).child("location")
-                            locationQuery.observe(.value){(snapshot2) in
-                                if let value = snapshot2.value as? NSDictionary{
-                                    print("the value is")
-                                    print(value)
-                                    var long = value["longitude"] as? Double ?? 0
-                                    var lat = value["latitude"] as? Double ?? 0
-                                    let annotation = MGLPointAnnotation()
-                                    annotation.coordinate = CLLocationCoordinate2D(latitude: lat, longitude: long)
-                                    annotation.title = "One of your friends"
-                                    annotation.subtitle = "quite a good friend"
-                                    self.mapView.addAnnotation(annotation)
-                                    print("key: "+child.key)
-                                    print(long)
-                                    print(lat)
+        print("grabbing")
+        print(peopleToChill)
+        for person in peopleToChill{
+            print(person)
+            let query = Database.database().reference().child("users").child(person)
+            query.observe(.value){ (snapshot) in
+                print("observing")
+                //for child in snapshot.children.allObjects as! [DataSnapshot]{
+                    if(person != self.currentGuy){
+                        print("not me")
+                        if let value0 = snapshot.value as? NSDictionary{
+                            print("im a dictionary")
+                            var phoneNumber = value0["phoneNumber"] as? String ?? "2393148826"
+                            var check = 0
+                            for pN in self.phoneNumbers {
+                                if(pN == phoneNumber){
+                                    check = check+1
+                                }
+                            }
+                            print(self.phoneNumbers)
+                            if(check == 0){
+                                self.phoneNumbers.append(phoneNumber)
+                            }
+                            var availableUser = value0["available"] as? String ?? "Availability not found"
+                            if(availableUser == "true"){
+                                print("grabbing ttheir location")
+                                let locationQuery = Database.database().reference().child("users").child(person).child("location")
+                                locationQuery.observe(.value){(snapshot2) in
+                                    if let value = snapshot2.value as? NSDictionary{
+                                        print("the value is")
+                                        print(value)
+                                        var long = value["longitude"] as? Double ?? 0
+                                        var lat = value["latitude"] as? Double ?? 0
+                                        let annotation = MGLPointAnnotation()
+                                        annotation.coordinate = CLLocationCoordinate2D(latitude: lat, longitude: long)
+                                        annotation.title = "One of your friends"
+                                        annotation.subtitle = "quite a good friend"
+                                        self.mapView.addAnnotation(annotation)
+                                        print("key: "+person)
+                                        print(long)
+                                        print(lat)
+                                    }
                                 }
                             }
                         }
-                    }
+                    //}
                 }
             }
         }
