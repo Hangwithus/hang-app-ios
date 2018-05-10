@@ -14,10 +14,19 @@ class LoginController: UIViewController, UITextFieldDelegate {
     
     let logoImageView: LOTAnimationView = {
         let animationView = LOTAnimationView(name: "hanganim")
+        animationView.translatesAutoresizingMaskIntoConstraints = false
         animationView.play{ (finished) in
             // Do something after finished
         }
         return animationView
+    }()
+    
+    let logoAnimationView : UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor(red:0.94, green:0.94, blue:0.96, alpha:1.00)
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+        
     }()
     
     //creates container view for inputs
@@ -241,14 +250,15 @@ class LoginController: UIViewController, UITextFieldDelegate {
         passwordTextField.delegate = self
         
         //adds subviews to main view
-        view.addSubview(logoImageView)
+//        view.addSubview(logoImageView)
+        view.addSubview(logoAnimationView)
         view.addSubview(inputsContainerView)
         view.addSubview(loginRegisterButton)
         view.addSubview(loginRegisterSegmentedControl)
         
+        setupLogoAnimationView()
         setupInputsContainerView()
         setupLoginRegisterButton()
-        setupLogoImageView()
         setupLoginRegisterSegmentedControl()
     }
     
@@ -259,11 +269,22 @@ class LoginController: UIViewController, UITextFieldDelegate {
         loginRegisterSegmentedControl.heightAnchor.constraint(equalToConstant: 36).isActive = true
     }
     
-    func setupLogoImageView() {
-        logoImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        logoImageView.bottomAnchor.constraint(equalTo: loginRegisterSegmentedControl.topAnchor, constant: -32).isActive = true
-        logoImageView.widthAnchor.constraint(equalToConstant: 10).isActive = true
-        logoImageView.heightAnchor.constraint(equalToConstant: 10).isActive = true
+    func setupLogoAnimationView() {
+        logoAnimationView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        logoAnimationView.bottomAnchor.constraint(equalTo: loginRegisterSegmentedControl.topAnchor, constant: 0).isActive = true
+        logoAnimationView.widthAnchor.constraint(equalToConstant: 200).isActive = true
+        logoAnimationView.heightAnchor.constraint(equalToConstant: 200).isActive = true
+        
+        logoAnimationView.addSubview(logoImageView)
+        
+        logoImageView.leftAnchor.constraint(equalTo: logoAnimationView.leftAnchor).isActive = true
+        logoImageView.rightAnchor.constraint(equalTo: logoAnimationView.rightAnchor).isActive = true
+        logoImageView.topAnchor.constraint(equalTo: logoAnimationView.topAnchor).isActive = true
+        logoImageView.bottomAnchor.constraint(equalTo: logoAnimationView.bottomAnchor).isActive = true
+        logoImageView.widthAnchor.constraint(equalTo: logoAnimationView.widthAnchor).isActive = true
+        logoImageView.heightAnchor.constraint(equalTo: logoAnimationView.heightAnchor).isActive = true
+
+
     }
     
     var inputsContainerViewHeightAnchor: NSLayoutConstraint?
@@ -350,8 +371,8 @@ class LoginController: UIViewController, UITextFieldDelegate {
     @objc  func keyboardWillChange(notification: NSNotification) {
         
         if ((notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue) != nil {
-            if nameTextField.isFirstResponder || emailTextField.isFirstResponder || passwordTextField.isFirstResponder{
-                self.view.frame.origin.y = -86
+            if nameTextField.isFirstResponder || emailTextField.isFirstResponder || passwordTextField.isFirstResponder || numberTextField.isFirstResponder{
+                self.view.frame.origin.y = -100
             }
         }
     }
@@ -373,6 +394,8 @@ class LoginController: UIViewController, UITextFieldDelegate {
         if textField == nameTextField {
             emailTextField.becomeFirstResponder()
         } else if textField == emailTextField {
+            numberTextField.becomeFirstResponder()
+        } else if textField == numberTextField {
             passwordTextField.becomeFirstResponder()
         } else if textField == passwordTextField {
             textField.resignFirstResponder()
