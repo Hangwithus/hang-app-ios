@@ -258,7 +258,11 @@ class LoginController: UIViewController, UITextFieldDelegate {
         view.addSubview(inputsContainerView)
         view.addSubview(loginRegisterButton)
         view.addSubview(loginRegisterSegmentedControl)
-        
+        do {
+            try Auth.auth().signOut()
+        } catch let logoutError {
+            print(logoutError)
+        }
         setupLogoAnimationView()
         setupInputsContainerView()
         setupLoginRegisterButton()
