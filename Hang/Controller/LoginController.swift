@@ -248,7 +248,11 @@ class LoginController: UIViewController, UITextFieldDelegate {
         emailTextField.delegate = self
         numberTextField.delegate = self
         passwordTextField.delegate = self
-        
+        do {
+            try Auth.auth().signOut()
+        } catch let logoutError {
+            print(logoutError)
+        }
         //adds subviews to main view
 //        view.addSubview(logoImageView)
         view.addSubview(logoAnimationView)

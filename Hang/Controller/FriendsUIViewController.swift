@@ -201,11 +201,20 @@ class FriendsUIViewController: UIViewController, UITableViewDelegate, UITableVie
         
         //Keyboard dismissal
         self.hideKeyboardWhenTappedAround()
-        
-        currentGuy = Auth.auth().currentUser?.uid ?? "uid not found"
+        checkIfUserIsLogeedIn()
+        print("----Here is the current user info----")
+        print(Auth.auth().currentUser?.uid)
+        print(Auth.auth().currentUser)
+        //currentGuy = Auth.auth().currentUser?.uid ?? "uid not found"
+        guard let tacoMan = Auth.auth().currentUser?.uid else{
+            return
+        }
+        currentGuy = tacoMan
         print("printing currentGuy: "+currentGuy)
         //currentGuy = String(currentGuy)
         fetchUser()
+        
+        print("called view did load")
         //hangCodeTag.text = thisUserData.friendCode
     }
     
@@ -219,7 +228,7 @@ class FriendsUIViewController: UIViewController, UITableViewDelegate, UITableVie
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-     
+        print("called view did appear")
         UIView.animate(withDuration: 1, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 7, options: .curveEaseInOut, animations: {
             self.tableView.transform = CGAffineTransform(scaleX: 1, y: 1)
             self.tableView.alpha = 1
@@ -340,11 +349,17 @@ class FriendsUIViewController: UIViewController, UITableViewDelegate, UITableVie
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        
+        print("called view will appear")
         checkIfUserIsLogeedIn()
+        /*guard let currentGuy = Auth.auth().currentUser?.uid else{
+            return
+        }
+        print("printing currentGuy: "+currentGuy)*/
     }
     
     func checkIfUserIsLogeedIn() {
+        print("current guy before that will appear")
+        print(currentGuy)
         if Auth.auth().currentUser?.uid == nil {
             perform(#selector(handleLogout), with: nil, afterDelay: 0)
         } else {
@@ -359,6 +374,8 @@ class FriendsUIViewController: UIViewController, UITableViewDelegate, UITableVie
                 
             }, withCancel: nil)
         }
+        print("current guy after that will appear")
+        print(currentGuy)
         
     }
     
@@ -469,9 +486,13 @@ UIView.animate(withDuration: 1, delay: 0.2, usingSpringWithDamping: 0.5, initial
             })
             //add zero time
         }
-
+        /*guard let currentGuy = Auth.auth().currentUser?.uid else{
+            return
+        }*/
         UIView.transition(with: tableView, duration: 0.3, options: .transitionCrossDissolve, animations: {self.tableView.reloadData()}, completion: nil)
-        let usersReference = Database.database().reference().child("users").child(currentGuy)
+        print("current guy dude man")
+        print(currentGuy)
+        let usersReference = Database.database().reference().child("users").child(String(currentGuy))
         usersReference.updateChildValues(values, withCompletionBlock: { (err, ref) in
             
             if err != nil {
