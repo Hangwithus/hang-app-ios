@@ -180,7 +180,6 @@ class FriendsUIViewController: UIViewController, UITableViewDelegate, UITableVie
         hangButtonContainerView.transform = CGAffineTransform(translationX: 0, y: 173)
         
         //Friends popup styling
-        yourHangCode.text = thisUserData.friendCode
         friendsPopup.layer.cornerRadius = 26
         friendsPopup.layer.masksToBounds = true
         createStatusBtn.layer.cornerRadius = 26
@@ -258,6 +257,7 @@ class FriendsUIViewController: UIViewController, UITableViewDelegate, UITableVie
 
     @IBAction func showFriendsPopup(_ sender: Any) {
         //Open popupg
+        yourHangCode.text = thisUserData.friendCode
         friendsPopupYAxis.constant = 0
         UIView.animate(withDuration: 0.7, animations: {
             self.popupBackgroundButton.alpha = 0.9
@@ -448,7 +448,7 @@ UIView.animate(withDuration: 1, delay: 0.2, usingSpringWithDamping: 0.5, initial
                 //animation is finished
             }
         } else {
-            values = ["available":"true", "status":statusText[row], "emoji":status[lastStatusSelected]]
+            values = ["available":"true", "status":statusText[lastStatusSelected], "emoji":status[lastStatusSelected]]
         }
         
         if showTimerPicker == true {
