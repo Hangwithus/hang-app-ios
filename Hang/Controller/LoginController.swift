@@ -132,6 +132,11 @@ class LoginController: UIViewController, UITextFieldDelegate {
             
             if error != nil {
                 print(error!)
+                let alert = UIAlertController(title: "Uh-Oh", message: "Woops! are you sure thats your account?", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: NSLocalizedString("I'll try again", comment: "Default action"), style: .default, handler: { _ in
+                    NSLog("The \"OK\" alert occured.")
+                }))
+                self.present(alert, animated: true, completion: nil)
                 return
             }
             self.dismiss(animated: true, completion: nil)
@@ -161,6 +166,11 @@ class LoginController: UIViewController, UITextFieldDelegate {
             
             if error != nil {
                 print(error!)
+                let alert = UIAlertController(title: "Uh-Oh", message: "Something went wrong. Double check the fields and try again.", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: NSLocalizedString("Try again", comment: "Default action"), style: .default, handler: { _ in
+                    NSLog("The \"OK\" alert occured.")
+                }))
+                self.present(alert, animated: true, completion: nil)
                 return
             }
             
@@ -197,6 +207,11 @@ class LoginController: UIViewController, UITextFieldDelegate {
                 self.dismiss(animated: true, completion: nil)
                 
                 print("saved user successfully into firebase db")
+                let alert = UIAlertController(title: "YAY!", message: "You succesfully made account. Go ahead and login.", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: NSLocalizedString("Awww Yaaa", comment: "Default action"), style: .default, handler: { _ in
+                    NSLog("The \"OK\" alert occured.")
+                }))
+                self.present(alert, animated: true, completion: nil)
                 
             })
 
