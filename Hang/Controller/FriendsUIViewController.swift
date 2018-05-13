@@ -202,7 +202,11 @@ class FriendsUIViewController: UIViewController, UITableViewDelegate, UITableVie
         //Keyboard dismissal
         self.hideKeyboardWhenTappedAround()
         
-        currentGuy = Auth.auth().currentUser?.uid ?? "uid not found"
+        //currentGuy = Auth.auth().currentUser?.uid ?? "uid not found"
+        guard let tacoMan = Auth.auth().currentUser?.uid else{
+            return
+        }
+        currentGuy = tacoMan
         print("printing currentGuy: "+currentGuy)
         //currentGuy = String(currentGuy)
         fetchUser()
