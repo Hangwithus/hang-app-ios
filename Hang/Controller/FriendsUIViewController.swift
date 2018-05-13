@@ -120,6 +120,7 @@ class FriendsUIViewController: UIViewController, UITableViewDelegate, UITableVie
     //Picker variables
     var pickerRowVariable = 0
     var timerRowVariable = 0
+    var lastStatusSelected = 0
     let pickerView = UIPickerView()
     var rotationAngle: CGFloat!
     let width:CGFloat = 300
@@ -434,7 +435,8 @@ UIView.animate(withDuration: 1, delay: 0.2, usingSpringWithDamping: 0.5, initial
             
             values = ["available":"false", "status":"unavailable"]
             selectedCells.removeAll()
-        } else {
+        } else if row != 0 && showTimerPicker == false {
+            lastStatusSelected = row
             values = ["available":"true", "status":statusText[row], "emoji":status[row]]
             //Show the selector ring image if unavailable
             isAvailable = true
@@ -445,6 +447,8 @@ UIView.animate(withDuration: 1, delay: 0.2, usingSpringWithDamping: 0.5, initial
             }) { (_) in
                 //animation is finished
             }
+        } else {
+            values = ["available":"true", "status":statusText[row], "emoji":status[lastStatusSelected]]
         }
         
         if showTimerPicker == true {
