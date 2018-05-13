@@ -87,7 +87,7 @@ class MapViewController: UIViewController, MGLMapViewDelegate, MFMessageComposeV
             mapViewPresented = true
         }
     
-//        print("test")
+        print("test")
     }
     
     
@@ -128,8 +128,8 @@ class MapViewController: UIViewController, MGLMapViewDelegate, MFMessageComposeV
         })
     }
     func grabUserLocations(){
-        print("grabbing")
-        print(peopleToChill)
+        //print("grabbing")
+        //print(peopleToChill)
         for person in peopleToChill{
             print(person)
             let query = Database.database().reference().child("users").child(person)

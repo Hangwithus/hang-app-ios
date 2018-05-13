@@ -232,6 +232,8 @@ class FriendsUIViewController: UIViewController, UITableViewDelegate, UITableVie
             //animation is finished
          
         }
+        print("appeared")
+        print("view did load")
     }
     
     //Setting modal
@@ -347,6 +349,7 @@ class FriendsUIViewController: UIViewController, UITableViewDelegate, UITableVie
     override func viewWillAppear(_ animated: Bool) {
         
         checkIfUserIsLogeedIn()
+        print("view will appear")
     }
     
     func checkIfUserIsLogeedIn() {

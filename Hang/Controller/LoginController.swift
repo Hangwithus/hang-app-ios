@@ -141,7 +141,11 @@ class LoginController: UIViewController, UITextFieldDelegate {
     }
     
     @objc func handleLoginRegister() {
-        
+        do {
+            try Auth.auth().signOut()
+        } catch let logoutError {
+            print(logoutError)
+        }
         if loginRegisterSegmentedControl.selectedSegmentIndex == 0 {
             handleLogin()
         } else {
