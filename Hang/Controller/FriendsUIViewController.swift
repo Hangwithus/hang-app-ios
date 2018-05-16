@@ -207,6 +207,24 @@ class FriendsUIViewController: UIViewController, UITableViewDelegate, UITableVie
             return
         }
         currentGuy = tacoMan
+        var emojiStrings = [""]
+        var emojiTextStrings = [""]
+        //let userEmojiRef = Database.database().reference().child("users").child(currentGuy)
+        Database.database().reference().child("users").child(currentGuy).observeSingleEvent(of: .value, with: { (snapshot) in
+            
+            if let dictionary = snapshot.value as? NSDictionary  {
+                print("in that dictionary dawg")
+                emojiStrings = dictionary["emojiList"] as? [String] ?? ["","💻", "🍱", "🍻"]
+                emojiTextStrings = dictionary["emojiTextList"] as? [String] ?? ["unavailable","working", "food", "beer"]
+                print(emojiStrings)
+                status = emojiStrings
+                print(status)
+                statusText = emojiTextStrings
+                self.statusPicker.reloadAllComponents()
+            }
+            
+        }, withCancel: nil)
+        
         print("printing currentGuy: "+currentGuy)
         //currentGuy = String(currentGuy)
         fetchUser()
@@ -327,6 +345,28 @@ class FriendsUIViewController: UIViewController, UITableViewDelegate, UITableVie
         let statusInput = customStatusField.text
         status.append(emojiInput!)
         statusText.append(statusInput!)
+        //save the updated status array to the database
+        //save the updated status text array to the database
+        //go into picker view and have it load the statuses from the database -- or refresh it
+        //when the user info is loading then pull the statuses from the database and plug them into the picker view
+        let emojiDBUpdate = ["emojiList": status]
+        let emojiTextDBUpdate = ["emojiTextList":statusText]
+        
+        let userRef = Database.database().reference().child("users").child(currentGuy)
+        userRef.updateChildValues(emojiDBUpdate, withCompletionBlock: { (err, ref) in
+            if err != nil{
+                print(err!)
+                return
+            }
+            print("updated the users number friends")
+        })
+        userRef.updateChildValues(emojiTextDBUpdate, withCompletionBlock: { (err, ref) in
+            if err != nil{
+                print(err!)
+                return
+            }
+            print("updated the users number friends")
+        })
         statusAdded = true
         print([statusInput])
     }
