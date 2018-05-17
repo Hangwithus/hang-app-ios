@@ -1044,8 +1044,8 @@ UIView.animate(withDuration: 1, delay: 0.2, usingSpringWithDamping: 0.5, initial
         let rootRef = Database.database().reference()
         let query = rootRef.child("users").queryOrdered(byChild: "name")
         query.observe(.value) { (snapshot) in
-            self.availableUsers.removeAll()
-            self.unavailableUsers.removeAll()
+            //self.availableUsers.removeAll()
+            //self.unavailableUsers.removeAll()
             for child in snapshot.children.allObjects as! [DataSnapshot] {
                 if let value = child.value as? NSDictionary {
                     let user = Users()
