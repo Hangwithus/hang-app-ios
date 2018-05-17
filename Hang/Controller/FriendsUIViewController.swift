@@ -250,6 +250,11 @@ class FriendsUIViewController: UIViewController, UITableViewDelegate, UITableVie
             //animation is finished
          
         }
+        guard let tacoMan = Auth.auth().currentUser?.uid else{
+            loggedIn = false
+            return
+        }
+        currentGuy = tacoMan
         print("appeared")
         print("view did load")
     }
@@ -389,6 +394,20 @@ class FriendsUIViewController: UIViewController, UITableViewDelegate, UITableVie
     override func viewWillAppear(_ animated: Bool) {
         
         checkIfUserIsLogeedIn()
+        Database.database().reference().child("users").child(currentGuy).observeSingleEvent(of: .value, with: { (snapshot) in
+            
+            if let dictionary = snapshot.value as? NSDictionary  {
+                print("in that dictionary dawg")
+                var emojiStrings = dictionary["emojiList"] as? [String] ?? ["","💻", "🍱", "🍻"]
+                var emojiTextStrings = dictionary["emojiTextList"] as? [String] ?? ["unavailable","working", "food", "beer"]
+                print(emojiStrings)
+                status = emojiStrings
+                print(status)
+                statusText = emojiTextStrings
+                self.statusPicker.reloadAllComponents()
+            }
+            
+        }, withCancel: nil)
         print("view will appear")
     }
     
@@ -1070,6 +1089,7 @@ UIView.animate(withDuration: 1, delay: 0.2, usingSpringWithDamping: 0.5, initial
                         self.userEmoji = emoji
                         user.numFriends = value["numFriends"] as? String ?? "NumFriends not found"
                         user.friendCode = value["friendCode"] as? String ?? "Friend Code not found"
+                        user.friendsList = value["friendsList"] as? [String] ?? [""]
                         self.thisUserData = user
                         //print(userStatus)
                         //print(self.userStatus)

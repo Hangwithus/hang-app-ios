@@ -20,11 +20,14 @@ class Users: NSObject {
     var time: String?
     var numFriends: String?
     var friendCode: String?
+    var friendsList: [String]?
     var uid:String?
 }
 
 var status = ["","💻", "🍱", "🍻"]
 var statusText = ["unavailable","working", "food", "beer"]
+var defaultstatus = ["","💻", "🍱", "🍻"]
+var defaultstatusText = ["unavailable","working", "food", "beer"]
 var statusAdded = false
 
 

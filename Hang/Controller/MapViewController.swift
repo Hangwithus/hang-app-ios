@@ -14,13 +14,14 @@ import FirebaseDatabase
 
 var peopleToChill = [String]()
 
+var loggedIn = true
 
 class MapViewController: UIViewController, MGLMapViewDelegate, MFMessageComposeViewControllerDelegate {
 
    
     let messageController = MFMessageComposeViewController()
     var mapViewPresented = false
-
+    
     var currentGuy = ""
     //var peopleToChill = [String]()
     var phoneNumbers = [String]()
@@ -45,7 +46,11 @@ class MapViewController: UIViewController, MGLMapViewDelegate, MFMessageComposeV
             }
         #endif
         
-        currentGuy = Auth.auth().currentUser?.uid ?? "uid not found"
+        guard let tacoMan = Auth.auth().currentUser?.uid else{
+            loggedIn = false
+            return
+        }
+        currentGuy = tacoMan
 
     }
     
@@ -108,24 +113,31 @@ class MapViewController: UIViewController, MGLMapViewDelegate, MFMessageComposeV
     func mapView(_ mapView: MGLMapView, didUpdate userLocation: MGLUserLocation?) {
         let location = mapView.userLocation?.location
         mapView.setCenter(CLLocationCoordinate2D(latitude: (location?.coordinate.latitude)!, longitude: (location?.coordinate.longitude)!),zoomLevel: 15, animated: false)
-        var query = Database.database().reference().child("users").child(currentGuy).child("location")
-        let longvalues = ["longitude": location?.coordinate.longitude]
-        let latvalues = ["latitude": location?.coordinate.latitude]
-        grabUserLocations()
-        query.updateChildValues(longvalues, withCompletionBlock: { (err, ref) in
-            if err != nil{
-                print(err!)
+        if(loggedIn == true){
+            guard let tacoMan = Auth.auth().currentUser?.uid else{
+                loggedIn = false
                 return
             }
-            //print("updated longitude")
-        })
-        query.updateChildValues(latvalues, withCompletionBlock: { (err, ref) in
-            if err != nil{
-                print(err!)
-                return
-            }
-            //print("updated latitude")
-        })
+            currentGuy = tacoMan
+            var query = Database.database().reference().child("users").child(currentGuy).child("location")
+            let longvalues = ["longitude": location?.coordinate.longitude]
+            let latvalues = ["latitude": location?.coordinate.latitude]
+            grabUserLocations()
+            query.updateChildValues(longvalues, withCompletionBlock: { (err, ref) in
+                if err != nil{
+                    print(err!)
+                    return
+                }
+                //print("updated longitude")
+            })
+            query.updateChildValues(latvalues, withCompletionBlock: { (err, ref) in
+                if err != nil{
+                    print(err!)
+                    return
+                }
+                //print("updated latitude")
+            })
+        }
     }
     func grabUserLocations(){
         //print("grabbing")

@@ -140,7 +140,7 @@ class LoginController: UIViewController, UITextFieldDelegate {
                 return
             }
             self.dismiss(animated: true, completion: nil)
-            
+            loggedIn = true
         }
         
     }
@@ -199,7 +199,8 @@ class LoginController: UIViewController, UITextFieldDelegate {
             
             usersReference.setValue(["friendsList":friendsListData])
             usersReference.setValue(["location":locationData])
-
+            usersReference.setValue(["emojiList":status])
+            usersReference.setValue(["emojiTextList":statusText])
             let values = ["name": name, "email": email, "available":"false", "status":"status", "number": number, "friendCode":friendCode, "numFriends":"0", "emoji":"❤️", "time":"0m", "lastAvailable":"5-9-18_10:05"]
             usersReference.updateChildValues(values, withCompletionBlock: { (err, ref) in
                 
@@ -219,7 +220,7 @@ class LoginController: UIViewController, UITextFieldDelegate {
                 
             })
 
-            
+            loggedIn = true
         })
     }
     
