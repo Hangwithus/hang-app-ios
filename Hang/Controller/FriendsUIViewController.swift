@@ -110,7 +110,8 @@ class FriendsUIViewController: UIViewController, UITableViewDelegate, UITableVie
     var unavailableUsers = [Users]()
     var thisUserData = Users()
     var canAddFriend = true
-
+    var shouldFetch = true
+    
     //Fonts
     let semiBoldLabel = UIFont(name: "Nunito-SemiBold", size: UIFont.labelFontSize)
     let semiBoldLabelSmall = UIFont(name: "Nunito-SemiBold", size: UIFont.smallSystemFontSize)
@@ -1024,6 +1025,7 @@ UIView.animate(withDuration: 1, delay: 0.2, usingSpringWithDamping: 0.5, initial
                                 print("updated the friends number friends")
                             })
                             //}
+                            self.shouldFetch = true
                         }else{
                             print("its not me!")
                         }
@@ -1069,7 +1071,7 @@ UIView.animate(withDuration: 1, delay: 0.2, usingSpringWithDamping: 0.5, initial
                     //user.email = email
                     user.availability = availability
                     user.status = status
-                    self.users.append(user)
+                    //self.users.append(user)
                     /*if(child.key == Auth.auth().currentUser?.uid){
                      self.thisUserData = user
                      }else if(user.availability == "true"){
@@ -1089,13 +1091,47 @@ UIView.animate(withDuration: 1, delay: 0.2, usingSpringWithDamping: 0.5, initial
                         self.userEmoji = emoji
                         user.numFriends = value["numFriends"] as? String ?? "NumFriends not found"
                         user.friendCode = value["friendCode"] as? String ?? "Friend Code not found"
-                        user.friendsList = value["friendsList"] as? [String] ?? [""]
+                        
+                        var arr1 = value["friendsList"] as? NSArray ?? NSArray(objects: "")
+                        print("arr1 array")
+                        print(arr1)
+                        var objCArray = NSMutableArray(array: arr1)
+                        print("objcarray")
+                        print(objCArray)
+                        let swiftArray: [String] = objCArray.flatMap({ $0 as? String })
+                        print("swiftArray")
+                        print(swiftArray)
+                        user.friendsList = swiftArray
+                        print("this is the friends list")
+                        print(user.friendsList)
+                        /*if let swiftArray = objCArray as NSArray as? [String] {
+                            user.friendsList = swiftArray
+                            // Use swiftArray here
+                            print("printing swift array")
+                            print(swiftArray)
+                        }else{
+                            user.friendsList = [""]
+                            print("you failed")
+                        }*/
+                        
+                        
+                        print("here is the friends list")
+                        print(value["friendsList"])
+                        print("and here is the users friends list")
+                        print(user.friendsList)
+                        
                         self.thisUserData = user
+                        //if(self.shouldFetch == true){
+                            self.fetchFriends()
+                            self.shouldFetch = false
+                        //}
+                        return
                         //print(userStatus)
                         //print(self.userStatus)
                         //print(userEmoji)
                         // print(self.userEmoji)
-                    }else{
+                    }/*else{
+                        
                         if(user.availability == "true"){
                             self.availableUsers.append(user)
                             //print("got available user")
@@ -1109,10 +1145,66 @@ UIView.animate(withDuration: 1, delay: 0.2, usingSpringWithDamping: 0.5, initial
                         DispatchQueue.main.async { self.tableView.reloadData() }
                         
                         //print(self.unavailableUsers)
-                    }
+                    }*/
                 }
             }
         }
+    }
+    
+    func fetchFriends(){
+        DispatchQueue.main.async { self.tableView.reloadData() }
+        
+        let rootRef = Database.database().reference()
+        let query = rootRef.child("users").queryOrdered(byChild: "name")
+        //query.observe(.value) { (snapshot) in
+        
+        query.observeSingleEvent(of: .value, with: { (snapshot) in
+            self.availableUsers.removeAll()
+            self.unavailableUsers.removeAll()
+            for child in snapshot.children.allObjects as! [DataSnapshot] {
+                if let value = child.value as? NSDictionary {
+                    let user = Users()
+                    let key = child.key
+                    let availability = value["available"] as? String ?? "availability"
+                    //print("this is the availability")
+                    // print(value["available"])
+                    // print(availability)
+                    let name = value["name"] as? String ?? "Name not found"
+                    //let email = value["email"] as? String ?? "Email not found"
+                    let status = value["status"] as? String ?? "Status not found"
+                    let lastAvailable = value["lastAvailable"] as? String ?? "Last Seen not found"
+                    let emoji = value["emoji"] as? String ?? "Emoji not found"
+                    let time = value["time"] as? String ?? "Time Left not found"
+                    let location = value["location"] as? String ?? "Location not found"
+                    user.name = name
+                    user.lastAvailable = lastAvailable
+                    user.emoji = emoji
+                    user.time = time
+                    user.uid = child.key
+                    user.location = location
+                    //user.email = email
+                    user.availability = availability
+                    user.status = status
+                    for friend in self.thisUserData.friendsList! {
+                        //print("trying to add that friend yo")
+                        //print(friend)
+                        if(key == friend){
+                            if(user.availability == "true"){
+                                self.availableUsers.append(user)
+                                //print("got available user")
+                            }else{
+                                self.unavailableUsers.append(user)
+                                //print("got unaviable user")
+                            }
+                            //print("availableUsers --")
+                            //print(self.availableUsers)
+                            // print("unavailableUsers --")
+                            DispatchQueue.main.async { self.tableView.reloadData() }
+                        }
+                    }
+                }
+            }
+        }, withCancel: nil)
     }
 
 }
