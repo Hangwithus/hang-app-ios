@@ -30,6 +30,7 @@ class MapViewController: UIViewController, MGLMapViewDelegate, MFMessageComposeV
     @IBOutlet weak var mapView: MGLMapView!
     @IBOutlet weak var bottomContainer: GradientView!
     @IBOutlet weak var topContainer: UIView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         mapView.delegate = self
@@ -122,6 +123,7 @@ class MapViewController: UIViewController, MGLMapViewDelegate, MFMessageComposeV
     func mapView(_ mapView: MGLMapView, didUpdate userLocation: MGLUserLocation?) {
         let location = mapView.userLocation?.location
         mapView.setCenter(CLLocationCoordinate2D(latitude: (location?.coordinate.latitude)!, longitude: (location?.coordinate.longitude)!),zoomLevel: 11, animated: false)
+        mapView.camera = MGLMapCamera(lookingAtCenter: CLLocationCoordinate2D(latitude: (location?.coordinate.latitude)!, longitude: (location?.coordinate.longitude)!), fromDistance: 2000, pitch: 30, heading: 0)
         if(loggedIn == true){
             guard let tacoMan = Auth.auth().currentUser?.uid else{
                 loggedIn = false
@@ -148,6 +150,7 @@ class MapViewController: UIViewController, MGLMapViewDelegate, MFMessageComposeV
             })
         }
     }
+    
     func grabUserLocations(){
         //print("grabbing")
         //print(peopleToChill)
