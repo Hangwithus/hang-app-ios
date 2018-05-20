@@ -82,6 +82,15 @@ class MapViewController: UIViewController, MGLMapViewDelegate, MFMessageComposeV
             print("cant send dat shit")
         }
     }
+    
+    func messageComposeViewController(controller: MFMessageComposeViewController,
+                                      didFinishWithResult result: MessageComposeResult) {
+        // Check the result or perform other tasks.
+        
+        // Dismiss the message compose view controller.
+        messageController.dismiss(animated: true, completion: nil)
+        
+    }
  
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
@@ -112,7 +121,7 @@ class MapViewController: UIViewController, MGLMapViewDelegate, MFMessageComposeV
     
     func mapView(_ mapView: MGLMapView, didUpdate userLocation: MGLUserLocation?) {
         let location = mapView.userLocation?.location
-        mapView.setCenter(CLLocationCoordinate2D(latitude: (location?.coordinate.latitude)!, longitude: (location?.coordinate.longitude)!),zoomLevel: 15, animated: false)
+        mapView.setCenter(CLLocationCoordinate2D(latitude: (location?.coordinate.latitude)!, longitude: (location?.coordinate.longitude)!),zoomLevel: 11, animated: false)
         if(loggedIn == true){
             guard let tacoMan = Auth.auth().currentUser?.uid else{
                 loggedIn = false
