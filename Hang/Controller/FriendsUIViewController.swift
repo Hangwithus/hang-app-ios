@@ -395,6 +395,10 @@ class FriendsUIViewController: UIViewController, UITableViewDelegate, UITableVie
     override func viewWillAppear(_ animated: Bool) {
         
         checkIfUserIsLogeedIn()
+        guard let tacoMan = Auth.auth().currentUser?.uid else{
+            return
+        }
+        currentGuy = tacoMan
         Database.database().reference().child("users").child(currentGuy).observeSingleEvent(of: .value, with: { (snapshot) in
             
             if let dictionary = snapshot.value as? NSDictionary  {
