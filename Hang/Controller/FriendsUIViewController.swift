@@ -316,6 +316,7 @@ class FriendsUIViewController: UIViewController, UITableViewDelegate, UITableVie
     
     @IBAction func addFriendButton(_ sender: Any) {
         //Close popup
+        canAddFriend = true
         addFriend()
         friendsPopupYAxis.constant = 800
         UIView.animate(withDuration: 0.7, animations: {
@@ -951,6 +952,7 @@ UIView.animate(withDuration: 1, delay: 0.2, usingSpringWithDamping: 0.5, initial
                 print("field is not valid")
                 return
             }
+            print(inputedFriendCode)
             let rootRef = Database.database().reference()
             let query = rootRef.child("users").queryOrdered(byChild: "friendCode")
             //query.observeOnce(.value){ (snapshot) in
@@ -982,7 +984,8 @@ UIView.animate(withDuration: 1, delay: 0.2, usingSpringWithDamping: 0.5, initial
                              })*/
                             print("done getting the friend value")
                             var ifriendNumFriends = (friendNumFriends as NSString).integerValue
-                            var iuserNumFriends  = (userNumFriends as! NSString).integerValue
+                            //problem here
+                            var iuserNumFriends  = (userNumFriends! as NSString).integerValue
                             ifriendNumFriends = ifriendNumFriends + 1
                             iuserNumFriends = iuserNumFriends + 1
                             print(ifriendNumFriends)

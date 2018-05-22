@@ -164,7 +164,7 @@ class MapViewController: UIViewController, MGLMapViewDelegate, MFMessageComposeV
                         print("not me")
                         if let value0 = snapshot.value as? NSDictionary{
                             print("im a dictionary")
-                            var phoneNumber = value0["phoneNumber"] as? String ?? "2393148826"
+                            var phoneNumber = value0["number"] as? String ?? "2393148826"
                             var check = 0
                             for pN in self.phoneNumbers {
                                 if(pN == phoneNumber){
