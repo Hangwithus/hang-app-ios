@@ -9,6 +9,7 @@ target 'Hang' do
   pod 'Firebase/Database'
   pod 'Firebase/Auth'
   pod 'Firebase/Storage'
+  pod 'Firebase/Messaging'
   pod 'SnapKit'
   pod 'Mapbox-iOS-SDK', '~> 4.0'
   pod 'lottie-ios'
