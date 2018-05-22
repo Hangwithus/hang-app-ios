@@ -500,27 +500,19 @@ class FriendsUIViewController: UIViewController, UITableViewDelegate, UITableVie
             }) { (_) in
                 //animation is finished
             }
-           
-            //let calendar = NSCalendar.current
-            
-            // Set up date object
-            //let date = NSDate()
-            
-            // Create an NSDate for the first and last day of the month
-            //let components = calendar.components(NSCalendarUnit.CalendarUnitYear |
-            //                                     NSCalendarUnit.CalendarUnitMonth |
-            //                                     NSCalendarUnit.WeekdayCalendarUnit |
-            //                                     NSCalendarUnit.WeekCalendarUnit |
-            //                                     NSCalendarUnit.CalendarUnitDay,
-            //                                     fromDate: date)
-            // Create an NSDate for the first and last day of the month
-            
-
 
             //sets availability to false and removes checks from marked cells
             isAvailable = false
+            let dateformatter = DateFormatter()
             
-            values = ["available":"false", "status":"unavailable"]
+            dateformatter.dateStyle = DateFormatter.Style.none
+            
+            dateformatter.timeStyle = DateFormatter.Style.short
+            
+            let now = dateformatter.string(from: NSDate() as Date)
+            print("this is now")
+            print(now)
+            values = ["available":"false", "status":"unavailable", "lastAvailable":now]
             selectedCells.removeAll()
         } else if row != 0 && showTimerPicker == false {
             lastStatusSelected = row
