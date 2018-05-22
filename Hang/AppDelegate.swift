@@ -91,12 +91,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
         // Saves changes in the application's managed object context before the application terminates.
         
-        guard let currentGuy = Auth.auth().currentUser?.uid else{
+        guard let tacoMan = Auth.auth().currentUser?.uid else{
             return
         }
+        currentGuy = tacoMan
         let ref = Database.database().reference(fromURL: "https://hang-8b734.firebaseio.com/")
         let usersReference = ref.child("users").child(currentGuy)
-        let values = ["available":"false", "status":"unavailable"]
+        let dateformatter = DateFormatter()
+        
+        dateformatter.dateStyle = DateFormatter.Style.none
+        
+        dateformatter.timeStyle = DateFormatter.Style.short
+        
+        let now = dateformatter.string(from: NSDate() as Date)
+        print("this is now")
+        print(now)
+        let values = ["available":"false", "status":"unavailable", "lastAvailable":now]
 
         usersReference.updateChildValues(values, withCompletionBlock: { (err, ref) in
             
