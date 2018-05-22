@@ -19,7 +19,7 @@ var loggedIn = true
 class MapViewController: UIViewController, MGLMapViewDelegate, MFMessageComposeViewControllerDelegate {
 
    
-    let messageController = MFMessageComposeViewController()
+    var messageController = MFMessageComposeViewController()
     var mapViewPresented = false
     
     //var currentGuy = ""
@@ -69,26 +69,31 @@ class MapViewController: UIViewController, MGLMapViewDelegate, MFMessageComposeV
     
     @IBAction func chatPressed(_ sender: Any) {
         if MFMessageComposeViewController.canSendText() {
+            messageController = MFMessageComposeViewController()
+            messageController.messageComposeDelegate = self
+            messageController.recipients = phoneNumbers
             messageController.body = "Let's Hang"
             //messageController.recipients = ["11111111111"]
-            messageController.recipients = phoneNumbers
-
-            messageController.messageComposeDelegate = self
+            
             self.present(messageController, animated: true, completion: nil)
-        }
-        else
-        {
-            print("cant send dat shit")
+        } else {
+            // Let the user know if his/her device isn't able to send text messages
+            let errorAlert = UIAlertView(title: "Cannot Send Text Message", message: "Your device is not able to send text messages.", delegate: self, cancelButtonTitle: "OK")
+            errorAlert.show()
         }
     }
     
-    func messageComposeViewController(controller: MFMessageComposeViewController,
+    func messageComposeViewController(controller: MFMessageComposeViewController!, didFinishWithResult result: MessageComposeResult) {
+        messageController.dismiss(animated: true, completion: nil)
+    }
+    
+    /*func messageComposeViewController(controller: MFMessageComposeViewController,
                                       didFinishWithResult result: MessageComposeResult) {
         // Check the result or perform other tasks.
         
         // Dismiss the message compose view controller.
         messageController.dismiss(animated: true, completion: nil)
-    }
+    }*/
  
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
