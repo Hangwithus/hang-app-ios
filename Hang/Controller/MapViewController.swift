@@ -22,7 +22,7 @@ class MapViewController: UIViewController, MGLMapViewDelegate, MFMessageComposeV
     let messageController = MFMessageComposeViewController()
     var mapViewPresented = false
     
-    var currentGuy = ""
+    //var currentGuy = ""
     //var peopleToChill = [String]()
     var phoneNumbers = [String]()
     @IBOutlet weak var leaveBtn: UIButton!
@@ -75,11 +75,9 @@ class MapViewController: UIViewController, MGLMapViewDelegate, MFMessageComposeV
 
             messageController.messageComposeDelegate = self
             self.present(messageController, animated: true, completion: nil)
-            
         }
         else
         {
-
             print("cant send dat shit")
         }
     }
@@ -90,7 +88,6 @@ class MapViewController: UIViewController, MGLMapViewDelegate, MFMessageComposeV
         
         // Dismiss the message compose view controller.
         messageController.dismiss(animated: true, completion: nil)
-        
     }
  
     override func viewDidAppear(_ animated: Bool) {
@@ -160,7 +157,7 @@ class MapViewController: UIViewController, MGLMapViewDelegate, MFMessageComposeV
             query.observe(.value){ (snapshot) in
                 print("observing")
                 //for child in snapshot.children.allObjects as! [DataSnapshot]{
-                    if(person != self.currentGuy){
+                    if(person != currentGuy){
                         print("not me")
                         if let value0 = snapshot.value as? NSDictionary{
                             print("im a dictionary")

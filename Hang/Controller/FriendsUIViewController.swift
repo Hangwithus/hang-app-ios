@@ -132,7 +132,7 @@ class FriendsUIViewController: UIViewController, UITableViewDelegate, UITableVie
     
     var userStatus = "Status Not Found"
     var userEmoji = "❓"
-    var currentGuy = ""
+    //var currentGuy = ""
     
     var selectedPeople = [String]()
     
@@ -493,14 +493,29 @@ class FriendsUIViewController: UIViewController, UITableViewDelegate, UITableVie
         var values = ["available":"", "status":"", "emoji":""]
         if row == 0 && showTimerPicker == false {
             //Show the selector ring image if unavailable
-UIView.animate(withDuration: 1, delay: 0.2, usingSpringWithDamping: 0.5, initialSpringVelocity: 5, options: .curveEaseInOut, animations: {
+            UIView.animate(withDuration: 1, delay: 0.2, usingSpringWithDamping: 0.5, initialSpringVelocity: 5, options: .curveEaseInOut, animations: {
                 self.statusRing.isHighlighted = false
-            self.statusRing.transform = CGAffineTransform(scaleX: 0.8, y: 0.8)
+                self.statusRing.transform = CGAffineTransform(scaleX: 0.8, y: 0.8)
 
             }) { (_) in
                 //animation is finished
             }
            
+            //let calendar = NSCalendar.current
+            
+            // Set up date object
+            //let date = NSDate()
+            
+            // Create an NSDate for the first and last day of the month
+            //let components = calendar.components(NSCalendarUnit.CalendarUnitYear |
+            //                                     NSCalendarUnit.CalendarUnitMonth |
+            //                                     NSCalendarUnit.WeekdayCalendarUnit |
+            //                                     NSCalendarUnit.WeekCalendarUnit |
+            //                                     NSCalendarUnit.CalendarUnitDay,
+            //                                     fromDate: date)
+            // Create an NSDate for the first and last day of the month
+            
+
 
             //sets availability to false and removes checks from marked cells
             isAvailable = false
@@ -1091,7 +1106,7 @@ UIView.animate(withDuration: 1, delay: 0.2, usingSpringWithDamping: 0.5, initial
                      }*/
                     //^^^^ Add this back in after I know that the user authentication is working
                     
-                    if(key == self.currentGuy){
+                    if(key == currentGuy){
                         //print(userStatus)
                         //print(userEmoji)
                         self.userStatus = status
