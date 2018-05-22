@@ -10,6 +10,8 @@ import UIKit
 import Firebase
 import Lottie
 
+var currentGuy = ""
+
 class LoginController: UIViewController, UITextFieldDelegate {
     
     let logoImageView: LOTAnimationView = {
@@ -145,6 +147,11 @@ class LoginController: UIViewController, UITextFieldDelegate {
             loggedIn = true
         }
         
+        guard let tacoMan = Auth.auth().currentUser?.uid else{
+            return
+        }
+        currentGuy = tacoMan
+        
     }
     
     @objc func handleLoginRegister() {
@@ -221,7 +228,10 @@ class LoginController: UIViewController, UITextFieldDelegate {
                 self.present(alert, animated: true, completion: nil)
                 
             })
-
+            guard let tacoMan = Auth.auth().currentUser?.uid else{
+                return
+            }
+            currentGuy = tacoMan
             loggedIn = true
         })
     }
