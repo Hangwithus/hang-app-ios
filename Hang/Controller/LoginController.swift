@@ -115,7 +115,8 @@ class LoginController: UIViewController, UITextFieldDelegate {
         sc.translatesAutoresizingMaskIntoConstraints = false
         sc.tintColor = UIColor(red:0.10, green:0.87, blue:0.19, alpha:1.00)
         sc.layer.cornerRadius = 16
-        //sc.layer.borderColor = UIColor(red: 0, green: 0, blue: 0, alpha:0)
+        sc.layer.borderColor = UIColor(red:0.10, green:0.87, blue:0.19, alpha:1.00).cgColor
+        sc.layer.borderWidth = 1.0
         sc.layer.masksToBounds = true
         sc.selectedSegmentIndex = 1
         sc.addTarget(self, action: #selector(handleLoginRegisterChange), for: .valueChanged)
