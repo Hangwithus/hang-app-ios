@@ -197,8 +197,7 @@ class FriendsUIViewController: UIViewController, UITableViewDelegate, UITableVie
         //Settings styling
         settingsPopup.layer.cornerRadius = 26
         settingsPopup.layer.masksToBounds = true
-        settingsBtn.layer.cornerRadius = 16
-        settingsBtn.layer.masksToBounds = true
+        
         
         //Keyboard dismissal
         self.hideKeyboardWhenTappedAround()
