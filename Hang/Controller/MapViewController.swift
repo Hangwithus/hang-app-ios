@@ -158,8 +158,9 @@ class MapViewController: UIViewController, MGLMapViewDelegate, MFMessageComposeV
         //print(peopleToChill)
         for person in peopleToChill{
             print(person)
-            let query = Database.database().reference().child("users").child(person)
-            query.observe(.value){ (snapshot) in
+            //let query = Database.database().reference().child("users").child(person)
+            //query.observe(.value){ (snapshot) in
+            Database.database().reference().child("users").child(currentGuy).observeSingleEvent(of: .value, with: { (snapshot) in
                 print("observing")
                 //for child in snapshot.children.allObjects as! [DataSnapshot]{
                     if(person != currentGuy){
@@ -205,7 +206,7 @@ class MapViewController: UIViewController, MGLMapViewDelegate, MFMessageComposeV
                         }
                     //}
                 }
-            }
+            }, withCancel: nil)
         }
     }
     /*
