@@ -886,9 +886,6 @@ class FriendsUIViewController: UIViewController, UITableViewDelegate, UITableVie
         
     }
     
-    
-   
-    
     @IBAction func hangPressed(sender: UIButton) {
         UIView.animate(withDuration: 0.5, delay: 0.3, usingSpringWithDamping: 0.7, initialSpringVelocity: 7, options: .curveEaseInOut, animations: {
             self.hangButtonContainerView.alpha = 0
@@ -899,7 +896,8 @@ class FriendsUIViewController: UIViewController, UITableViewDelegate, UITableVie
             self.darkView.alpha = 0
             self.addBtn.alpha = 0
             self.settingsBtn.alpha = 0
-            
+            peopleToChill = [String]()
+            peopleToChill = self.selectedPeople
         }) { (_) in
             //animation is finished
             self.dismiss(animated: true, completion: nil)
