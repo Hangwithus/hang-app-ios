@@ -54,6 +54,7 @@ PODS:
     - "GoogleToolboxForMac/NSString+URLArguments (= 2.1.4)"
   - "GoogleToolboxForMac/NSString+URLArguments (2.1.4)"
   - GTMSessionFetcher/Core (1.1.15)
+  - ISEmojiView (0.0.6)
   - leveldb-library (1.20)
   - lottie-ios (2.5.0)
   - Mapbox-iOS-SDK (4.0.0)
@@ -71,6 +72,7 @@ DEPENDENCIES:
   - Firebase/Database
   - Firebase/Messaging
   - Firebase/Storage
+  - ISEmojiView
   - lottie-ios
   - Mapbox-iOS-SDK (~> 4.0)
   - SnapKit
@@ -87,6 +89,7 @@ SPEC REPOS:
     - FirebaseStorage
     - GoogleToolboxForMac
     - GTMSessionFetcher
+    - ISEmojiView
     - leveldb-library
     - lottie-ios
     - Mapbox-iOS-SDK
@@ -105,6 +108,7 @@ SPEC CHECKSUMS:
   FirebaseStorage: 0c223481c8f89ed300cf1239ddd2d9833622c65f
   GoogleToolboxForMac: 91c824d21e85b31c2aae9bb011c5027c9b4e738f
   GTMSessionFetcher: 5fa5b80fd20e439ef5f545fb2cb3ca6c6714caa2
+  ISEmojiView: 2ab7c5ad9c58a318cefcf407af374464ccc56f1d
   leveldb-library: 08cba283675b7ed2d99629a4bc5fd052cd2bb6a5
   lottie-ios: d699fdee68d7b63e721d949388b015fef1aaa4ac
   Mapbox-iOS-SDK: 271754e96eb4434ba1b0a8c68432e1ea26fe9841
@@ -112,6 +116,6 @@ SPEC CHECKSUMS:
   Protobuf: 8a9838fba8dae3389230e1b7f8c104aa32389c03
   SnapKit: a42d492c16e80209130a3379f73596c3454b7694
 
-PODFILE CHECKSUM: 203c94bbfd9445836756b5b858ff059813d63b18
+PODFILE CHECKSUM: 736921d72ceda8c3012968e07ade173a0e703ed8
 
 COCOAPODS: 1.5.0

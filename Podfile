@@ -13,6 +13,7 @@ target 'Hang' do
   pod 'SnapKit'
   pod 'Mapbox-iOS-SDK', '~> 4.0'
   pod 'lottie-ios'
+  pod 'ISEmojiView'
 
   target 'HangTests' do
     inherit! :search_paths

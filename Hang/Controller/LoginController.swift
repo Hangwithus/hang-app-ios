@@ -45,6 +45,7 @@ class LoginController: UIViewController, UITextFieldDelegate {
     let nameTextField: UITextField = {
         let tf = UITextField()
         tf.placeholder = "Name"
+        tf.font = UIFont(name: "Nunito-SemiBold", size: 17.0)
         tf.translatesAutoresizingMaskIntoConstraints = false
         return tf
         
@@ -60,6 +61,7 @@ class LoginController: UIViewController, UITextFieldDelegate {
     let emailTextField: UITextField = {
         let tf = UITextField()
         tf.placeholder = "Email"
+        tf.font = UIFont(name: "Nunito-SemiBold", size: 17.0)
         tf.translatesAutoresizingMaskIntoConstraints = false
         tf.autocapitalizationType = UITextAutocapitalizationType.none
         return tf
@@ -76,6 +78,7 @@ class LoginController: UIViewController, UITextFieldDelegate {
     let numberTextField: UITextField = {
         let tf = UITextField()
         tf.placeholder = "Phone Number"
+        tf.font = UIFont(name: "Nunito-SemiBold", size: 17.0)
         tf.translatesAutoresizingMaskIntoConstraints = false
         return tf
         
@@ -92,6 +95,7 @@ class LoginController: UIViewController, UITextFieldDelegate {
         let tf = UITextField()
         tf.placeholder = "Password"
         tf.isSecureTextEntry = true
+        tf.font = UIFont(name: "Nunito-SemiBold", size: 17.0)
         tf.translatesAutoresizingMaskIntoConstraints = false
         return tf
         
@@ -105,8 +109,7 @@ class LoginController: UIViewController, UITextFieldDelegate {
         button.setTitleColor(UIColor.white, for: .normal)
         button.layer.cornerRadius = 26
         button.layer.masksToBounds = true
-        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 20)
-        
+        button.titleLabel?.font = UIFont(name: "Nunito-ExtraBold", size: 20.0)
         button.addTarget(self, action: #selector(handleLoginRegister), for: .touchUpInside)
         
         return button
@@ -116,11 +119,13 @@ class LoginController: UIViewController, UITextFieldDelegate {
         let sc = UISegmentedControl(items: ["Login", "Sign Up"])
         sc.translatesAutoresizingMaskIntoConstraints = false
         sc.tintColor = UIColor(red:0.10, green:0.87, blue:0.19, alpha:1.00)
-        sc.layer.cornerRadius = 16
+        sc.layer.cornerRadius = 18
         sc.layer.borderColor = UIColor(red:0.10, green:0.87, blue:0.19, alpha:1.00).cgColor
         sc.layer.borderWidth = 1.0
         sc.layer.masksToBounds = true
         sc.selectedSegmentIndex = 1
+        let attr = NSDictionary(object: UIFont(name: "Nunito-Bold", size: 17.0)!, forKey: kCTFontAttributeName as! NSCopying)
+        sc.setTitleTextAttributes(attr as [NSObject : AnyObject] , for: .normal)
         sc.addTarget(self, action: #selector(handleLoginRegisterChange), for: .valueChanged)
         return sc
     }()
@@ -441,5 +446,7 @@ class LoginController: UIViewController, UITextFieldDelegate {
         }
         return true
     }
+    
+ 
     
 }

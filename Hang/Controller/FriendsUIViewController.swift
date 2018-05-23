@@ -10,6 +10,7 @@ import UIKit
 import Firebase
 import FirebaseAuth
 import FirebaseDatabase
+import ISEmojiView
 
 extension UILabel {
     
@@ -61,7 +62,9 @@ protocol FriendsUIViewControllerDelegate {
     
 }
 
-class FriendsUIViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UIPickerViewDelegate, UIPickerViewDataSource {
+class FriendsUIViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UIPickerViewDelegate, UIPickerViewDataSource, ISEmojiViewDelegate {
+    
+ 
     
     var delegate : FriendsUIViewControllerDelegate?
     
@@ -138,7 +141,11 @@ class FriendsUIViewController: UIViewController, UITableViewDelegate, UITableVie
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChange(notification:)),
+                                               name: NSNotification.Name.UIKeyboardWillChangeFrame, object: nil)
         
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide),
+                                               name: NSNotification.Name.UIKeyboardWillHide, object: nil)
         //Table View
 //        tableView.reloadData()
        UIView.transition(with: tableView, duration: 0.3, options: .transitionCrossDissolve, animations: {self.tableView.reloadData()}, completion: nil)
@@ -185,14 +192,28 @@ class FriendsUIViewController: UIViewController, UITableViewDelegate, UITableVie
         friendsPopup.layer.masksToBounds = true
         createStatusBtn.layer.cornerRadius = 26
         createStatusBtn.layer.masksToBounds = true
+        logoutBtn.layer.cornerRadius = 26
+        logoutBtn.layer.masksToBounds = true
         addFriendBtn.layer.cornerRadius = 26
         addFriendBtn.layer.masksToBounds = true
-        emojiField.layer.cornerRadius = 16
+        emojiField.layer.cornerRadius = 8
+        emojiField.layer.borderColor = UIColor(red:0.90, green:0.90, blue:0.92, alpha:1.00).cgColor
+        emojiField.layer.borderWidth = 1.0
         emojiField.layer.masksToBounds = true
-        friendIDField.layer.cornerRadius = 16
+        friendIDField.layer.cornerRadius = 8
+        friendIDField.layer.borderColor = UIColor(red:0.90, green:0.90, blue:0.92, alpha:1.00).cgColor
+        friendIDField.layer.borderWidth = 1.0
         friendIDField.layer.masksToBounds = true
-        customStatusField.layer.cornerRadius = 16
+        customStatusField.layer.cornerRadius = 8
+        customStatusField.layer.borderColor = UIColor(red:0.90, green:0.90, blue:0.92, alpha:1.00).cgColor
+        customStatusField.layer.borderWidth = 1.0
         customStatusField.layer.masksToBounds = true
+
+        
+        //emoji keyboard
+        let emojiView = ISEmojiView()
+        emojiView.delegate = self
+        emojiField.inputView = emojiView
         
         //Settings styling
         settingsPopup.layer.cornerRadius = 26
@@ -258,6 +279,16 @@ class FriendsUIViewController: UIViewController, UITableViewDelegate, UITableVie
         print("appeared")
         print("view did load")
     }
+    
+    //emoji keyboard
+    func emojiViewDidSelectEmoji(emojiView: ISEmojiView, emoji: String) {
+         emojiField.insertText(emoji)
+    }
+    
+    func emojiViewDidPressDeleteButton(emojiView: ISEmojiView) {
+         emojiField.deleteBackward()
+    }
+    
     
     //Setting modal
     
@@ -1054,6 +1085,21 @@ class FriendsUIViewController: UIViewController, UITableViewDelegate, UITableVie
         }
         canAddFriend = false
     }
+    
+    @objc func keyboardWillHide() {
+        self.view.frame.origin.y = 0
+    }
+    
+    @objc  func keyboardWillChange(notification: NSNotification) {
+        
+        if ((notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue) != nil {
+            if emojiField.isFirstResponder || friendIDField.isFirstResponder || customStatusField.isFirstResponder{
+                self.view.frame.origin.y = -136
+            }
+        }
+    }
+    
+
     
     func fetchUser() {
         DispatchQueue.main.async { self.tableView.reloadData() }
