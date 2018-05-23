@@ -708,7 +708,7 @@ class FriendsUIViewController: UIViewController, UITableViewDelegate, UITableVie
         //let userAvailable = friendsAvailable[indexPath.row]
        // let userUnavailable = friendsUnavailable[indexPath.row]
         
-       
+     
 
         //set cells for available
         if isAvailable == true {
@@ -733,6 +733,7 @@ class FriendsUIViewController: UIViewController, UITableViewDelegate, UITableVie
                 } else {
                     cell.checkAccessory.isSelected = false
                 }*/
+              
                 cell.name.text = availableUsers[indexPath.row].name
                 cell.info.text = availableUsers[indexPath.row].status
                 cell.emoji.text = availableUsers[indexPath.row].emoji
@@ -783,9 +784,11 @@ class FriendsUIViewController: UIViewController, UITableViewDelegate, UITableVie
             }
         }
     }
-   
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         //cell selection for when available
+
+     
         
         if isAvailable == true {
             //current user status cell
@@ -795,6 +798,7 @@ class FriendsUIViewController: UIViewController, UITableViewDelegate, UITableVie
                 //available friends cells
                 print("cell tapped")
                 let cell = tableView.cellForRow(at: indexPath) as! FriendsTableViewCell
+             
                 if cell.checkAccessory.isSelected == true {
                     //if cell is checked, remove checkmark and cell index from selected cells set
                     cell.checkAccessory.isSelected = false
