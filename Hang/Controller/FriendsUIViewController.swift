@@ -837,6 +837,7 @@ class FriendsUIViewController: UIViewController, UITableViewDelegate, UITableVie
                     selectedPeople = selectedPeople.filter{$0 != cell.userId.text!}
                     print(selectedPeople)
                     peopleToChill = selectedPeople
+                    grabbedStuff = false
                     //selectedPeople.remove(at: indexPath)
                 }else {
                     //if cell is unchecked, add checkmark and add cell to selected cells set
@@ -846,6 +847,7 @@ class FriendsUIViewController: UIViewController, UITableViewDelegate, UITableVie
                     selectedPeople.append(cell.userId.text!)
                     print(selectedPeople)
                     peopleToChill = selectedPeople
+                    grabbedStuff = false
                 }
                     UIView.animate(withDuration: 1, delay: 0.2, usingSpringWithDamping: 0.5, initialSpringVelocity: 5, options: .curveEaseInOut, animations: {
                         //remove satus picker and display hang button if a cell is checked
@@ -930,7 +932,7 @@ class FriendsUIViewController: UIViewController, UITableViewDelegate, UITableVie
             self.darkView.alpha = 0
             self.addBtn.alpha = 0
             self.settingsBtn.alpha = 0
-            
+//            /grabbedStuff = false
         }) { (_) in
             //animation is finished
             self.dismiss(animated: true, completion: nil)

@@ -15,13 +15,13 @@ import FirebaseDatabase
 var peopleToChill = [String]()
 
 var loggedIn = true
+var grabbedStuff = false
 
 class MapViewController: UIViewController, MGLMapViewDelegate, MFMessageComposeViewControllerDelegate {
 
    
     var messageController = MFMessageComposeViewController()
     var mapViewPresented = false
-    var grabbedStuff = false
     //var currentGuy = ""
     //var peopleToChill = [String]()
     var phoneNumbers = [String]()
