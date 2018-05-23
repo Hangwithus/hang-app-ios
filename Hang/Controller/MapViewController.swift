@@ -15,7 +15,7 @@ import FirebaseDatabase
 var peopleToChill = [String]()
 
 var loggedIn = true
-var grabbedStuff = false
+//var grabbedStuff = false
 
 class MapViewController: UIViewController, MGLMapViewDelegate, MFMessageComposeViewControllerDelegate {
 
@@ -123,7 +123,7 @@ class MapViewController: UIViewController, MGLMapViewDelegate, MFMessageComposeV
     }
     
     func mapView(_ mapView: MGLMapView, didUpdate userLocation: MGLUserLocation?) {
-        if grabbedStuff == false{
+        //if grabbedStuff == false{
             let location = mapView.userLocation?.location
             mapView.setCenter(CLLocationCoordinate2D(latitude: (location?.coordinate.latitude)!, longitude: (location?.coordinate.longitude)!),zoomLevel: 11, animated: false)
             mapView.camera = MGLMapCamera(lookingAtCenter: CLLocationCoordinate2D(latitude: (location?.coordinate.latitude)!, longitude: (location?.coordinate.longitude)!), fromDistance: 2000, pitch: 0, heading: 0)
@@ -152,13 +152,14 @@ class MapViewController: UIViewController, MGLMapViewDelegate, MFMessageComposeV
                     //print("updated latitude")
                 })
             }
-            grabbedStuff = true
-        }
+            //grabbedStuff = true
+        //}
     }
     
     func grabUserLocations(){
         //print("grabbing")
         //print(peopleToChill)
+        self.mapView.removeAnnotations(self.mapView.annotations)
         for person in peopleToChill{
             print(person)
             //let query = Database.database().reference().child("users").child(person)
@@ -200,6 +201,7 @@ class MapViewController: UIViewController, MGLMapViewDelegate, MFMessageComposeV
                                         annotation.title = name
                                         annotation.subtitle = emoji + status
                                         self.mapView.addAnnotation(annotation)
+                                        
                                         print("key: "+person)
                                         print(long)
                                         print(lat)

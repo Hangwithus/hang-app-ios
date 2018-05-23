@@ -837,7 +837,7 @@ class FriendsUIViewController: UIViewController, UITableViewDelegate, UITableVie
                     selectedPeople = selectedPeople.filter{$0 != cell.userId.text!}
                     print(selectedPeople)
                     peopleToChill = selectedPeople
-                    grabbedStuff = false
+                    //grabbedStuff = false
                     //selectedPeople.remove(at: indexPath)
                 }else {
                     //if cell is unchecked, add checkmark and add cell to selected cells set
@@ -847,7 +847,7 @@ class FriendsUIViewController: UIViewController, UITableViewDelegate, UITableVie
                     selectedPeople.append(cell.userId.text!)
                     print(selectedPeople)
                     peopleToChill = selectedPeople
-                    grabbedStuff = false
+                    //grabbedStuff = false
                 }
                     UIView.animate(withDuration: 1, delay: 0.2, usingSpringWithDamping: 0.5, initialSpringVelocity: 5, options: .curveEaseInOut, animations: {
                         //remove satus picker and display hang button if a cell is checked
@@ -926,13 +926,13 @@ class FriendsUIViewController: UIViewController, UITableViewDelegate, UITableVie
         UIView.animate(withDuration: 0.5, delay: 0.3, usingSpringWithDamping: 0.7, initialSpringVelocity: 7, options: .curveEaseInOut, animations: {
             self.hangButtonContainerView.alpha = 0
             self.hangButtonContainerView.transform = CGAffineTransform(translationX: 0, y: 173)
-//            self.maskView.transform = CGAffineTransform(scaleX: 2, y: 2)
+//          self.maskView.transform = CGAffineTransform(scaleX: 2, y: 2)
             self.tableView.transform = CGAffineTransform(scaleX: 2, y: 2)
             self.tableView.alpha = 0
             self.darkView.alpha = 0
             self.addBtn.alpha = 0
             self.settingsBtn.alpha = 0
-//            /grabbedStuff = false
+//          //grabbedStuff = false
         }) { (_) in
             //animation is finished
             self.dismiss(animated: true, completion: nil)
