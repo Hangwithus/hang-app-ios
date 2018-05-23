@@ -125,7 +125,7 @@ class MapViewController: UIViewController, MGLMapViewDelegate, MFMessageComposeV
     func mapView(_ mapView: MGLMapView, didUpdate userLocation: MGLUserLocation?) {
         let location = mapView.userLocation?.location
         mapView.setCenter(CLLocationCoordinate2D(latitude: (location?.coordinate.latitude)!, longitude: (location?.coordinate.longitude)!),zoomLevel: 11, animated: false)
-        mapView.camera = MGLMapCamera(lookingAtCenter: CLLocationCoordinate2D(latitude: (location?.coordinate.latitude)!, longitude: (location?.coordinate.longitude)!), fromDistance: 2000, pitch: 30, heading: 0)
+        mapView.camera = MGLMapCamera(lookingAtCenter: CLLocationCoordinate2D(latitude: (location?.coordinate.latitude)!, longitude: (location?.coordinate.longitude)!), fromDistance: 2000, pitch: 0, heading: 0)
         if(loggedIn == true){
             guard let tacoMan = Auth.auth().currentUser?.uid else{
                 loggedIn = false
@@ -237,7 +237,7 @@ class MapViewController: UIViewController, MGLMapViewDelegate, MFMessageComposeV
         // If there’s no reusable annotation view available, initialize a new one.
         if annotationView == nil {
             annotationView = CustomAnnotationView(reuseIdentifier: reuseIdentifier)
-            annotationView!.bounds = CGRect(x: 0, y: 0, width: 40, height: 40)
+            annotationView!.bounds = CGRect(x: 0, y: 0, width: 32, height: 32)
             
             // Set the annotation view’s background color to a value determined by its longitude.
             annotationView!.backgroundColor = UIColor(red:0.10, green:0.87, blue:0.19, alpha:1.00)
@@ -259,8 +259,11 @@ class CustomAnnotationView: MGLAnnotationView {
         
         // Use CALayer’s corner radius to turn this view into a circle.
         layer.cornerRadius = bounds.width / 2
-        layer.borderWidth = 2
+        layer.borderWidth = 4
         layer.borderColor = UIColor.white.cgColor
+        layer.shadowOffset = CGSize(width: -1, height: 1)
+        layer.shadowRadius = 1
+        layer.shadowOpacity = 0.5
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -269,7 +272,7 @@ class CustomAnnotationView: MGLAnnotationView {
         // Animate the border width in/out, creating an iris effect.
         let animation = CABasicAnimation(keyPath: "borderWidth")
         animation.duration = 0.1
-        layer.borderWidth = selected ? bounds.width / 4 : 2
+        layer.borderWidth = selected ? bounds.width / 8 : 4
         layer.add(animation, forKey: "borderWidth")
     }
 
