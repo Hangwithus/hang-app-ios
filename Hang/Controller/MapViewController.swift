@@ -21,7 +21,7 @@ class MapViewController: UIViewController, MGLMapViewDelegate, MFMessageComposeV
    
     var messageController = MFMessageComposeViewController()
     var mapViewPresented = false
-    
+    var grabbedStuff = false
     //var currentGuy = ""
     //var peopleToChill = [String]()
     var phoneNumbers = [String]()
@@ -123,33 +123,36 @@ class MapViewController: UIViewController, MGLMapViewDelegate, MFMessageComposeV
     }
     
     func mapView(_ mapView: MGLMapView, didUpdate userLocation: MGLUserLocation?) {
-        let location = mapView.userLocation?.location
-        mapView.setCenter(CLLocationCoordinate2D(latitude: (location?.coordinate.latitude)!, longitude: (location?.coordinate.longitude)!),zoomLevel: 11, animated: false)
-        mapView.camera = MGLMapCamera(lookingAtCenter: CLLocationCoordinate2D(latitude: (location?.coordinate.latitude)!, longitude: (location?.coordinate.longitude)!), fromDistance: 2000, pitch: 0, heading: 0)
-        if(loggedIn == true){
-            guard let tacoMan = Auth.auth().currentUser?.uid else{
-                loggedIn = false
-                return
+        if grabbedStuff == false{
+            let location = mapView.userLocation?.location
+            mapView.setCenter(CLLocationCoordinate2D(latitude: (location?.coordinate.latitude)!, longitude: (location?.coordinate.longitude)!),zoomLevel: 11, animated: false)
+            mapView.camera = MGLMapCamera(lookingAtCenter: CLLocationCoordinate2D(latitude: (location?.coordinate.latitude)!, longitude: (location?.coordinate.longitude)!), fromDistance: 2000, pitch: 0, heading: 0)
+            if(loggedIn == true){
+                guard let tacoMan = Auth.auth().currentUser?.uid else{
+                    loggedIn = false
+                    return
+                }
+                currentGuy = tacoMan
+                var query = Database.database().reference().child("users").child(currentGuy).child("location")
+                let longvalues = ["longitude": location?.coordinate.longitude]
+                let latvalues = ["latitude": location?.coordinate.latitude]
+                grabUserLocations()
+                query.updateChildValues(longvalues, withCompletionBlock: { (err, ref) in
+                    if err != nil{
+                        print(err!)
+                        return
+                    }
+                    //print("updated longitude")
+                })
+                query.updateChildValues(latvalues, withCompletionBlock: { (err, ref) in
+                    if err != nil{
+                        print(err!)
+                        return
+                    }
+                    //print("updated latitude")
+                })
             }
-            currentGuy = tacoMan
-            var query = Database.database().reference().child("users").child(currentGuy).child("location")
-            let longvalues = ["longitude": location?.coordinate.longitude]
-            let latvalues = ["latitude": location?.coordinate.latitude]
-            grabUserLocations()
-            query.updateChildValues(longvalues, withCompletionBlock: { (err, ref) in
-                if err != nil{
-                    print(err!)
-                    return
-                }
-                //print("updated longitude")
-            })
-            query.updateChildValues(latvalues, withCompletionBlock: { (err, ref) in
-                if err != nil{
-                    print(err!)
-                    return
-                }
-                //print("updated latitude")
-            })
+            grabbedStuff = true
         }
     }
     
@@ -160,7 +163,7 @@ class MapViewController: UIViewController, MGLMapViewDelegate, MFMessageComposeV
             print(person)
             //let query = Database.database().reference().child("users").child(person)
             //query.observe(.value){ (snapshot) in
-            Database.database().reference().child("users").child(currentGuy).observeSingleEvent(of: .value, with: { (snapshot) in
+            Database.database().reference().child("users").child(person).observeSingleEvent(of: .value, with: { (snapshot) in
                 print("observing")
                 //for child in snapshot.children.allObjects as! [DataSnapshot]{
                     if(person != currentGuy){
