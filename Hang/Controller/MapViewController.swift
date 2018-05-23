@@ -167,6 +167,9 @@ class MapViewController: UIViewController, MGLMapViewDelegate, MFMessageComposeV
                         if let value0 = snapshot.value as? NSDictionary{
                             print("im a dictionary")
                             var phoneNumber = value0["number"] as? String ?? "2393148826"
+                            let name = value0["name"] as? String ?? "Name not found"
+                            let status = value0["status"] as? String ?? "Status not found"
+                            let emoji = value0["emoji"] as? String ?? "Emoji not found"
                             var check = 0
                             for pN in self.phoneNumbers {
                                 if(pN == phoneNumber){
@@ -187,10 +190,7 @@ class MapViewController: UIViewController, MGLMapViewDelegate, MFMessageComposeV
                                         print(value)
                                         var long = value["longitude"] as? Double ?? 0
                                         var lat = value["latitude"] as? Double ?? 0
-                                        let name = value0["name"] as? String ?? "Name not found"
-                                        let status = value0["status"] as? String ?? "Status not found"
-                                        let emoji = value0["emoji"] as? String ?? "Emoji not found"
-
+                                    
                                         let annotation = MGLPointAnnotation()
                                         annotation.coordinate = CLLocationCoordinate2D(latitude: lat, longitude: long)
                                         annotation.title = name
