@@ -187,10 +187,14 @@ class MapViewController: UIViewController, MGLMapViewDelegate, MFMessageComposeV
                                         print(value)
                                         var long = value["longitude"] as? Double ?? 0
                                         var lat = value["latitude"] as? Double ?? 0
+                                        let name = value0["name"] as? String ?? "Name not found"
+                                        let status = value0["status"] as? String ?? "Status not found"
+                                        let emoji = value0["emoji"] as? String ?? "Emoji not found"
+
                                         let annotation = MGLPointAnnotation()
                                         annotation.coordinate = CLLocationCoordinate2D(latitude: lat, longitude: long)
-                                        annotation.title = "One of your friends"
-                                        annotation.subtitle = "quite a good friend"
+                                        annotation.title = name
+                                        annotation.subtitle = emoji + status
                                         self.mapView.addAnnotation(annotation)
                                         print("key: "+person)
                                         print(long)
@@ -217,6 +221,58 @@ class MapViewController: UIViewController, MGLMapViewDelegate, MFMessageComposeV
     func messageComposeViewController(_ controller: MFMessageComposeViewController, didFinishWith result: MessageComposeResult) {
     messageController.dismiss(animated: true, completion: nil)
     }
+    
+    func mapView(_ mapView: MGLMapView, viewFor annotation: MGLAnnotation) -> MGLAnnotationView? {
+        // This example is only concerned with point annotations.
+        guard annotation is MGLPointAnnotation else {
+            return nil
+        }
+        
+        // Use the point annotation’s longitude value (as a string) as the reuse identifier for its view.
+        let reuseIdentifier = "\(annotation.coordinate.longitude)"
+        
+        // For better performance, always try to reuse existing annotations.
+        var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: reuseIdentifier)
+        
+        // If there’s no reusable annotation view available, initialize a new one.
+        if annotationView == nil {
+            annotationView = CustomAnnotationView(reuseIdentifier: reuseIdentifier)
+            annotationView!.bounds = CGRect(x: 0, y: 0, width: 40, height: 40)
+            
+            // Set the annotation view’s background color to a value determined by its longitude.
+            annotationView!.backgroundColor = UIColor(red:0.10, green:0.87, blue:0.19, alpha:1.00)
+        }
+        
+        return annotationView
+    }
+    
+    func mapView(_ mapView: MGLMapView, annotationCanShowCallout annotation: MGLAnnotation) -> Bool {
+        return true
+    }
+}
+
+//
+// MGLAnnotationView subclass
+class CustomAnnotationView: MGLAnnotationView {
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        // Use CALayer’s corner radius to turn this view into a circle.
+        layer.cornerRadius = bounds.width / 2
+        layer.borderWidth = 2
+        layer.borderColor = UIColor.white.cgColor
+    }
+    
+    override func setSelected(_ selected: Bool, animated: Bool) {
+        super.setSelected(selected, animated: animated)
+        
+        // Animate the border width in/out, creating an iris effect.
+        let animation = CABasicAnimation(keyPath: "borderWidth")
+        animation.duration = 0.1
+        layer.borderWidth = selected ? bounds.width / 4 : 2
+        layer.add(animation, forKey: "borderWidth")
+    }
+
     
 }
 
