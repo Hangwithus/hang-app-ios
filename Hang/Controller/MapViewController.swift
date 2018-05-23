@@ -159,7 +159,7 @@ class MapViewController: UIViewController, MGLMapViewDelegate, MFMessageComposeV
     func grabUserLocations(){
         //print("grabbing")
         //print(peopleToChill)
-        self.mapView.removeAnnotations(self.mapView.annotations)
+        self.mapView.removeAnnotations(self.mapView.annotations!)
         for person in peopleToChill{
             print(person)
             //let query = Database.database().reference().child("users").child(person)
