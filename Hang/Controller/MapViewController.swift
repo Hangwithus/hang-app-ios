@@ -158,6 +158,7 @@ class MapViewController: UIViewController, MGLMapViewDelegate, MFMessageComposeV
         }
     }
     
+    
     func grabUserLocations(){
         //print("grabbing")
         //print(peopleToChill)
