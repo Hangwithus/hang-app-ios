@@ -5,7 +5,6 @@
 //  Created by Joe Kennedy on 4/24/18.
 //  Copyright © 2018 Joe Kennedy. All rights reserved.
 //
-
 import UIKit
 import Mapbox
 import MessageUI
@@ -15,11 +14,10 @@ import FirebaseDatabase
 var peopleToChill = [String]()
 
 var loggedIn = true
-//var grabbedStuff = false
 
 class MapViewController: UIViewController, MGLMapViewDelegate, MFMessageComposeViewControllerDelegate {
-
-   
+    
+    
     var messageController = MFMessageComposeViewController()
     var mapViewPresented = false
     var grabbedStuff = false
@@ -35,17 +33,18 @@ class MapViewController: UIViewController, MGLMapViewDelegate, MFMessageComposeV
     override func viewDidLoad() {
         super.viewDidLoad()
         mapView.delegate = self
-     
+       
+        
         chatButton.layer.cornerRadius = 26
         chatButton.transform = CGAffineTransform(translationX: 0, y: 200)
         leaveBtn.alpha = 0
         #if DEBUG
-            if (NSClassFromString("XCTest") == nil) {
-                mapView.showsUserLocation = true
-            }
-            else {
-                mapView.showsUserLocation = false
-            }
+        if (NSClassFromString("XCTest") == nil) {
+            mapView.showsUserLocation = true
+        }
+        else {
+            mapView.showsUserLocation = false
+        }
         #endif
         
         guard let tacoMan = Auth.auth().currentUser?.uid else{
@@ -53,7 +52,7 @@ class MapViewController: UIViewController, MGLMapViewDelegate, MFMessageComposeV
             return
         }
         currentGuy = tacoMan
-
+        
     }
     
     @IBAction func leaveTapped(_ sender: Any) {
@@ -63,7 +62,7 @@ class MapViewController: UIViewController, MGLMapViewDelegate, MFMessageComposeV
         }) { (_) in
             //animation is finished
             self.performSegue(withIdentifier: "showFriends", sender: self)
-          
+            
         }
         
     }
@@ -89,22 +88,24 @@ class MapViewController: UIViewController, MGLMapViewDelegate, MFMessageComposeV
     }
     
     /*func messageComposeViewController(controller: MFMessageComposeViewController,
-                                      didFinishWithResult result: MessageComposeResult) {
-        // Check the result or perform other tasks.
-        
-        // Dismiss the message compose view controller.
-        messageController.dismiss(animated: true, completion: nil)
-    }*/
- 
+     didFinishWithResult result: MessageComposeResult) {
+     // Check the result or perform other tasks.
+     
+     // Dismiss the message compose view controller.
+     messageController.dismiss(animated: true, completion: nil)
+     }*/
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         if mapViewPresented {
             
         } else {
+            
             self.performSegue(withIdentifier: "showFriends", sender: self)
             mapViewPresented = true
+            
         }
-    
+        
         print("test")
     }
     
@@ -117,14 +118,14 @@ class MapViewController: UIViewController, MGLMapViewDelegate, MFMessageComposeV
             friendsViewController.delegate = self
         }
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
     func mapView(_ mapView: MGLMapView, didUpdate userLocation: MGLUserLocation?) {
-        //if grabbedStuff == false{
+        if grabbedStuff == false{
             let location = mapView.userLocation?.location
             mapView.setCenter(CLLocationCoordinate2D(latitude: (location?.coordinate.latitude)!, longitude: (location?.coordinate.longitude)!),zoomLevel: 11, animated: false)
             mapView.camera = MGLMapCamera(lookingAtCenter: CLLocationCoordinate2D(latitude: (location?.coordinate.latitude)!, longitude: (location?.coordinate.longitude)!), fromDistance: 2000, pitch: 0, heading: 0)
@@ -153,14 +154,13 @@ class MapViewController: UIViewController, MGLMapViewDelegate, MFMessageComposeV
                     //print("updated latitude")
                 })
             }
-            //grabbedStuff = true
-        //}
+            grabbedStuff = true
+        }
     }
     
     func grabUserLocations(){
         //print("grabbing")
         //print(peopleToChill)
-        self.mapView.removeAnnotations(self.mapView.annotations!)
         for person in peopleToChill{
             print(person)
             //let query = Database.database().reference().child("users").child(person)
@@ -168,65 +168,64 @@ class MapViewController: UIViewController, MGLMapViewDelegate, MFMessageComposeV
             Database.database().reference().child("users").child(person).observeSingleEvent(of: .value, with: { (snapshot) in
                 print("observing")
                 //for child in snapshot.children.allObjects as! [DataSnapshot]{
-                    if(person != currentGuy){
-                        print("not me")
-                        if let value0 = snapshot.value as? NSDictionary{
-                            print("im a dictionary")
-                            var phoneNumber = value0["number"] as? String ?? "2393148826"
-                            let name = value0["name"] as? String ?? "Name not found"
-                            let status = value0["status"] as? String ?? "Status not found"
-                            let emoji = value0["emoji"] as? String ?? "Emoji not found"
-                            var check = 0
-                            for pN in self.phoneNumbers {
-                                if(pN == phoneNumber){
-                                    check = check+1
-                                }
+                if(person != currentGuy){
+                    print("not me")
+                    if let value0 = snapshot.value as? NSDictionary{
+                        print("im a dictionary")
+                        var phoneNumber = value0["number"] as? String ?? "2393148826"
+                        let name = value0["name"] as? String ?? "Name not found"
+                        let status = value0["status"] as? String ?? "Status not found"
+                        let emoji = value0["emoji"] as? String ?? "Emoji not found"
+                        var check = 0
+                        for pN in self.phoneNumbers {
+                            if(pN == phoneNumber){
+                                check = check+1
                             }
-                            print(self.phoneNumbers)
-                            if(check == 0){
-                                self.phoneNumbers.append(phoneNumber)
-                            }
-                            var availableUser = value0["available"] as? String ?? "Availability not found"
-                            if(availableUser == "true"){
-                                print("grabbing ttheir location")
-                                let locationQuery = Database.database().reference().child("users").child(person).child("location")
-                                locationQuery.observe(.value){(snapshot2) in
-                                    if let value = snapshot2.value as? NSDictionary{
-                                        print("the value is")
-                                        print(value)
-                                        var long = value["longitude"] as? Double ?? 0
-                                        var lat = value["latitude"] as? Double ?? 0
+                        }
+                        print(self.phoneNumbers)
+                        if(check == 0){
+                            self.phoneNumbers.append(phoneNumber)
+                        }
+                        var availableUser = value0["available"] as? String ?? "Availability not found"
+                        if(availableUser == "true"){
+                            print("grabbing ttheir location")
+                            let locationQuery = Database.database().reference().child("users").child(person).child("location")
+                            locationQuery.observe(.value){(snapshot2) in
+                                if let value = snapshot2.value as? NSDictionary{
+                                    print("the value is")
+                                    print(value)
+                                    var long = value["longitude"] as? Double ?? 0
+                                    var lat = value["latitude"] as? Double ?? 0
                                     
-                                        let annotation = MGLPointAnnotation()
-                                        annotation.coordinate = CLLocationCoordinate2D(latitude: lat, longitude: long)
-                                        annotation.title = name
-                                        annotation.subtitle = emoji + status
-                                        self.mapView.addAnnotation(annotation)
-                                        
-                                        print("key: "+person)
-                                        print(long)
-                                        print(lat)
-                                    }
+                                    let annotation = MGLPointAnnotation()
+                                    annotation.coordinate = CLLocationCoordinate2D(latitude: lat, longitude: long)
+                                    annotation.title = name
+                                    annotation.subtitle = emoji + status
+                                    self.mapView.addAnnotation(annotation)
+                                    
+                                    print("key: "+person)
+                                    print(long)
+                                    print(lat)
                                 }
                             }
                         }
+                    }
                     //}
                 }
             }, withCancel: nil)
         }
     }
     /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
+     // MARK: - Navigation
+     // In a storyboard-based application, you will often want to do a little preparation before navigation
+     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+     // Get the new view controller using segue.destinationViewController.
+     // Pass the selected object to the new view controller.
+     }
+     */
     
     func messageComposeViewController(_ controller: MFMessageComposeViewController, didFinishWith result: MessageComposeResult) {
-    messageController.dismiss(animated: true, completion: nil)
+        messageController.dismiss(animated: true, completion: nil)
     }
     
     func mapView(_ mapView: MGLMapView, viewFor annotation: MGLAnnotation) -> MGLAnnotationView? {
@@ -282,7 +281,7 @@ class CustomAnnotationView: MGLAnnotationView {
         layer.borderWidth = selected ? bounds.width / 8 : 4
         layer.add(animation, forKey: "borderWidth")
     }
-
+    
     
 }
 
@@ -294,9 +293,9 @@ extension MapViewController : FriendsUIViewControllerDelegate {
             self.chatButton.transform = CGAffineTransform(translationX: 0, y: 0)
         }) { (_) in
             //animation is finished
-         
+            
         }
-
-
+        
+        
     }
 }

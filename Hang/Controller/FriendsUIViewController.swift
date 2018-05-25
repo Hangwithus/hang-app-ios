@@ -12,6 +12,52 @@ import FirebaseAuth
 import FirebaseDatabase
 import ISEmojiView
 
+class CustomUITextField: UITextField {
+    override public func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
+        if action == #selector(copy(_:)) || action == #selector(paste(_:)) {
+            return false
+        }
+        return super.canPerformAction(action, withSender: sender)
+    }
+}
+
+private var kAssociationKeyMaxLength: Int = 0
+
+
+
+extension UITextField {
+    
+    @IBInspectable var maxLength: Int {
+        get {
+            if let length = objc_getAssociatedObject(self, &kAssociationKeyMaxLength) as? Int {
+                return length
+            } else {
+                return Int.max
+            }
+        }
+        set {
+            objc_setAssociatedObject(self, &kAssociationKeyMaxLength, newValue, .OBJC_ASSOCIATION_RETAIN)
+            addTarget(self, action: #selector(checkMaxLength), for: .editingChanged)
+        }
+    }
+    
+    @objc func checkMaxLength(textField: UITextField) {
+        guard let prospectiveText = self.text,
+            prospectiveText.count > maxLength
+            else {
+                return
+        }
+        
+        let selection = selectedTextRange
+        
+        let indexEndOfText = prospectiveText.index(prospectiveText.startIndex, offsetBy: maxLength)
+        let substring = prospectiveText[..<indexEndOfText]
+        text = String(substring)
+        
+        selectedTextRange = selection
+    }
+}
+
 extension UILabel {
     
     @IBInspectable var kerning: Float {
@@ -1273,3 +1319,5 @@ class FriendsUIViewController: UIViewController, UITableViewDelegate, UITableVie
     }
 
 }
+
+
