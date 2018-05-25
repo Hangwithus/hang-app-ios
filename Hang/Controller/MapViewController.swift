@@ -15,10 +15,7 @@ import FirebaseDatabase
 var peopleToChill = [String]()
 
 var loggedIn = true
-<<<<<<< HEAD
 //var grabbedStuff = false
-=======
->>>>>>> parent of 2dd9b9a... fixed stuff again
 
 class MapViewController: UIViewController, MGLMapViewDelegate, MFMessageComposeViewControllerDelegate {
 
