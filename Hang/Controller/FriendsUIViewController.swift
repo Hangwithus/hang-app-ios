@@ -838,7 +838,10 @@ class FriendsUIViewController: UIViewController, UITableViewDelegate, UITableVie
                     print(selectedPeople)
                     peopleToChill = selectedPeople
 <<<<<<< HEAD
+<<<<<<< HEAD
                     //grabbedStuff = false
+=======
+>>>>>>> parent of 2dd9b9a... fixed stuff again
 =======
 >>>>>>> parent of 2dd9b9a... fixed stuff again
                     //selectedPeople.remove(at: indexPath)
@@ -851,7 +854,10 @@ class FriendsUIViewController: UIViewController, UITableViewDelegate, UITableVie
                     print(selectedPeople)
                     peopleToChill = selectedPeople
 <<<<<<< HEAD
+<<<<<<< HEAD
                     //grabbedStuff = false
+=======
+>>>>>>> parent of 2dd9b9a... fixed stuff again
 =======
 >>>>>>> parent of 2dd9b9a... fixed stuff again
                 }
@@ -939,7 +945,11 @@ class FriendsUIViewController: UIViewController, UITableViewDelegate, UITableVie
             self.addBtn.alpha = 0
             self.settingsBtn.alpha = 0
 <<<<<<< HEAD
+<<<<<<< HEAD
 //          //grabbedStuff = false
+=======
+            
+>>>>>>> parent of 2dd9b9a... fixed stuff again
 =======
             
 >>>>>>> parent of 2dd9b9a... fixed stuff again

@@ -16,7 +16,10 @@ var peopleToChill = [String]()
 
 var loggedIn = true
 <<<<<<< HEAD
+<<<<<<< HEAD
 //var grabbedStuff = false
+=======
+>>>>>>> parent of 2dd9b9a... fixed stuff again
 =======
 >>>>>>> parent of 2dd9b9a... fixed stuff again
 
